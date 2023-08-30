@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/08/30 18:52:01 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:54:58 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "../libftprintf/libft/libft.h"
+# include "../libftprintf/ft_printf/ft_printf.h"
+
+# define TRUE	1
+# define FALSE	0
 
 typedef enum e_token_type
 {

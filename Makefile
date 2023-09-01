@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/08/30 21:09:12 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/01 16:23:05 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ RM			= rm -f
 
 LIB_DIR		= ./libftprintf
 
-SRCS_YUN	=
+YUN_DIR		= ./parsing/
+SRCS_Y		= minishell.c	env_init.c
+SRCS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_Y))
 OBJS_YUN	= $(SRCS_YUN:.c=.o)
 
 SRCS_HYUN	=
@@ -66,7 +68,7 @@ fclean	: clean
 
 re		:
 	@$(MAKE) fclean
-	@$(MAKE) all
+	@$(MAKE) jiyun
 
 .PHONY	: all clean fclean re jiyun jihyun
 

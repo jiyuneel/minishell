@@ -6,11 +6,14 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:48:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/08/31 23:57:00 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:42:53 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
+# define P_READ		0
+# define P_WRITE	1
 
 #endif

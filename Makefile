@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/01 16:23:05 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/05 01:06:02 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME		= minishell
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
+COMP_FLAGS	= -L/opt/homebrew/opt/readline/lib -lreadline
+OBJS_FLAGS	= -I/opt/homebrew/opt/readline/include
 RM			= rm -f
 
 LIB_DIR		= ./libftprintf
@@ -40,12 +42,12 @@ endif
 all		: $(NAME)
 
 %.o		: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(OBJS_FLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJ)
 	@$(MAKE) -C $(LIB_DIR)
 	@echo $(YELLOW) "✭	[ libftprintf ]	Ready to use libftprintf.a" $(RESET)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
+	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
 	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to use minishell" $(RESET)
 
 jiyun	:

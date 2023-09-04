@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:58:11 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/01 19:15:14 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:16:17 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,22 @@ void	env_init(t_env_info **env_info, char **envp)
 {
 	char	*key;
 	char	*value;
-	// char	*str;
-	int		i;
-	int		j;
+	int		key_len;
+	int		value_len;
 
-	i = 0;
 	*env_info = NULL;
-	while (envp[i])
+	while (*envp)
 	{
-		// str = *envp;
-		j = 0;
-		while (envp[i][j] && envp[i][j] != '=')
-			j++;
-		key = malloc(sizeof(char) * j + 1);
-		value = malloc(sizeof(char) * (ft_strlen(envp[i]) - j));
+		key_len = 0;
+		while ((*envp)[key_len] && (*envp)[key_len] != '=')
+			key_len++;
+		value_len = ft_strlen(*envp) - key_len - 1;
+		key = malloc(sizeof(char) * key_len + 1);
+		value = malloc(sizeof(char) * value_len + 1);
 		// if (!key) if (!value)
-		ft_strlcpy(key, envp[i], j + 1);
-		ft_strlcpy(value, envp[i] + j + 1, ft_strlen(envp[i]) - j);
+		ft_strlcpy(key, *envp, key_len + 1);
+		ft_strlcpy(value, *envp + key_len + 1, value_len + 1);
 		env_add_back(env_info, env_new_node(key, value));
-		i++;
+		envp++;
 	}
 }

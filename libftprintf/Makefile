@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42.fr>          +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 18:39:56 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/08/11 15:14:54 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/06 17:35:30 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ CFLAGS	= -Wall -Wextra -Werror
 
 SRCS	= ft_printf/ft_printf.c	\
 		  ft_printf/ft_printf_utils.c \
-		  ft_printf/ft_printf_utils2.c
+		  ft_printf/ft_printf_utils2.c \
+		  get_next_line/get_next_line.c \
+		  get_next_line/get_next_line_utils.c
 OBJS	= ${SRCS:.c=.o}
 
 LIBFT	= ./libft/libft.a

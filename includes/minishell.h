@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 18:08:25 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:37:00 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_shell_info
 {
 	int					pipe_cnt;	// pipe 개수
 	struct s_env_info	*env;
-	struct s_cmd_info	*cmd_node;	// cmd head -> execute 에서 다 free하고 넘길 것
+	struct s_cmd_info	*cmd;		// cmd head -> execute 에서 다 free하고 넘길 것
 }	t_shell_info;
 
 /* struct for cmd_node */

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 17:36:56 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:08:25 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 
 typedef enum e_token_type
 {
-	CMD_ARG = 0,	// word
-	LEFT_1,			// <
+	LEFT_1 = 1,		// <
 	LEFT_2,			// <<
 	RIGHT_1,		// >
 	RIGHT_2			// >>
@@ -37,21 +36,29 @@ typedef struct s_shell_info
 	struct s_cmd_info	*cmd_node;	// cmd head -> execute 에서 다 free하고 넘길 것
 }	t_shell_info;
 
+/* struct for cmd_node */
 typedef struct s_cmd_info
 {
-	int					cmd_cnt;		// 명령 단위 개수
-	char				**cmd_args;		// 마지막은 NULL
-	t_token_type		*cmd_type;		// token type 배열
+	int					cmd_cnt;		// cmd 개수
+	char				**cmd_args;		// cmd 들만
+	struct s_redir		*redir;			// redirection head
 	struct s_cmd_info	*next;
 }	t_cmd_info;
 
+/* struct for redirections */
+typedef struct s_redir
+{
+	t_token_type	type;
+	char			*filename;
+	struct s_redir	*next;
+}	t_redir;
+
+/* struct for env */
 typedef struct s_env_info
 {
 	char				*key;
 	char				*value;
 	struct s_env_info	*next;
 }	t_env_info;
-
-
 
 #endif

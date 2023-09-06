@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:58:11 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/04 20:16:17 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:27:40 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	env_add_back(t_env_info **node, t_env_info *new)
 	}
 }
 
-void	env_init(t_env_info **env_info, char **envp)
+void	env_init(t_env_info **env, char **envp)
 {
 	char	*key;
 	char	*value;
 	int		key_len;
 	int		value_len;
 
-	*env_info = NULL;
+	*env = NULL;
 	while (*envp)
 	{
 		key_len = 0;
@@ -59,7 +59,7 @@ void	env_init(t_env_info **env_info, char **envp)
 		// if (!key) if (!value)
 		ft_strlcpy(key, *envp, key_len + 1);
 		ft_strlcpy(value, *envp + key_len + 1, value_len + 1);
-		env_add_back(env_info, env_new_node(key, value));
+		env_add_back(env, env_new_node(key, value));
 		envp++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/08/30 19:54:58 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:36:56 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libftprintf/libft/libft.h"
 # include "../libftprintf/ft_printf/ft_printf.h"
+# include "../libftprintf/get_next_line/get_next_line.h"
 
 # define TRUE	1
 # define FALSE	0

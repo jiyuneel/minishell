@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/07 14:58:34 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/07 15:03:51 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LIB_DIR		= ./libftprintf
 SRCS_YUN	=
 OBJS_YUN	= $(SRCS_YUN:.c=.o)
 
-# [start] 여기만 바꿀 수 있음!!
 HYUN_DIR	= ./execute/
 SRCS_HYUN	= execute.c \
 			  init_exec_info.c \
@@ -29,7 +28,6 @@ SRCS_HYUN	= execute.c \
 			  set_redir.c \
 			  exec_command.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
-# [end]
 
 SRCS		=
 OBJS		= $(SRCS:.c=.o)
@@ -73,8 +71,7 @@ fclean	: clean
 
 re		:
 	@$(MAKE) fclean
-	@$(MAKE) jihyun
-# 여기 위에도 바꿈!! -> 다시 원상복귀 할 것
+	@$(MAKE) all
 
 .PHONY	: all clean fclean re jiyun jihyun
 

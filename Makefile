@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/07 15:09:31 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/08 02:39:32 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRCS_HYUN	= execute.c \
 			  init_exec_info.c \
 			  multi_process.c \
 			  set_redir.c \
-			  exec_command.c
+			  exec_command.c \
+			  free_all.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 
 SRCS		= $(SRCS_YUN) $(SRCS_HYUN)

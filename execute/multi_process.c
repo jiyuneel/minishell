@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 22:45:17 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:55:53 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	child_process(t_exec_info *exec, t_cmd_info *node)
 		perror("dup2(pipe_write)");
 	close(exec->pipe[P_WRITE]);
 	_dup_redir_to_inout(exec, node->redir);
-	// execute_commands();
+	exec_command(exec);
 }

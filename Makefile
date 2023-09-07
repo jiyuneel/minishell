@@ -6,7 +6,7 @@
 #    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/02 21:46:09 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/07 14:58:34 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,11 @@ OBJS_YUN	= $(SRCS_YUN:.c=.o)
 
 # [start] 여기만 바꿀 수 있음!!
 HYUN_DIR	= ./execute/
-SRCS_HYUN	= execute.c
-			  init_exec_info.c
+SRCS_HYUN	= execute.c \
+			  init_exec_info.c \
+			  multi_process.c \
+			  set_redir.c \
+			  exec_command.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 # [end]
 

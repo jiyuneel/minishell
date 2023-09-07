@@ -6,22 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 22:45:51 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:48:47 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes_exec/execute.h"
-
-int	main(int ac, char **av, char **env)
-{
-	t_shell_info	parse;			// static 변수
-
-	parse->pipe_cnt = 1;
-	parse->env = init_env(env);
-	parse->cmd = init_cmd_node();
-
-	return (execute(parse));
-}
 
 /* [실행부 함수 시작] */
 int	execute(t_shell_info *parse)
@@ -29,28 +18,38 @@ int	execute(t_shell_info *parse)
 	t_exec_info		*exec;
 	t_cmd_info		*node;		// next == NULL 까지 fork 실행
 	pid_t			pid;		// kill을 사용할까...?
+	int				status;
 
-	if (parse->cmd->next == NULL && parse->cmd->cmd_cnt == 1)
-		single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
+	// if (parse->cmd->next == NULL && parse->cmd->cmd_cnt == 1)
+	// 	single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
 	exec = init_exec_info(parse);
 	node = parse->cmd;
 	while (node)
 	{
-		split_command(node, exec);
+		exec->cmd_args = node->cmd_args;	// split_command(node, exec);
 		if (pipe(exec->pipe) == -1)
-			exit (EXIT_FAILURE);		// pipe error
+			exit (EXIT_FAILURE);			// pipe error
 		pid = fork();
 		if (pid == -1)
-			exit (EXIT_FAILURE);		// fork error
+			exit (EXIT_FAILURE);			// fork error
 		else if (pid = 0)
-			child_process();
+			child_process(exec, node);
 		else
-			parent_process();
-		free_cmd_args(exec->cmd_args);		// 위치 다시 선정
+			parent_process(exec);
+		// free_cmd_args(exec->cmd_args);
 		node = node->next;
 	}
+	while (parse->pipe_cnt--)
+		wait(&status);
+	// free_cmd_info();
+	// free_exec_info();
 	return (EXIT_SUCCESS);
 }
+
+// void	split_command(t_cmd_info *node, t_exec_info *exec)
+// {
+
+// }
 
 
 /* [execute.c]

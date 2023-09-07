@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 20:37:00 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:21:46 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../libftprintf/libft/libft.h"
 # include "../libftprintf/ft_printf/ft_printf.h"
 # include "../libftprintf/get_next_line/get_next_line.h"
+// # include "../includes_exec/execute.h"
+// # include "../parsing/parsing.h"
 
 # define TRUE	1
 # define FALSE	0

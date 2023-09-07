@@ -6,11 +6,26 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/07 09:26:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:50:41 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
+{
+	t_cmd_info	*tmp;
+
+	if (!(*node))
+		*node = new;
+	else
+	{
+		tmp = *node;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
 
 int	count_cmd(char *str, int start, int end)
 {
@@ -47,10 +62,11 @@ int	word_len(char *str, int start, int end)
 	return (len);
 }
 
-void	cmd_init(t_cmd_info **cmd, char *str, int start, int end)
+void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str, int start, int end)
 {
 	t_cmd_info	*cmd_info;
 	int			i;
+	int			len;
 
 	cmd_info = malloc(sizeof(t_cmd_info));
 	// if (!cmd_info)
@@ -59,13 +75,23 @@ void	cmd_init(t_cmd_info **cmd, char *str, int start, int end)
 	// if (!cmd_info->cmd_args)
 	cmd_info->next = NULL;
 	i = 0;
-	// while (start <= end)
-	// {
-		
-	// 	start++;
-	// }
+	while (start <= end)
+	{
+		if (str[start] != ' ')
+		{
+			len = word_len(str, start, end);
+			cmd_info->cmd_args[i] = malloc(sizeof(char) * (len + 1));
+			// if (!cmd_info->cmd_args[i])
+			ft_strlcpy(cmd_info->cmd_args[i++], &str[start], len + 1);
+			start += len;
+		}
+		else
+			start++;
+	}
 	cmd_info->cmd_args[i] = NULL;
-	*cmd = cmd_info;	// cmd_add_back
+	// *cmd = cmd_info;	// cmd_add_back
+	cmd_add_back(cmd, cmd_info);
+	shell_info->pipe_cnt++;
 }
 
 void	shell_init(t_shell_info *shell_info, char *str)
@@ -83,12 +109,20 @@ void	shell_init(t_shell_info *shell_info, char *str)
 	{
 		if (!str[j] || str[j] == '|')
 		{
-			cmd_init(&shell_info->cmd, str, i, j - 1);
+			cmd_init(shell_info, &shell_info->cmd, str, i, j - 1);
 			if (!str[j])
 				break ;
 			i = j + 1;
 		}
 		j++;
 	}
-	ft_printf("%d\n", shell_info->cmd->cmd_cnt);
+	/* shell_info 출력 */
+	// for (t_cmd_info *tmp = shell_info->cmd; tmp; tmp = tmp->next)
+	// {
+	// 	ft_printf("%d\n", tmp->cmd_cnt);
+	// 	for (int i = 0; tmp->cmd_args[i]; i++)
+	// 		ft_printf("%s\n", tmp->cmd_args[i]);
+	// 	ft_printf("||\n");
+	// }
+	// ft_printf("%d\n", shell_info->pipe_cnt);
 }

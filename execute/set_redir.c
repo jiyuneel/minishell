@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:58:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 22:44:38 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:13:39 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ static int	_get_here_doc_file_fd(t_exec_info *exec, char *limiter)
 		perror("open(here_doc)");
 	limiter = ft_strjoin(limiter, "\n");
 	if (limiter == NULL)
-		exit (error_here_doc(NULL));
+		exit (EXIT_FAILURE);
 	while (TRUE)
 	{
 		ft_printf("> ");
 		line = get_next_line(STDIN_FILENO);
 		if (line == NULL)
-			exit (error_here_doc(limiter));
+			exit (EXIT_FAILURE);
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			break ;
 		ft_putstr_fd(line, fd);

@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/06 21:04:28 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/07 11:29:34 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 COMP_FLAGS	= -L/opt/homebrew/opt/readline/lib -lreadline
 OBJS_FLAGS	= -I/opt/homebrew/opt/readline/include
+COMP_FLAGS_CLUSTER = -L/usr/local/lib -lreadline
+OBJS_FLAGS_CLUSTER = -I/usr/local/include/readline
 RM			= rm -f
 
 LIB_DIR		= ./libftprintf
@@ -42,12 +44,12 @@ endif
 all		: $(NAME)
 
 %.o		: %.c
-	@$(CC) $(CFLAGS) $(OBJS_FLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(OBJS_FLAGS_CLUSTER) -c $< -o $@
 
 $(NAME)	: $(OBJ)
 	@$(MAKE) -C $(LIB_DIR)
 	@echo $(YELLOW) "✭	[ libftprintf ]	Ready to use libftprintf.a" $(RESET)
-	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
+	@$(CC) $(CFLAGS) $(COMP_FLAGS_CLUSTER) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
 	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to use minishell" $(RESET)
 
 jiyun	:

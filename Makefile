@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/07 15:04:48 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/07 15:09:31 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,19 @@ RM			= rm -f
 LIB_DIR		= ./libftprintf
 
 YUN_DIR		= ./parsing/
-SRCS_Y		= minishell.c	env_init.c	shell_init.c
-SRCS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_Y))
-OBJS_YUN	= $(SRCS_YUN:.c=.o)
+SRCS_YUN	= minishell.c	env_init.c	shell_init.c
+OBJS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_YUN:.c=.o))
 
-SRCS_HYUN	=
-OBJS_HYUN	= $(SRCS_HYUN:.c=.o)
+HYUN_DIR	= ./execute/
+SRCS_HYUN	= execute.c \
+			  init_exec_info.c \
+			  multi_process.c \
+			  set_redir.c \
+			  exec_command.c
+OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 
-SRCS		=
-OBJS		= $(SRCS:.c=.o)
+SRCS		= $(SRCS_YUN) $(SRCS_HYUN)
+OBJS		= $(OBJS_YUN) $(OBJS_HYUN)
 
 ifdef JIYUN
 	OBJ = $(OBJS_YUN)

@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/06 20:24:27 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/06 21:04:28 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM			= rm -f
 LIB_DIR		= ./libftprintf
 
 YUN_DIR		= ./parsing/
-SRCS_Y		= minishell.c	env_init.c	cmd_init.c
+SRCS_Y		= minishell.c	env_init.c	shell_init.c
 SRCS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_Y))
 OBJS_YUN	= $(SRCS_YUN:.c=.o)
 

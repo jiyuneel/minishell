@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:08:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/06 20:29:02 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:04:11 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <readline/history.h>
 
 void	env_init(t_env_info **env, char **envp);
-void	cmd_init(t_cmd_info **cmd, char *str);
+void	shell_init(t_shell_info *shell_info, char *str);
 
 #endif

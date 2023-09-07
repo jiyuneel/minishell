@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/07 14:50:02 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:44:05 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("jijishell$ ");
 		if (!str)		// ctrl+D
 			break ;
-		ft_memset(&shell_info, 0, sizeof(t_shell_info));
+		shell_info.pipe_cnt = 0;
 		shell_init(&shell_info, str);
-		// ft_printf("str = %s\n", str);
+		execute(&shell_info);
 		add_history(str);
 		free(str);
 	}

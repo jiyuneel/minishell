@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/07 15:44:05 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("jijishell$ ");
 		if (!str)		// ctrl+D
 			break ;
-		shell_info.pipe_cnt = 0;
+		shell_info.chunk_cnt = 0;
 		shell_init(&shell_info, str);
 		execute(&shell_info);
 		add_history(str);

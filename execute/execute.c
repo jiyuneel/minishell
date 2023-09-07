@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 15:39:42 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	execute(t_shell_info *parse)
 		// free_cmd_args(exec->cmd_args);
 		node = node->next;
 	}
-	while (parse->pipe_cnt--)
+	while (parse->chunk_cnt--)
 		wait(&status);
 	// free_cmd_info();
 	// free_exec_info();

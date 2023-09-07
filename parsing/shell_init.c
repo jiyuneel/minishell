@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/07 14:50:41 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str, int start, 
 	cmd_info->cmd_args[i] = NULL;
 	// *cmd = cmd_info;	// cmd_add_back
 	cmd_add_back(cmd, cmd_info);
-	shell_info->pipe_cnt++;
+	shell_info->chunk_cnt++;
 }
 
 void	shell_init(t_shell_info *shell_info, char *str)
@@ -124,5 +124,5 @@ void	shell_init(t_shell_info *shell_info, char *str)
 	// 		ft_printf("%s\n", tmp->cmd_args[i]);
 	// 	ft_printf("||\n");
 	// }
-	// ft_printf("%d\n", shell_info->pipe_cnt);
+	// ft_printf("%d\n", shell_info->chunk_cnt);
 }

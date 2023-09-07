@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/07 11:29:34 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/07 15:02:43 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ fclean	: clean
 
 re		:
 	@$(MAKE) fclean
-	@$(MAKE) jiyun
+	@$(MAKE) all
 
 .PHONY	: all clean fclean re jiyun jihyun
 

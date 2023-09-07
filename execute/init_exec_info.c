@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 22:03:40 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:49:10 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_exec_info	*init_exec_info(t_shell_info *parse)
 	exec = malloc(sizeof(t_exec_info));
 	if (exec == NULL)
 		return (NULL);		// 어떻게 처리할 지 고민(signal ?)
-	ft_memset(parse, 0, sizeof(t_exec_info));
+	ft_memset(exec, 0, sizeof(t_exec_info));
 	_get_path_args(parse->env, exec);
 	_get_envp(parse->env, exec);
-	return (exec);;
+	return (exec);
 }
 
 static void	_get_path_args(t_env_info *env, t_exec_info *exec)

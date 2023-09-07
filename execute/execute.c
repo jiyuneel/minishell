@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 14:48:47 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:39:42 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	execute(t_shell_info *parse)
 		pid = fork();
 		if (pid == -1)
 			exit (EXIT_FAILURE);			// fork error
-		else if (pid = 0)
+		else if (pid == 0)
 			child_process(exec, node);
 		else
 			parent_process(exec);

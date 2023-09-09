@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:43:53 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,22 @@ int	count_cmd(char *str, int start, int end)
 {
 	// redirection 제외하고 세기
 	// quotation일 때 처리
-	int	cnt;
+	int		cnt;
+	int		quote_flag;
+	char	quote;
 
 	cnt = 0;
+	quote_flag = FALSE;
 	while (start <= end)
 	{
-		if (str[start] != ' ')
+		if (!quote_flag && (str[start] == '\'' || str[start] == '\"'))
+		{
+			quote_flag = TRUE;
+			quote = str[start];
+		}
+		else if (quote_flag && str[start] == quote)
+			quote_flag = FALSE;
+		if (!quote_flag && str[start] != ' ')
 		{
 			cnt++;
 			while (start <= end && str[start] != ' ')
@@ -50,12 +60,23 @@ int	count_cmd(char *str, int start, int end)
 
 int	word_len(char *str, int start, int end)
 {
-	// quotation일 때 처리
-	int	len;
+	int		len;
+	int		quote_flag;
+	char	quote;
 
 	len = 0;
-	while (start <= end && str[start] != ' ')
+	quote_flag = FALSE;
+	while (start <= end)
 	{
+		if (!quote_flag && (str[start] == '\'' || str[start] == '\"'))
+		{
+			quote_flag = TRUE;
+			quote = str[start];
+		}
+		else if (quote_flag && str[start] == quote)
+			quote_flag = FALSE;
+		if (!quote_flag && str[start] == ' ')
+			break ;
 		len++;
 		start++;
 	}
@@ -89,7 +110,6 @@ void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str, int start, 
 			start++;
 	}
 	cmd_info->cmd_args[i] = NULL;
-	// *cmd = cmd_info;	// cmd_add_back
 	cmd_add_back(cmd, cmd_info);
 	shell_info->chunk_cnt++;
 }
@@ -98,18 +118,31 @@ void	shell_init(t_shell_info *shell_info, char *str)
 {
 	int		i;
 	int		j;
-	// int		quote_flag;
-	// char	quote;
+	int		quote_flag;
+	char	quote;
+	char	*chunk;
 
 	shell_info->cmd = NULL;
-	// quote_flag = FALSE;
+	quote_flag = FALSE;
 	i = 0;
 	j = 0;
 	while (1)
 	{
-		if (!str[j] || str[j] == '|')
+		if (!quote_flag && (str[j] == '\'' || str[j] == '\"'))
 		{
+			quote_flag = TRUE;
+			quote = str[j];
+		}
+		else if (quote_flag && str[j] == quote)
+			quote_flag = FALSE;
+		if (!quote_flag && (!str[j] || str[j] == '|'))
+		{
+			chunk = malloc(sizeof(char) * (j - i + 1));
+			// if (!chunk)
+			ft_strlcpy(chunk, &str[i], j - i + 1);
+			printf("%s\n", chunk);
 			cmd_init(shell_info, &shell_info->cmd, str, i, j - 1);
+			free(chunk);
 			if (!str[j])
 				break ;
 			i = j + 1;

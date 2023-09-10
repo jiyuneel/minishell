@@ -6,11 +6,22 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/09 12:50:27 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:12:34 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	check_quote(int *quote_flag, char *quote, char c)
+{
+	if (!*quote_flag && (c == '\'' || c == '\"'))
+	{
+		*quote_flag = TRUE;
+		*quote = c;
+	}
+	else if (*quote_flag && c == *quote)
+		*quote_flag = FALSE;
+}
 
 void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
 {
@@ -39,13 +50,7 @@ int	count_cmd(char *str)
 	quote_flag = FALSE;
 	while (*str)
 	{
-		if (!quote_flag && (*str == '\'' || *str == '\"'))
-		{
-			quote_flag = TRUE;
-			quote = *str;
-		}
-		else if (quote_flag && *str == quote)
-			quote_flag = FALSE;
+		check_quote(&quote_flag, &quote, *str);
 		if (!quote_flag && *str != ' ')
 		{
 			cnt++;
@@ -68,13 +73,7 @@ int	word_len(char *str)
 	quote_flag = FALSE;
 	while (*str)
 	{
-		if (!quote_flag && (*str == '\'' || *str == '\"'))
-		{
-			quote_flag = TRUE;
-			quote = *str;
-		}
-		else if (quote_flag && *str == quote)
-			quote_flag = FALSE;
+		check_quote(&quote_flag, &quote, *str);
 		if (!quote_flag && *str == ' ')
 			break ;
 		len++;
@@ -128,13 +127,7 @@ void	shell_init(t_shell_info *shell_info, char *str)
 	j = 0;
 	while (1)
 	{
-		if (!quote_flag && (str[j] == '\'' || str[j] == '\"'))
-		{
-			quote_flag = TRUE;
-			quote = str[j];
-		}
-		else if (quote_flag && str[j] == quote)
-			quote_flag = FALSE;
+		check_quote(&quote_flag, &quote, str[j]);
 		if (!quote_flag && (!str[j] || str[j] == '|'))
 		{
 			chunk = malloc(sizeof(char) * (j - i + 1));

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/08 02:37:14 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/10 22:36:29 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	execute(t_shell_info *parse)
 	stdin_origin = dup(STDIN_FILENO);
 	stdout_origin = dup(STDOUT_FILENO);
 	exec = init_exec_info(parse);
+	/* redir 초기화: ft_calloc으로 하기 (아직 redir이 없다는 가정 하) */
+	parse->cmd->redir = NULL;
+	/* end */
 	multi_process(exec, parse->cmd, parse->chunk_cnt);
 	while (parse->chunk_cnt--)
 		wait(&status);

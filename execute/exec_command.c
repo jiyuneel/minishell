@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 15:56:24 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/10 22:37:16 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static char	*_check_command_path(t_exec_info *exec)
 	char	*tmp;
 	int		i;
 
+	if (exec->cmd_args == NULL || exec->cmd_args[0] == NULL)
+		exit (EXIT_SUCCESS);
 	if (access(exec->cmd_args[0], X_OK) == 0)
 		return (ft_strdup(exec->cmd_args[0]));
 	i = 0;

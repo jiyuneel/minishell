@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/08 02:35:28 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:54:42 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	free_exec_info(t_exec_info *exec)
 	// free_arr(exec->cmd_args);	// 아직 파싱 전이라,,
 	free_arr(exec->path_args);
 	free_arr(exec->envp);
+	free (exec);
 }
 
 void	free_arr(char **arr)

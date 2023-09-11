@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/11 00:12:34 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:55:34 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ int	count_cmd(char *str)
 	// redirection 제외하고 세기
 	// quotation일 때 처리
 	int		cnt;
-	int		quote_flag;
-	char	quote;
+	t_quote	q;
 
 	cnt = 0;
-	quote_flag = FALSE;
+	q.quote_flag = FALSE;
 	while (*str)
 	{
-		check_quote(&quote_flag, &quote, *str);
-		if (!quote_flag && *str != ' ')
+		check_quote(&q.quote_flag, &q.quote, *str);
+		if (!q.quote_flag && *str != ' ')
 		{
 			cnt++;
 			while (*str && *str != ' ')
@@ -66,15 +65,14 @@ int	count_cmd(char *str)
 int	word_len(char *str)
 {
 	int		len;
-	int		quote_flag;
-	char	quote;
+	t_quote	q;
 
 	len = 0;
-	quote_flag = FALSE;
+	q.quote_flag = FALSE;
 	while (*str)
 	{
-		check_quote(&quote_flag, &quote, *str);
-		if (!quote_flag && *str == ' ')
+		check_quote(&q.quote_flag, &q.quote, *str);
+		if (!q.quote_flag && *str == ' ')
 			break ;
 		len++;
 		str++;
@@ -88,7 +86,7 @@ void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str)
 	int			i;
 	int			len;
 
-	cmd_info = malloc(sizeof(t_cmd_info));
+	cmd_info = ft_calloc(1, sizeof(t_cmd_info));
 	// if (!cmd_info)
 	cmd_info->cmd_cnt = count_cmd(str);
 	cmd_info->cmd_args = malloc(sizeof(char *) * (cmd_info->cmd_cnt + 1));
@@ -117,18 +115,17 @@ void	shell_init(t_shell_info *shell_info, char *str)
 {
 	int		i;
 	int		j;
-	int		quote_flag;
-	char	quote;
+	t_quote	q;
 	char	*chunk;
 
 	shell_info->cmd = NULL;
-	quote_flag = FALSE;
+	q.quote_flag = FALSE;
 	i = 0;
 	j = 0;
 	while (1)
 	{
-		check_quote(&quote_flag, &quote, str[j]);
-		if (!quote_flag && (!str[j] || str[j] == '|'))
+		check_quote(&q.quote_flag, &q.quote, str[j]);
+		if (!q.quote_flag && (!str[j] || str[j] == '|'))
 		{
 			chunk = malloc(sizeof(char) * (j - i + 1));
 			// if (!chunk)

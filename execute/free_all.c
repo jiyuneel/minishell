@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/11 21:54:42 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 05:24:57 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_cmd_info(t_cmd_info *cmd)
 
 	if (cmd == NULL)
 		return ;
+	unlink_here_doc(cmd);
 	while (cmd)
 	{
 		tmp = cmd->next;

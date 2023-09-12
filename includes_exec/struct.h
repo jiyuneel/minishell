@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:57 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 04:03:11 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 04:59:08 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ typedef struct s_exec_info
 	int		in_fd;
 	int		out_fd;
 	int		pipe[2];
-	char	**cmd_args;		// node 당 type이 cmd인것만 pasing하고 free
+	char	**cmd_args;		// t_shell_info의 cmd_args 그대로 복사한 주소 >> free 따로 안함
 
 	// 한 줄 실행이 모두 끝나면 free
 	char	**path_args;	// t_env_info의 key-PATH의 value 값 ':'로 split
 	char	**envp;			// t_env_info를 다시 '='과 합친 이중 배열(for 'execve')
+	t_env_info	*env;			// t_env_info 값 그대로 복사한 주소 >> free 따로 안함
 }	t_exec_info;
 
 

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/11 22:01:56 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 03:27:34 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	execute(t_shell_info *parse)
 	// 	single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
 	stdin_origin = dup(STDIN_FILENO);
 	stdout_origin = dup(STDOUT_FILENO);
+	re_init_shell_info(parse);
 	exec = init_exec_info(parse);
 	multi_process(exec, parse->cmd, parse->chunk_cnt);
 	while (parse->chunk_cnt--)

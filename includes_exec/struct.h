@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:57 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/06 21:29:57 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 04:03:11 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define P_READ		0
 # define P_WRITE	1
 
-# define HERE_DOC	"_here_doc.txt"
+# define HERE_DOC	"._here_doc_"
 
 typedef struct s_exec_info
 {

@@ -6,33 +6,15 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:14:39 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 02:57:44 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 03:26:47 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_exec/execute.h"
 
-char		*remove_quotation(char *command, int origin_len);
 static int	_string_length(char **cmd, char *quote);
 static char	*_make_string(char *res_cmd, char *copy_address, int len);
 static int	_is_quote(char q, char *tmp_quote);
-
-void	cmd_args_remove_quotation(t_cmd_info *cmd)
-{
-	int	i;
-
-	while (cmd)
-	{
-		i = 0;
-		while (cmd->cmd_args[i])
-		{
-			cmd->cmd_args[i] = remove_quotation(cmd->cmd_args[i], \
-				ft_strlen(cmd->cmd_args[i]));
-			i++;
-		}
-		cmd = cmd->next;
-	}
-}
 
 char	*remove_quotation(char *command, int origin_len)
 {

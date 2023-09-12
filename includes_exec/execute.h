@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/08 04:55:43 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 05:23:59 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 /* execute.c */
 void		execute(t_shell_info *parse);
 
+/* re_init_shell_info.c */
+void		re_init_shell_info(t_shell_info *parse);
+
+/* remove_quotation.c */
+char		*remove_quotation(char *command, int origin_len);
+
 /* init_exec_info.c */
 t_exec_info	*init_exec_info(t_shell_info *parse);
 
@@ -48,5 +54,8 @@ void		free_redir(t_redir *redir);
 void		free_env_info(t_env_info *env);
 void		free_exec_info(t_exec_info *exec);
 void		free_arr(char **arr);
+
+/* unlink_here_doc.c */
+void		unlink_here_doc(t_cmd_info *cmd);
 
 #endif

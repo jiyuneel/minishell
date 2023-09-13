@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/11 20:55:34 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/13 00:33:15 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
 int	count_cmd(char *str)
 {
 	// redirection 제외하고 세기
-	// quotation일 때 처리
 	int		cnt;
 	t_quote	q;
 
@@ -107,6 +106,7 @@ void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str)
 			str++;
 	}
 	cmd_info->cmd_args[i] = NULL;
+	redir_init(cmd_info);
 	cmd_add_back(cmd, cmd_info);
 	shell_info->chunk_cnt++;
 }
@@ -138,13 +138,4 @@ void	shell_init(t_shell_info *shell_info, char *str)
 		}
 		j++;
 	}
-	/* shell_info 출력 */
-	// for (t_cmd_info *tmp = shell_info->cmd; tmp; tmp = tmp->next)
-	// {
-	// 	ft_printf("%d\n", tmp->cmd_cnt);
-	// 	for (int i = 0; tmp->cmd_args[i]; i++)
-	// 		ft_printf("%s\n", tmp->cmd_args[i]);
-	// 	ft_printf("||\n");
-	// }
-	// ft_printf("%d\n", shell_info->chunk_cnt);
 }

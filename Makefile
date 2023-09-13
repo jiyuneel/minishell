@@ -13,7 +13,7 @@
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g2
 COMP_FLAGS	= -L/opt/homebrew/opt/readline/lib -lreadline
 OBJS_FLAGS	= -I/opt/homebrew/opt/readline/include
 COMP_FLAGS_CLUSTER = -L/usr/local/lib -lreadline
@@ -28,11 +28,14 @@ OBJS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_YUN:.c=.o))
 
 HYUN_DIR	= ./execute/
 SRCS_HYUN	= execute.c \
+			  re_init_shell_info.c \
+			  remove_quotation.c \
 			  init_exec_info.c \
 			  multi_process.c \
 			  set_redir.c \
 			  exec_command.c \
-			  free_all.c
+			  free_all.c \
+			  unlink_here_doc.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 
 SRCS		= $(SRCS_YUN) $(SRCS_HYUN)

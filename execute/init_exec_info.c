@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 15:49:10 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/13 04:56:40 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_exec/execute.h"
 
-static void	_get_path_args(t_env_info *env, t_exec_info *exec);
-static void	_get_envp(t_env_info *env, t_exec_info *exec);
+static void	_get_path_args(t_exec_info *exec);
+static void	_get_envp(t_exec_info *exec);
 static int	_get_envp_len(t_env_info *env);
 
 t_exec_info	*init_exec_info(t_shell_info *parse)
@@ -24,16 +24,17 @@ t_exec_info	*init_exec_info(t_shell_info *parse)
 	if (exec == NULL)
 		return (NULL);		// 어떻게 처리할 지 고민(signal ?)
 	ft_memset(exec, 0, sizeof(t_exec_info));
-	_get_path_args(parse->env, exec);
-	_get_envp(parse->env, exec);
+	exec->env = parse->env;
+	_get_path_args(exec);
+	_get_envp(exec);
 	return (exec);
 }
 
-static void	_get_path_args(t_env_info *env, t_exec_info *exec)
+static void	_get_path_args(t_exec_info *exec)
 {
 	t_env_info	*node;
 
-	node = env;
+	node = exec->env;
 	while (node)
 	{
 		if (ft_strcmp(node->key, "PATH") == 0)		// strncmp로 할건지 고민
@@ -50,19 +51,19 @@ static void	_get_path_args(t_env_info *env, t_exec_info *exec)
 		exit (EXIT_FAILURE);		// fail to split
 }
 
-static void	_get_envp(t_env_info *env, t_exec_info *exec)
+static void	_get_envp(t_exec_info *exec)
 {
 	t_env_info	*node;
 	char		*tmp;
 	int			idx;
 
-	if (env == NULL)
+	node = exec->env;
+	if (node == NULL)
 	{
 		exec->envp = NULL;
 		return ;
 	}
-	exec->envp = malloc(sizeof(char *) * (_get_envp_len(env) + 1));
-	node = env;
+	exec->envp = malloc(sizeof(char *) * (_get_envp_len(node) + 1));
 	idx = 0;
 	while (node)
 	{
@@ -81,15 +82,13 @@ static void	_get_envp(t_env_info *env, t_exec_info *exec)
 
 static int	_get_envp_len(t_env_info *env)
 {
-	t_env_info	*node;
-	int			len;
+	int	len;
 
 	len = 0;
-	node = env;
-	while (node)
+	while (env)
 	{
 		len++;
-		node = node->next;
+		env = env->next;
 	}
 	return (len);
 }

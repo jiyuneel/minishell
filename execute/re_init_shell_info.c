@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_init_shell_info.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 05:20:44 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:02:33 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 		free(line);
 	}
 	free(line);
+	free(limiter);
 	close(fd);
 }

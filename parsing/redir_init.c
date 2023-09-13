@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 01:00:07 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/13 09:15:37 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:31:51 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,60 @@ void	redir_init(t_cmd_info *cmd_info)
 			{
 				filename = malloc(sizeof(char) * ft_strlen(*tmp_args));
 				ft_strlcpy(filename, &(*tmp_args)[1], ft_strlen(*tmp_args));
+				delete_cmd(cmd_info, tmp_args);
 			}
 			redir_add_back(&cmd_info->redir, redir_new_node(type, filename));
 		}
 		else if ((*tmp_args)[0] == '<' && (*tmp_args)[1] == '<')
 		{
 			type = LEFT_2;
+			if (!(*tmp_args)[2])
+			{
+				filename = ft_strdup(*(tmp_args + 1));
+				delete_cmd(cmd_info, tmp_args + 1);
+				delete_cmd(cmd_info, tmp_args);
+			}
+			else
+			{
+				filename = malloc(sizeof(char) * ft_strlen(*tmp_args) - 1);
+				ft_strlcpy(filename, &(*tmp_args)[2], ft_strlen(*tmp_args) - 1);
+				delete_cmd(cmd_info, tmp_args);
+			}
+			redir_add_back(&cmd_info->redir, redir_new_node(type, filename));
 		}
 		else if ((*tmp_args)[0] == '>' && (*tmp_args)[1] != '>')
 		{
 			type = RIGHT_1;
+			if (!(*tmp_args)[1])
+			{
+				filename = ft_strdup(*(tmp_args + 1));
+				delete_cmd(cmd_info, tmp_args + 1);
+				delete_cmd(cmd_info, tmp_args);
+			}
+			else
+			{
+				filename = malloc(sizeof(char) * ft_strlen(*tmp_args));
+				ft_strlcpy(filename, &(*tmp_args)[1], ft_strlen(*tmp_args));
+				delete_cmd(cmd_info, tmp_args);
+			}
+			redir_add_back(&cmd_info->redir, redir_new_node(type, filename));
 		}
 		else if ((*tmp_args)[0] == '>' && (*tmp_args)[1] == '>')
 		{
 			type = RIGHT_2;
+			if (!(*tmp_args)[2])
+			{
+				filename = ft_strdup(*(tmp_args + 1));
+				delete_cmd(cmd_info, tmp_args + 1);
+				delete_cmd(cmd_info, tmp_args);
+			}
+			else
+			{
+				filename = malloc(sizeof(char) * ft_strlen(*tmp_args) - 1);
+				ft_strlcpy(filename, &(*tmp_args)[2], ft_strlen(*tmp_args) - 1);
+				delete_cmd(cmd_info, tmp_args);
+			}
+			redir_add_back(&cmd_info->redir, redir_new_node(type, filename));
 		}
 		else
 			tmp_args++;

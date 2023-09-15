@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 20:48:22 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 22:16:00 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		perror("open(here_doc)");
+		error_file_open("heredoc");
 	limiter = ft_strjoin(limiter, "\n");
 	if (limiter == NULL)
 		exit (EXIT_FAILURE);

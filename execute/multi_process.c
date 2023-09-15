@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 04:47:42 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 22:08:29 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 	{
 		exec->cmd_args = cmd->cmd_args;
 		if (pipe(exec->pipe) == -1)
-			exit (EXIT_FAILURE);			// pipe error
+			error_exit("pipe", EXIT_FAILURE);		// pipe error: exit(shell)
 		pid = fork();
 		if (pid == -1)
-			exit (EXIT_FAILURE);			// fork error
+			error_exit("fork", EXIT_FAILURE);		// fork error: exit(shell)
 		else if (pid == 0)
 			_child_process(exec, cmd, chunk_cnt - idx);
 		else

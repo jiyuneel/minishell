@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 19:46:43 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 22:05:13 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,9 @@ void		free_arr(char **arr);
 
 /* unlink_here_doc.c */
 void		unlink_here_doc(t_cmd_info *cmd);
+
+/* error_exit.c */
+void		error_file_open(char *filename);
+void		error_exit(char *cmd, int sys_errno);
 
 #endif

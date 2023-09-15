@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:58:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 04:37:16 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 21:59:15 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ static void	_dup_redir_in(t_exec_info *exec, char *file)
 {
 	exec->in_fd = open(file, O_RDONLY);
 	if (exec->in_fd == -1)
-	{
-		perror(file);
-		exit (EXIT_FAILURE);
-	}
+		error_file_open(file);
 	if (dup2(exec->in_fd, STDIN_FILENO) == -1)
 		perror("dup2(stdin)");
 	close(exec->in_fd);
@@ -52,10 +49,7 @@ static void	_dup_redir_out(t_exec_info *exec, char *file, t_token_type mode)
 	else
 		exec->out_fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (exec->out_fd == -1)
-	{
-		perror(file);
-		exit (EXIT_FAILURE);
-	}
+		error_file_open(file);
 	if (dup2(exec->out_fd, STDOUT_FILENO) == -1)
 		perror("dup2(stdout)");
 	close(exec->out_fd);

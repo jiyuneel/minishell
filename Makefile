@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/12 01:06:32 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/15 21:56:52 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS_HYUN	= execute.c \
 			  set_redir.c \
 			  exec_command.c \
 			  free_all.c \
-			  unlink_here_doc.c
+			  unlink_here_doc.c \
+			  error_exit.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 
 SRCS		= $(SRCS_YUN) $(SRCS_HYUN)

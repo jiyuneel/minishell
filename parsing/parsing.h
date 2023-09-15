@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:08:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/13 00:29:30 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/14 01:17:22 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ typedef struct s_quote
 void	env_init(t_env_info **env, char **envp);
 void	shell_init(t_shell_info *shell_info, char *str);
 void	redir_init(t_cmd_info *cmd_info);
+char	**parse_by_redir(char *str);
+void	check_quote(int *quote_flag, char *quote, char c);
 
 #endif

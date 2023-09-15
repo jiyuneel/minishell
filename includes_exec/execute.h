@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 05:23:59 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:46:43 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 void		execute(t_shell_info *parse);
 
 /* re_init_shell_info.c */
-void		re_init_shell_info(t_shell_info *parse);
+int			re_init_shell_info(t_shell_info *parse);
 
 /* remove_quotation.c */
 char		*remove_quotation(char *command, int origin_len);

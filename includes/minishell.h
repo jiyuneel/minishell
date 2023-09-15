@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:50:45 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # define TRUE	1
 # define FALSE	0
 
+/* signal define */
+# define SHELL		0
+# define DEFAULT	1
+# define IGNORE		2
+
+/* global variable: exit code */
+extern int	g_exit_code;
+
+/* redirection type */
 typedef enum e_token_type
 {
 	LEFT_1 = 1,		// <
@@ -33,16 +42,16 @@ typedef enum e_token_type
 /* [ parse -> execute ]: no alloc variable */
 typedef struct s_shell_info
 {
-	int					chunk_cnt;	// pipe 개수
-	struct s_env_info	*env;
-	struct s_cmd_info	*cmd;		// cmd head -> execute 에서 다 free하고 넘길 것
+	int					chunk_cnt;	// count of nodes
+	struct s_env_info	*env;		// env head
+	struct s_cmd_info	*cmd;		// cmd head
 }	t_shell_info;
 
 /* struct for cmd_node */
 typedef struct s_cmd_info
 {
-	int					cmd_cnt;		// cmd 개수
-	char				**cmd_args;		// cmd 들만
+	int					cmd_cnt;		// count of commands
+	char				**cmd_args;		// array of commands
 	struct s_redir		*redir;			// redirection head
 	struct s_cmd_info	*next;
 }	t_cmd_info;

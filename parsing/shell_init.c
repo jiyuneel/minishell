@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/13 00:33:15 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/14 01:30:22 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	word_len(char *str)
 	return (len);
 }
 
-void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str)
+void	cmd_init(t_cmd_info **cmd, char *str)
 {
 	t_cmd_info	*cmd_info;
 	int			i;
@@ -108,7 +108,6 @@ void	cmd_init(t_shell_info *shell_info, t_cmd_info **cmd, char *str)
 	cmd_info->cmd_args[i] = NULL;
 	redir_init(cmd_info);
 	cmd_add_back(cmd, cmd_info);
-	shell_info->chunk_cnt++;
 }
 
 void	shell_init(t_shell_info *shell_info, char *str)
@@ -124,13 +123,22 @@ void	shell_init(t_shell_info *shell_info, char *str)
 	j = 0;
 	while (1)
 	{
-		check_quote(&q.quote_flag, &q.quote, str[j]);
+		// check_quote(&q.quote_flag, &q.quote, str[j]);
+		if (!q.quote_flag && (str[j] == '\'' || str[j] == '\"'))
+		{
+			q.quote_flag = TRUE;
+			q.quote = str[j];
+		}
+		else if (q.quote_flag && str[j] == q.quote)
+			q.quote_flag = FALSE;
 		if (!q.quote_flag && (!str[j] || str[j] == '|'))
 		{
 			chunk = malloc(sizeof(char) * (j - i + 1));
 			// if (!chunk)
 			ft_strlcpy(chunk, &str[i], j - i + 1);
-			cmd_init(shell_info, &shell_info->cmd, chunk);
+			// cmd_init(&shell_info->cmd, chunk);
+			parse_by_redir(chunk);
+			shell_info->chunk_cnt++;
 			free(chunk);
 			if (!str[j])
 				break ;

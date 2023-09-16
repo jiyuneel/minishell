@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 22:05:13 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:01:40 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 /* [ function prototype ] */
 /* execute.c */
 void		execute(t_shell_info *parse);
+
+/* set_signal.c */
+void		set_signal(int sig_int, int sig_quit);
 
 /* re_init_shell_info.c */
 int			re_init_shell_info(t_shell_info *parse);

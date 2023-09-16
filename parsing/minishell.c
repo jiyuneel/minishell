@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 18:28:39 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:21:36 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char **argv, char **envp)
 
 		parse_by_pipe(&token, str);
 		parse_by_redir(&token);
-		// parse_by_space(&token);
+		parse_by_space(&token);
+		// delete_invalid_token
 		print_token(token);
 
 		// valid == FALSE이면 제거, 스페이스만 있는 문자열 제거

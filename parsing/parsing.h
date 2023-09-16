@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:08:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 17:57:01 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:31:20 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_token	*token_new_node(t_token_type type, char *value);
 void	token_add_back(t_token **node, t_token *new);
 void	parse_by_pipe(t_token **token, char *str);
 void	parse_by_redir(t_token **token);
+void	parse_by_space(t_token **token);
 void	check_quote(int *quote_flag, char *quote, char c);
 void	free_token(t_token *token);
 

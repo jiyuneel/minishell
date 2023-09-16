@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/16 09:00:47 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/16 19:06:52 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIB_DIR		= ./libftprintf
 
 YUN_DIR		= ./parsing/
 SRCS_YUN	= minishell.c	env_init.c	shell_init.c	redir_init.c \
-			  parse_by_pipe.c	parse_by_redir.c
+			  parse_by_pipe.c	parse_by_redir.c	parse_by_space.c
 OBJS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_YUN:.c=.o))
 
 HYUN_DIR	= ./execute/

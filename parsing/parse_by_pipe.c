@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:51:54 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 14:56:09 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:59:54 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ t_token	*token_new_node(t_token_type type, char *value)
 {
 	t_token	*node;
 
-	node = malloc(sizeof(t_token));
+	node = ft_calloc(1, sizeof(t_token));
 	if (!node)
 		return (NULL);
 	node->type = type;
 	node->value = value;
+	node->valid = TRUE;
 	node->next = NULL;
 	return (node);
 }

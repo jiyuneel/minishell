@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 22:08:29 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:48:42 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 static void	_parent_process(t_exec_info *exec, int end);
 static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end);

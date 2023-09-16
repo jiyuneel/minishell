@@ -6,11 +6,14 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:40:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 22:46:55 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:49:04 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
+
+static void	_jiji_handler(int sig_no);
+static void	_hrd_handler(int sig_no);
 
 void	set_signal(int sig_int, int sig_quit)
 {
@@ -50,5 +53,5 @@ static void	_jiji_handler(int sig_no)
 
 static void	_hrd_handler(int sig_no)
 {
-
+	(void)sig_no;
 }

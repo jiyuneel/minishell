@@ -6,7 +6,7 @@
 #    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/15 21:56:52 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/16 14:03:51 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ OBJS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_YUN:.c=.o))
 
 HYUN_DIR	= ./execute/
 SRCS_HYUN	= execute.c \
+			  set_signal.c \
 			  re_init_shell_info.c \
 			  remove_quotation.c \
 			  init_exec_info.c \

@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 20:12:54 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:48:24 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 /* [실행부 함수 시작] */
 void	execute(t_shell_info *parse)

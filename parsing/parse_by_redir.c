@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:21:05 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 18:27:00 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:09:50 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	parse_by_redir(t_token **token)
 	tmp = *token;
 	while (tmp)
 	{
-		if (tmp->type == STR)
+		if (tmp->valid && tmp->type == STR)
 		{
 			tmp_next = tmp->next;
 			new_nodes = _parse_by_redir(tmp->value);

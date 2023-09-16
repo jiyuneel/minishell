@@ -10,9 +10,13 @@ int	main(void)
 	tcgetattr(STDIN_FILENO, &term);				// 현재 shell의 출력 상태를 저장
 	// init
 	init_term();
-	// parse
-	// execute
-	// free
+	while (TRUE)
+	{
+		// parse
+		// execute
+		// free
+		// set_exit_code()
+	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);	// 모든 것이 끝났으므로 다시 원상 복귀
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/15 15:50:45 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/15 22:39:25 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # define FALSE	0
 
 /* signal define */
-# define SHELL		0
-# define DEFAULT	1
-# define IGNORE		2
+# define DEFAULT	0
+# define IGNORE		1
+# define JIJI		2		// our jiji-shell (exec-process)
+# define HRD_CHILD	3		// in here_doc process
 
 /* global variable: exit code */
 extern int	g_exit_code;

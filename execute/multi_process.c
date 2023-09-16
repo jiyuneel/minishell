@@ -6,13 +6,13 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:42 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/17 07:07:21 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
 
-static void	_parent_process(t_exec_info *exec, int end);
+static void	_parent_process(t_exec_info *exec);
 static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end);
 
 void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
@@ -32,16 +32,16 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 		else if (pid == 0)
 			_child_process(exec, cmd, chunk_cnt - idx);
 		else
-			_parent_process(exec, chunk_cnt - idx);
+			_parent_process(exec);
 		cmd = cmd->next;
 		idx++;
 	}
 }
 
-static void	_parent_process(t_exec_info *exec, int end)
+static void	_parent_process(t_exec_info *exec)
 {
 	close (exec->pipe[P_WRITE]);
-	if (end != 0 && dup2(exec->pipe[P_READ], STDIN_FILENO) == -1)
+	if (dup2(exec->pipe[P_READ], STDIN_FILENO) == -1)
 		perror("dup2(stdin)");
 	close(exec->pipe[P_READ]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/07 16:29:27 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 08:57:38 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 
 typedef enum e_token_type
 {
-	LEFT_1 = 1,		// <
+	STR = 1,
+	PIPE,
+	LEFT_1,			// <
 	LEFT_2,			// <<
 	RIGHT_1,		// >
 	RIGHT_2			// >>

@@ -6,47 +6,19 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:51:54 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 17:59:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/17 11:08:22 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_token	*token_new_node(t_token_type type, char *value)
-{
-	t_token	*node;
-
-	node = ft_calloc(1, sizeof(t_token));
-	if (!node)
-		return (NULL);
-	node->type = type;
-	node->value = value;
-	node->valid = TRUE;
-	node->next = NULL;
-	return (node);
-}
-
-void	token_add_back(t_token **node, t_token *new)
-{
-	t_token	*tmp;
-
-	if (!(*node))
-		*node = new;
-	else
-	{
-		tmp = *node;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
 void	parse_by_pipe(t_token **token, char *str)
 {
-	static t_quote	q;
-	char			*tmp;
-	char			*value;
+	t_quote	q;
+	char	*tmp;
+	char	*value;
 
+	q.quote_flag = FALSE;
 	tmp = str;
 	while (1)
 	{
@@ -67,20 +39,5 @@ void	parse_by_pipe(t_token **token, char *str)
 		}
 		else
 			str++;
-	}
-}
-
-void	free_token(t_token *token)
-{
-	t_token	*tmp;
-
-	if (token == NULL)
-		return ;
-	while (token)
-	{
-		tmp = token->next;
-		free (token->value);
-		free (token);
-		token = tmp;
 	}
 }

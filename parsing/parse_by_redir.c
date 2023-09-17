@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:21:05 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 19:09:50 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:38:24 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	redir_exist(char *str)
 {
-	static t_quote	q;
+	t_quote	q;
 
+	q.quote_flag = FALSE;
 	while (*str)
 	{
 		check_quote(&q.quote_flag, &q.quote, *str);
@@ -28,12 +29,13 @@ int	redir_exist(char *str)
 
 t_token	*_parse_by_redir(char *str)
 {
-	static t_quote	q;
-	char			*tmp;
-	int				redir_flag;
-	t_token			*token;
-	char			*value;
+	t_quote	q;
+	t_token	*token;
+	int		redir_flag;
+	char	*tmp;
+	char	*value;
 
+	q.quote_flag = FALSE;
 	token = NULL;
 	redir_flag = redir_exist(str);
 	tmp = str;

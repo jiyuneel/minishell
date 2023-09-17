@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 08:57:38 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:12:28 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@ typedef struct s_cmd_info
 {
 	int					cmd_cnt;		// cmd 개수
 	char				**cmd_args;		// cmd 들만
+	struct s_str		*str;
 	struct s_redir		*redir;			// redirection head
 	struct s_cmd_info	*next;
 }	t_cmd_info;
+
+/* struct for str */
+typedef struct s_str
+{
+	t_token_type	type;
+	char			*command;
+	struct s_str	*next;
+}	t_str;
 
 /* struct for redirections */
 typedef struct s_redir

@@ -6,21 +6,39 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 16:06:02 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 01:08:06 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	check_quote(int *quote_flag, char *quote, char c)
+void	cmd_add_back(t_cmd_info **node, t_cmd_info *new);
+void	cmd_init(t_cmd_info **cmd, t_token *token);
+void	cmd_args_init(t_shell_info *shell_info, t_cmd_info *cmd);
+
+int	shell_init(t_shell_info *shell_info, char *str)
 {
-	if (!*quote_flag && (c == '\'' || c == '\"'))
+	t_token	*token;
+
+	token = NULL;
+	if (handle_syntax_error(token, str))
+		return (EXIT_FAILURE);
+	parse_by_pipe(&token, str);
+	parse_by_redir(&token);
+	parse_by_space(&token);
+	delete_invalid_token(&token);
+	// print_token(token);
+	if (handle_syntax_error(token, str))
 	{
-		*quote_flag = TRUE;
-		*quote = c;
+		free_token(token);
+		return (EXIT_FAILURE);
 	}
-	else if (*quote_flag && c == *quote)
-		*quote_flag = FALSE;
+	shell_info->chunk_cnt = 0;
+	shell_info->cmd = NULL;
+	cmd_init(&shell_info->cmd, token);
+	cmd_args_init(shell_info, shell_info->cmd);
+	free_token(token);
+	return (EXIT_SUCCESS);
 }
 
 void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
@@ -38,105 +56,79 @@ void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
 	}
 }
 
-int	count_cmd(char *str)
+void	cmd_init(t_cmd_info **cmd, t_token *token)
 {
-	// redirection 제외하고 세기
-	int		cnt;
-	t_quote	q;
-
-	cnt = 0;
-	q.quote_flag = FALSE;
-	while (*str)
-	{
-		check_quote(&q.quote_flag, &q.quote, *str);
-		if (!q.quote_flag && *str != ' ')
-		{
-			cnt++;
-			while (*str && *str != ' ')
-				str++;
-		}
-		else
-			str++;
-	}
-	return (cnt);
-}
-
-int	word_len(char *str)
-{
-	int		len;
-	t_quote	q;
-
-	len = 0;
-	q.quote_flag = FALSE;
-	while (*str)
-	{
-		check_quote(&q.quote_flag, &q.quote, *str);
-		if (!q.quote_flag && *str == ' ')
-			break ;
-		len++;
-		str++;
-	}
-	return (len);
-}
-
-void	cmd_init(t_cmd_info **cmd, char *str)
-{
-	t_cmd_info	*cmd_info;
-	int			i;
-	int			len;
+	t_cmd_info		*cmd_info;
+	t_token_type	type;
 
 	cmd_info = ft_calloc(1, sizeof(t_cmd_info));
-	// if (!cmd_info)
-	cmd_info->cmd_cnt = count_cmd(str);
-	cmd_info->cmd_args = malloc(sizeof(char *) * (cmd_info->cmd_cnt + 1));
-	// if (!cmd_info->cmd_args)
-	cmd_info->next = NULL;
-	i = 0;
-	while (*str)
+	while (token)
 	{
-		if (*str != ' ')
+		if (token->type == STR)
 		{
-			len = word_len(str);
-			cmd_info->cmd_args[i] = malloc(sizeof(char) * (len + 1));
-			// if (!cmd_info->cmd_args[i])
-			ft_strlcpy(cmd_info->cmd_args[i++], str, len + 1);
-			str += len;
+			cmd_info->cmd_cnt++;
+			str_add_back(&cmd_info->str, str_new_node(ft_strdup(token->value)));
 		}
-		else
-			str++;
+		else if (LEFT_1 <= token->type && token->type <= RIGHT_2)
+		{
+			type = token->type;
+			token = token->next;
+			redir_add_back(&cmd_info->redir, redir_new_node(type, ft_strdup(token->value)));
+		}
+		else if (token->type == PIPE)
+		{
+			cmd_add_back(cmd, cmd_info);
+			cmd_info = ft_calloc(1, sizeof(t_cmd_info));
+		}
+		token = token->next;
 	}
-	cmd_info->cmd_args[i] = NULL;
-	redir_init(cmd_info);
 	cmd_add_back(cmd, cmd_info);
 }
 
-void	shell_init(t_shell_info *shell_info, char *str)
+void	cmd_args_init(t_shell_info *shell_info, t_cmd_info *cmd)
 {
 	int		i;
-	int		j;
-	t_quote	q;
-	char	*chunk;
+	t_str	*tmp;
 
-	shell_info->cmd = NULL;
-	q.quote_flag = FALSE;
-	i = 0;
-	j = 0;
-	while (1)
+	while (cmd)
 	{
-		check_quote(&q.quote_flag, &q.quote, str[j]);
-		if (!q.quote_flag && (!str[j] || str[j] == '|'))
+		shell_info->chunk_cnt++;
+		cmd->cmd_args = ft_calloc(cmd->cmd_cnt + 1, sizeof(char *));
+		i = 0;
+		tmp = cmd->str;
+		while (tmp)
 		{
-			chunk = malloc(sizeof(char) * (j - i + 1));
-			// if (!chunk)
-			ft_strlcpy(chunk, &str[i], j - i + 1);
-			// cmd_init(&shell_info->cmd, chunk);
-			// parse_by_redir(chunk);
-			shell_info->chunk_cnt++;
-			free(chunk);
-			if (!str[j])
-				break ;
-			i = j + 1;
+			cmd->cmd_args[i++] = ft_strdup(tmp->command);
+			tmp = tmp->next;
 		}
-		j++;
+		cmd = cmd->next;
+	}
+}
+
+/* token 출력 */
+void	print_token(t_token *token)
+{
+	for (t_token *tmp = token; tmp; tmp = tmp->next)
+	{
+		// if (!tmp->valid)
+		// 	continue ;
+		printf("[------- token -------]\n");
+		if (tmp->type == STR)
+			printf("STR ");
+		else if (tmp->type == PIPE)
+			printf("PIPE ");
+		else if (tmp->type == LEFT_1)
+			printf("LEFT_1 ");
+		else if (tmp->type == LEFT_2)
+			printf("LEFT_2 ");
+		else if (tmp->type == RIGHT_1)
+			printf("RIGHT_1 ");
+		else if (tmp->type == RIGHT_2)
+			printf("RIGHT_2 ");
+		if (tmp->valid)
+			printf("valid\n");
+		else
+			printf("invalid\n");
+		printf("\'%s\'\n\n", tmp->value);
 	}
 }

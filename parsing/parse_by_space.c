@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:28:16 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/16 19:16:35 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:04:28 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	token_len(char *str)
 
 t_token	*_parse_by_space(char *str)
 {
-	t_token			*token;
-	char			*value;
-	int				len;
+	t_token	*token;
+	char	*value;
+	int		len;
 
 	token = NULL;
 	while (*str)

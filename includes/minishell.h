@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 15:46:56 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:51:59 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void		exec_command(t_exec_info *exec);
 
 /* free_all.c */
 void		free_cmd_info(t_cmd_info *cmd);
+void		free_str(t_str *str);
 void		free_redir(t_redir *redir);
 void		free_env_info(t_env_info *env);
 void		free_exec_info(t_exec_info *exec);

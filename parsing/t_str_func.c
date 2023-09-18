@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:11:12 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:50 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:51:26 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,5 @@ void	str_add_back(t_str **node, t_str *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
-	}
-}
-
-void	free_str(t_str *str)
-{
-	t_str	*tmp;
-
-	if (str == NULL)
-		return ;
-	while (str)
-	{
-		tmp = str->next;
-		free (str->command);
-		free (str);
-		str = tmp;
 	}
 }

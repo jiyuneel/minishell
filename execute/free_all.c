@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:32 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:52:21 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,25 @@ void	free_cmd_info(t_cmd_info *cmd)
 	{
 		tmp = cmd->next;
 		free_arr(cmd->cmd_args);
+		free_str(cmd->str);
 		free_redir(cmd->redir);
 		free (cmd);
 		cmd = tmp;
+	}
+}
+
+void	free_str(t_str *str)
+{
+	t_str	*tmp;
+
+	if (str == NULL)
+		return ;
+	while (str)
+	{
+		tmp = str->next;
+		free (str->command);
+		free (str);
+		str = tmp;
 	}
 }
 

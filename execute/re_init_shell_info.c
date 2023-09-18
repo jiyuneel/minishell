@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/17 06:43:22 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:19:06 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	pid_t		pid;
 	int			status;
 
+	set_signal(DEFAULT, DEFAULT);
 	pid = fork();
 	if (pid < 0)
 		exit (EXIT_FAILURE);
@@ -33,6 +34,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	// 	return (_change_shell_info(parse));		// here_doc이 끝나고 나면 진행
 	// return (258);	// syntax error
 	_change_shell_info(parse);
+	set_signal(IGNORE, IGNORE);
 	return (EXIT_SUCCESS);
 }
 
@@ -42,6 +44,7 @@ static void	_check_here_doc(t_shell_info *parse)
 	t_cmd_info	*node;
 	int			filenum;
 
+	set_signal(JIJI, JIJI);		// set_signal(HRD_CHILD, HRD_CHILD);
 	// if (parse->here_doc_cnt >= 16)
 	// 	error_message("too many here_doc\n");  >> 파싱에서 에초에 쉘이 종료되어야 함!!
 	filenum = 0;
@@ -56,7 +59,7 @@ static void	_check_here_doc(t_shell_info *parse)
 }
 
 /* parent process: rename filename(hrd) & remove quotation*/
-static int	_change_shell_info(t_shell_info *parse)	// parent process
+static int	_change_shell_info(t_shell_info *parse)
 {
 	t_cmd_info	*node;
 	int			idx;

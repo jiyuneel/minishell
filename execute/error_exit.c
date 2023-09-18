@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlink_here_doc.c                                  :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/13 05:08:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:49:08 by jihykim2         ###   ########.fr       */
+/*   Created: 2023/09/07 19:08:44 by jihykim2          #+#    #+#             */
+/*   Updated: 2023/09/16 14:47:33 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
 
-void	unlink_here_doc(t_cmd_info *cmd)
+void	error_file_open(char *filename)
 {
-	t_redir	*node;
+	ft_putstr_fd("jijishell: ", STDERR_FILENO);
+	perror(filename);
+	exit (EXIT_FAILURE);
+}
 
-	while (cmd)
+void	error_exit(char *cmd, int sys_errno)
+{
+	if (sys_errno == FALSE)
 	{
-		node = cmd->redir;
-		while (node)
-		{
-			if (node->type == LEFT_2)
-				unlink(node->filename);
-			node = node->next;
-		}
-		cmd = cmd->next;
+		ft_putstr_fd("jijishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		exit (127);
+	}
+	else
+	{
+		ft_putstr_fd("jijishell: ", STDERR_FILENO);
+		perror(cmd);
+		exit (sys_errno);
 	}
 }

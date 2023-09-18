@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 04:56:40 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:48:36 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 static void	_get_path_args(t_exec_info *exec);
 static void	_get_envp(t_exec_info *exec);

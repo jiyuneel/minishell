@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/10 22:37:16 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:47:38 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 static char	*_check_command_path(t_exec_info *exec);
 
@@ -20,19 +20,9 @@ void	exec_command(t_exec_info *exec)
 
 	cmd_path = _check_command_path(exec);
 	if (cmd_path == NULL)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(exec->cmd_args[0], STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		exit (127);
-	}
-	if (execve(cmd_path, exec->cmd_args, exec->envp) == -1)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		perror(exec->cmd_args[0]);
-		free (cmd_path);
-		exit (127);
-	}
+		error_exit(exec->cmd_args[0], FALSE);
+	if (execve(cmd_path, exec->cmd_args, exec->envp) != 0)
+		error_exit("execve", EXIT_FAILURE);
 }
 
 static char	*_check_command_path(t_exec_info *exec)
@@ -42,7 +32,7 @@ static char	*_check_command_path(t_exec_info *exec)
 	int		i;
 
 	if (exec->cmd_args == NULL || exec->cmd_args[0] == NULL)
-		exit (EXIT_SUCCESS);
+		exit (EXIT_SUCCESS);			// cmd == " " 등 공백인 경우
 	if (access(exec->cmd_args[0], X_OK) == 0)
 		return (ft_strdup(exec->cmd_args[0]));
 	i = 0;

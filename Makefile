@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/18 00:59:55 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/18 15:43:51 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ OBJS_YUN	= $(addprefix $(YUN_DIR), $(SRCS_YUN:.c=.o))
 
 HYUN_DIR	= ./execute/
 SRCS_HYUN	= execute.c \
+			  set_signal.c \
 			  re_init_shell_info.c \
 			  remove_quotation.c \
 			  init_exec_info.c \
@@ -41,7 +42,8 @@ SRCS_HYUN	= execute.c \
 			  set_redir.c \
 			  exec_command.c \
 			  free_all.c \
-			  unlink_here_doc.c
+			  unlink_here_doc.c \
+			  error_exit.c
 OBJS_HYUN	= $(addprefix $(HYUN_DIR), $(SRCS_HYUN:.c=.o))
 
 SRCS		= $(SRCS_YUN) $(SRCS_HYUN)

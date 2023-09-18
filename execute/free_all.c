@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 05:24:57 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:48:32 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 void	free_cmd_info(t_cmd_info *cmd)
 {
@@ -64,7 +64,6 @@ void	free_exec_info(t_exec_info *exec)
 {
 	if (exec == NULL)
 		return ;
-	// free_arr(exec->cmd_args);	// 아직 파싱 전이라,,
 	free_arr(exec->path_args);
 	free_arr(exec->envp);
 	free (exec);

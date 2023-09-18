@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:14:39 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 03:26:47 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:48:53 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_exec/execute.h"
+# include "../includes/minishell.h"
 
 static int	_string_length(char **cmd, char *quote);
 static char	*_make_string(char *res_cmd, char *copy_address, int len);

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/13 05:23:59 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:08:59 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,26 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <signal.h>
 # include <dirent.h>
 # include <term.h>
+# include <sys/termios.h>
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 /* [ function prototype ] */
 /* execute.c */
 void		execute(t_shell_info *parse);
 
+/* set_signal.c */
+void		set_signal(int sig_int, int sig_quit);
+
 /* re_init_shell_info.c */
-void		re_init_shell_info(t_shell_info *parse);
+int			re_init_shell_info(t_shell_info *parse);
 
 /* remove_quotation.c */
 char		*remove_quotation(char *command, int origin_len);
@@ -57,5 +63,9 @@ void		free_arr(char **arr);
 
 /* unlink_here_doc.c */
 void		unlink_here_doc(t_cmd_info *cmd);
+
+/* error_exit.c */
+void		error_file_open(char *filename);
+void		error_exit(char *cmd, int sys_errno);
 
 #endif

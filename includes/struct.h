@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:43:35 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:46:36 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,18 @@ typedef struct s_cmd_info
 {
 	int					cmd_cnt;		// count of commands
 	char				**cmd_args;		// array of commands
+	struct s_str		*str;
 	struct s_redir		*redir;			// redirection head
 	struct s_cmd_info	*next;
 }	t_cmd_info;
+
+/* struct for str */
+typedef struct s_str
+{
+	t_token_type	type;
+	char			*command;
+	struct s_str	*next;
+}	t_str;
 
 /* struct for redirections */
 typedef struct s_redir
@@ -77,14 +86,19 @@ typedef struct s_env_info
 
 
 /* [parsing.c data] */
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	int				valid;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_quote
 {
 	int		quote_flag;
 	char	quote;
 }	t_quote;
-
-
-
 
 
 /* [execute.c data] */

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 15:44:04 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:46:56 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,38 @@ extern int	g_exit_code;
 # include <fcntl.h>
 
 /* [parsing] */
+/* env_init.c */
 void	env_init(t_env_info **env, char **envp);
-void	shell_init(t_shell_info *shell_info, char *str);
-void	redir_init(t_cmd_info *cmd_info);
+
+/* shell_init.c */
+int		shell_init(t_shell_info *shell_info, char *str);
+
+/* handle_syntax_error.c */
+void	check_quote(int *quote_flag, char *quote, char c);
+int		handle_syntax_error(t_token *token, char *str);
+
+/* parse_by_pipe.c */
+void	parse_by_pipe(t_token **token, char *str);
+/* parse_by_redir.c */
+void	parse_by_redir(t_token **token);
+/* parse_by_space.c */
+void	parse_by_space(t_token **token);
+
+/* delete_invalid_token.c */
+void	delete_invalid_token(t_token **token);
+
+/* t_token_func.c */
+t_token	*token_new_node(t_token_type type, char *value);
+void	token_add_back(t_token **node, t_token *new);
+void	free_token(t_token *token);
+
+/* t_str_func.c */
+t_str	*str_new_node(char *command);
+void	str_add_back(t_str **node, t_str *new);
+
+/* t_redir_func.c */
+t_redir	*redir_new_node(t_token_type type, char *filename);
+void	redir_add_back(t_redir **node, t_redir *new);
 
 
 /* [execute] */

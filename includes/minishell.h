@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 15:51:59 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:49:59 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,39 @@ extern int	g_exit_code;
 
 /* [parsing] */
 /* env_init.c */
-void	env_init(t_env_info **env, char **envp);
+void		env_init(t_env_info **env, char **envp);
 
 /* shell_init.c */
-int		shell_init(t_shell_info *shell_info, char *str);
+int			shell_init(t_shell_info *shell_info, char *str);
 
 /* handle_syntax_error.c */
-void	check_quote(int *quote_flag, char *quote, char c);
-int		handle_syntax_error(t_token *token, char *str);
+void		check_quote(int *quote_flag, char *quote, char c);
+int			handle_syntax_error(t_token *token, char *str);
 
 /* parse_by_pipe.c */
-void	parse_by_pipe(t_token **token, char *str);
+void		parse_by_pipe(t_token **token, char *str);
 /* parse_by_redir.c */
-void	parse_by_redir(t_token **token);
+void		parse_by_redir(t_token **token);
 /* parse_by_space.c */
-void	parse_by_space(t_token **token);
+void		parse_by_space(t_token **token);
 
 /* delete_invalid_token.c */
-void	delete_invalid_token(t_token **token);
+void		delete_invalid_token(t_token **token);
 
 /* t_token_func.c */
-t_token	*token_new_node(t_token_type type, char *value);
-void	token_add_back(t_token **node, t_token *new);
-void	free_token(t_token *token);
+t_token		*token_new_node(t_token_type type, char *value);
+void		token_add_back(t_token **node, t_token *new);
+void		free_token(t_token *token);
 
 /* t_str_func.c */
-t_str	*str_new_node(char *command);
-void	str_add_back(t_str **node, t_str *new);
+t_str		*str_new_node(char *command);
+void		str_add_back(t_str **node, t_str *new);
+void		free_str(t_str *str);
 
 /* t_redir_func.c */
-t_redir	*redir_new_node(t_token_type type, char *filename);
-void	redir_add_back(t_redir **node, t_redir *new);
+t_redir		*redir_new_node(t_token_type type, char *filename);
+void		redir_add_back(t_redir **node, t_redir *new);
+void		free_redir(t_redir *redir);
 
 
 /* [execute] */
@@ -88,19 +90,8 @@ t_exec_info	*init_exec_info(t_shell_info *parse);
 /* multi_process.c */
 void		multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt);
 
-/* set_redir.c */
-void		dup_redir_to_inout(t_exec_info *exec, t_redir *redir);
-
 /* exec_command.c */
 void		exec_command(t_exec_info *exec);
-
-/* free_all.c */
-void		free_cmd_info(t_cmd_info *cmd);
-void		free_str(t_str *str);
-void		free_redir(t_redir *redir);
-void		free_env_info(t_env_info *env);
-void		free_exec_info(t_exec_info *exec);
-void		free_arr(char **arr);
 
 /* unlink_here_doc.c */
 void		unlink_here_doc(t_cmd_info *cmd);
@@ -108,5 +99,21 @@ void		unlink_here_doc(t_cmd_info *cmd);
 /* error_exit.c */
 void		error_file_open(char *filename);
 void		error_exit(char *cmd, int sys_errno);
+
+
+/* [built-in] */
+
+
+
+
+/* [utils] */
+/* free_all.c */
+void		free_cmd_info(t_cmd_info *cmd);
+void		free_env_info(t_env_info *env);
+void		free_exec_info(t_exec_info *exec);
+void		free_arr(char **arr);
+
+/* set_redir.c */
+void		dup_redir_to_inout(t_exec_info *exec, t_redir *redir);
 
 #endif

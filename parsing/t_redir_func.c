@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_redir_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:18:25 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:46 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:35:26 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,20 @@ void	redir_add_back(t_redir **node, t_redir *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+	}
+}
+
+void	free_redir(t_redir *redir)
+{
+	t_redir	*tmp;
+
+	if (redir == NULL)
+		return ;
+	while (redir)
+	{
+		tmp = redir->next;
+		free (redir->filename);
+		free (redir);
+		redir = tmp;
 	}
 }

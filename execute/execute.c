@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:24 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:19:16 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	execute(t_shell_info *parse)
 
 	// if (parse->cmd->next == NULL && parse->cmd->cmd_cnt == 1)
 	// 	single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
+	// ""와 같이 명령어가 없는 경우에 대해 잘 처리하기
+	set_signal(IGNORE, IGNORE);
 	re_init_shell_info(parse);
 	exec = init_exec_info(parse);
 	stdin_origin = dup(STDIN_FILENO);
@@ -35,6 +37,7 @@ void	execute(t_shell_info *parse)
 		exit (EXIT_FAILURE);
 	if (dup2(stdout_origin, STDOUT_FILENO)== -1)
 		exit (EXIT_FAILURE);
+	set_signal(JIJI, JIJI);
 }
 
 

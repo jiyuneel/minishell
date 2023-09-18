@@ -6,7 +6,7 @@
 #    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 18:39:56 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/06 17:35:30 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/17 06:45:43 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ ${NAME}: ${OBJS}
 	@make -C ./libft
 	@cp ${LIBFT} ${NAME}
 	@ar rc ${NAME} ${OBJS}
+	@echo $(YELLOW) "✭	[ libftprintf ]	Ready to use libftprintf.a" $(RESET)
 
 %.o: %.c
 	@${CC} ${CFLAGS} -c $< -o $@
@@ -44,3 +45,13 @@ fclean: clean
 re:	fclean all
 
 .PHONY: all clean fclean re
+
+RESET	= "\x1b[0m"
+GREY	= "\x1b[30m"
+RED		= "\x1b[31m"
+GREEN	= "\x1b[32m"
+YELLOW	= "\x1b[33m"
+BLUE	= "\x1b[34m"
+PURPLE	= "\x1b[35m"
+CYAN	= "\x1b[36m"
+WHITE	= "\x1b[37m"

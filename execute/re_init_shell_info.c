@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:47 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:19:06 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	pid_t		pid;
 	int			status;
 
+	set_signal(DEFAULT, DEFAULT);
 	pid = fork();
 	if (pid < 0)
 		exit (EXIT_FAILURE);
@@ -33,6 +34,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	// 	return (_change_shell_info(parse));		// here_doc이 끝나고 나면 진행
 	// return (258);	// syntax error
 	_change_shell_info(parse);
+	set_signal(IGNORE, IGNORE);
 	return (EXIT_SUCCESS);
 }
 
@@ -42,6 +44,7 @@ static void	_check_here_doc(t_shell_info *parse)
 	t_cmd_info	*node;
 	int			filenum;
 
+	set_signal(JIJI, JIJI);		// set_signal(HRD_CHILD, HRD_CHILD);
 	// if (parse->here_doc_cnt >= 16)
 	// 	error_message("too many here_doc\n");  >> 파싱에서 에초에 쉘이 종료되어야 함!!
 	filenum = 0;
@@ -56,7 +59,7 @@ static void	_check_here_doc(t_shell_info *parse)
 }
 
 /* parent process: rename filename(hrd) & remove quotation*/
-static int	_change_shell_info(t_shell_info *parse)	// parent process
+static int	_change_shell_info(t_shell_info *parse)
 {
 	t_cmd_info	*node;
 	int			idx;
@@ -111,22 +114,17 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		error_file_open("heredoc");
-	limiter = ft_strjoin(limiter, "\n");
-	if (limiter == NULL)
-		exit (EXIT_FAILURE);
 	while (TRUE)
 	{
-		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
+		line = readline("> ");
 		if (line == NULL)
 			exit (EXIT_FAILURE);
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+		if (ft_strcmp(line, limiter) == 0)
 			break ;
-		// line = _check_env_in_line(line);
 		ft_putstr_fd(line, fd);
+		ft_putstr_fd("\n", fd);
 		free(line);
 	}
 	free(line);
-	free(limiter);
 	close(fd);
 }

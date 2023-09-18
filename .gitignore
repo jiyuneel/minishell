@@ -9,6 +9,8 @@ a.out
 *.dSYM
 *.gch
 
+# execution file
+minishell
 
 # swap file
 *.swp

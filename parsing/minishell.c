@@ -6,17 +6,22 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:25 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:06:31 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
 
+static void	init_term(void);
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell_info	shell_info;
 	char			*str;
+	struct termios	term;
 
+	tcgetattr(STDIN_FILENO, &term);				// 현재 shell의 출력 상태를 저장
+	init_term();
 	(void) argv;
 	if (argc != 1)
 		return (1);		// error
@@ -35,8 +40,23 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 	}
 	free_env_info(shell_info.env);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);	// 모든 것이 끝났으므로 다시 원상 복귀
 	return (0);
 }
+
+static void	init_term(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);			// 해당 flag로 shell의 상태 변경
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	set_signal(JIJI, JIJI);
+}
+
+
+
+
 
 /* shell_info 출력 */
 void	print_shell_info(t_shell_info *shell_info)

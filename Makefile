@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/18 15:57:25 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/18 16:02:49 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,12 +60,11 @@ endif
 all		: $(NAME)
 
 %.o		: %.c
-	@$(CC) $(CFLAGS) $(OBJS_FLAGS_CLUSTER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(OBJS_FLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJ)
 	@$(MAKE) -C $(LIB_DIR)
-	@echo $(YELLOW) "✭	[ libftprintf ]	Ready to use libftprintf.a" $(RESET)
-	@$(CC) $(CFLAGS) $(COMP_FLAGS_CLUSTER) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
+	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lftprintf
 	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to use minishell" $(RESET)
 
 jiyun	:

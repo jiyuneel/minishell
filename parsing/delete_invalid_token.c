@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:29:19 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/17 11:09:57 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:03 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+# include "../includes/minishell.h"
 
 int		only_space(char *str);
 void	delete_token(t_token **token, t_token **node);

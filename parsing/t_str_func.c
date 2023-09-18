@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:11:12 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 00:23:06 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:50 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+# include "../includes/minishell.h"
 
 t_str	*str_new_node(char *command)
 {

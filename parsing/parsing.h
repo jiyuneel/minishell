@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:08:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 01:11:14 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:41:01 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ typedef struct s_token
 	int				valid;
 	struct s_token	*next;
 }	t_token;
+
+/* struct for str */
+typedef struct s_str
+{
+	t_token_type	type;
+	char			*command;
+	struct s_str	*next;
+}	t_str;
 
 /* env_init.c */
 void	env_init(t_env_info **env, char **envp);

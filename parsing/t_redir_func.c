@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:18:25 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/17 21:18:46 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:46 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+# include "../includes/minishell.h"
 
 t_redir	*redir_new_node(t_token_type type, char *filename)
 {

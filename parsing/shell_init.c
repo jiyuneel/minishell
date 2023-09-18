@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 01:08:06 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:43 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+# include "../includes/minishell.h"
 
 void	cmd_add_back(t_cmd_info **node, t_cmd_info *new);
 void	cmd_init(t_cmd_info **cmd, t_token *token);

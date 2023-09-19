@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 16:49:59 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:53:12 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ void		env_init(t_env_info **env, char **envp);
 /* shell_init.c */
 int			shell_init(t_shell_info *shell_info, char *str);
 
-/* handle_syntax_error.c */
-void		check_quote(int *quote_flag, char *quote, char c);
-int			handle_syntax_error(t_token *token, char *str);
-
 /* parse_by_pipe.c */
 void		parse_by_pipe(t_token **token, char *str);
 /* parse_by_redir.c */
@@ -54,6 +50,18 @@ void		parse_by_space(t_token **token);
 
 /* delete_invalid_token.c */
 void		delete_invalid_token(t_token **token);
+
+/* handle_syntax_error.c */
+void		check_quote(int *quote_flag, char *quote, char c);
+int			handle_syntax_error(t_token *token, char *str);
+
+/* replace_env.c */
+void		replace_env(t_env_info *env, t_token *token);
+
+/* t_env_func.c */
+t_env_info	*env_new_node(char *key, char *value);
+void		env_add_back(t_env_info **node, t_env_info *new);
+void		env_add_front(t_env_info **node, t_env_info *new);
 
 /* t_token_func.c */
 t_token		*token_new_node(t_token_type type, char *value);

@@ -6,13 +6,56 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:39:35 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:58:31 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_env(t_env_info *env);
+t_env_info	*tmpenv_new_node(char *key, int idx);
+t_env_info	*find_env(char *str);
+void		get_env_value(t_env_info *env, t_env_info *tmpenv);
+
+void	replace_env(t_env_info *env, t_token *token)
+{
+	t_env_info	*tmpenv;
+	t_env_info	*tmp;
+	char		*env_front;
+	char		*env_back;
+	char		*str;
+	int			idx_back;
+
+	while (token)
+	{
+		if (token->type == STR)
+		{
+			tmpenv = find_env(token->value);
+			get_env_value(env, tmpenv);
+			// print_env(tmpenv);
+			tmp = tmpenv;
+			while (tmp)
+			{
+				env_front = malloc(sizeof(char) * (tmp->idx + 1));
+				ft_strlcpy(env_front, token->value, tmp->idx + 1);
+				idx_back = tmp->idx + ft_strlen(tmp->key) + 1;
+				env_back = ft_strdup(token->value + idx_back);
+				free(token->value);
+				if (tmp->value)
+					str = ft_strjoin(env_front, tmp->value);
+				else
+					str = ft_strjoin(env_front, "");
+				token->value = ft_strjoin(str, env_back);
+				free(env_front);
+				free(env_back);
+				free(str);
+				tmp = tmp->next;
+			}
+
+			free_env_info(tmpenv);
+		}
+		token = token->next;
+	}
+}
 
 t_env_info	*tmpenv_new_node(char *key, int idx)
 {
@@ -78,47 +121,9 @@ void	get_env_value(t_env_info *env, t_env_info *tmpenv)
 	}
 }
 
-void	replace_env(t_env_info *env, t_token *token)
-{
-	t_env_info	*tmpenv;
-	t_env_info	*tmp;
-	char		*env_front;
-	char		*env_back;
-	char		*str;
-	int			idx_back;
 
-	while (token)
-	{
-		if (token->type == STR)
-		{
-			tmpenv = find_env(token->value);
-			get_env_value(env, tmpenv);
-			print_env(tmpenv);
-			tmp = tmpenv;
-			while (tmp)
-			{
-				env_front = malloc(sizeof(char) * (tmp->idx + 1));
-				ft_strlcpy(env_front, token->value, tmp->idx + 1);
-				idx_back = tmp->idx + ft_strlen(tmp->key) + 1;
-				env_back = ft_strdup(token->value + idx_back);
-				free(token->value);
-				if (tmp->value)
-					str = ft_strjoin(env_front, tmp->value);
-				else
-					str = ft_strjoin(env_front, "");
-				token->value = ft_strjoin(str, env_back);
-				free(env_front);
-				free(env_back);
-				free(str);
-				tmp = tmp->next;
-			}
 
-			free_env_info(tmpenv);
-		}
-		token = token->next;
-	}
-}
-
+/* env 출력 */
 void	print_env(t_env_info *env)
 {
 	for (t_env_info *tmp = env; tmp; tmp = tmp->next)

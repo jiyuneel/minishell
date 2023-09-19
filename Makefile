@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/18 16:47:27 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/19 17:46:29 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,18 @@ RM			= rm -f
 LIB_DIR		= ./libftprintf
 
 PARSE_DIR	= ./parsing/
-SRCS_PARSE	= env_init.c	\
+SRCS_PARSE	= env_init.c \
 			  shell_init.c \
+			  parse_by_pipe.c \
+			  parse_by_redir.c \
+			  parse_by_space.c \
+			  delete_invalid_token.c \
 			  handle_syntax_error.c \
-			  parse_by_pipe.c	parse_by_redir.c	parse_by_space.c \
-			  delete_invalid_token.c	\
-			  t_token_func.c	t_str_func.c	t_redir_func.c
+			  replace_env.c \
+			  t_env_func.c \
+			  t_token_func.c \
+			  t_str_func.c \
+			  t_redir_func.c
 OBJS_PARSE	= $(addprefix $(PARSE_DIR), $(SRCS_PARSE:.c=.o))
 
 EXEC_DIR	= ./execute/
@@ -59,11 +65,11 @@ OBJS		= minishell.o $(OBJS_PARSE) $(OBJS_EXEC) $(OBJS_BUILT) $(OBJS_UTILS)
 all		: $(NAME)
 
 %.o		: %.c
-	@$(CC) $(CFLAGS) $(OBJS_FLAGS_CLUSTER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(OBJS_FLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJS)
 	@$(MAKE) -C $(LIB_DIR)
-	@$(CC) $(CFLAGS) $(COMP_FLAGS_CLUSTER) -o $(NAME) $(OBJS) -L$(LIB_DIR) -lftprintf
+	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJS) -L$(LIB_DIR) -lftprintf
 	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to use minishell" $(RESET)
 
 clean	:

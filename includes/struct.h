@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 21:02:06 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:52:37 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_env_info
 {
 	char				*key;
 	char				*value;
+	int					idx;
 	struct s_env_info	*next;
 }	t_env_info;
 
@@ -99,14 +100,6 @@ typedef struct s_quote
 	int		quote_flag;
 	char	quote;
 }	t_quote;
-
-typedef struct s_tmp_env
-{
-	int					idx;
-	char				*key;
-	struct s_tmp_env	*next;
-}	t_tmp_env;
-
 
 
 /* [execute.c data] */

@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:07:25 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:00:16 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_token	*token_new_node(t_token_type type, char *value)
 {

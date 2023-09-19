@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:58:11 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:14 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:58:17 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_env_info	*env_new_node(char *key, char *value);
 void		env_add_back(t_env_info **node, t_env_info *new);
@@ -36,33 +36,5 @@ void	env_init(t_env_info **env, char **envp)
 		ft_strlcpy(value, *envp + key_len + 1, value_len + 1);
 		env_add_back(env, env_new_node(key, value));
 		envp++;
-	}
-}
-
-t_env_info	*env_new_node(char *key, char *value)
-{
-	t_env_info	*node;
-
-	node = malloc(sizeof(t_env_info));
-	if (!node)
-		return (NULL);
-	node->key = key;
-    node->value = value;
-	node->next = NULL;
-	return (node);
-}
-
-void	env_add_back(t_env_info **node, t_env_info *new)
-{
-	t_env_info	*tmp;
-
-	if (!(*node))
-		*node = new;
-	else
-	{
-		tmp = *node;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
 	}
 }

@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 20:06:52 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:42:55 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	cmd_add_back(t_cmd_info **node, t_cmd_info *new);
 void	cmd_init(t_cmd_info **cmd, t_token *token);
@@ -33,7 +33,7 @@ int	shell_init(t_shell_info *shell_info, char *str)
 		free_token(token);
 		return (EXIT_FAILURE);
 	}
-	// replace_env(token);
+	replace_env(shell_info->env, token);
 	shell_info->chunk_cnt = 0;
 	shell_info->cmd = NULL;
 	cmd_init(&shell_info->cmd, token);

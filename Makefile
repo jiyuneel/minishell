@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/19 17:46:29 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/19 18:43:09 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LIB_DIR		= ./libftprintf
 PARSE_DIR	= ./parsing/
 SRCS_PARSE	= env_init.c \
 			  shell_init.c \
+			  cmd_init.c \
 			  parse_by_pipe.c \
 			  parse_by_redir.c \
 			  parse_by_space.c \

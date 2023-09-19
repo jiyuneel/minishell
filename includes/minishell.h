@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/19 17:53:12 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:42:38 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void		env_init(t_env_info **env, char **envp);
 
 /* shell_init.c */
 int			shell_init(t_shell_info *shell_info, char *str);
+
+/* cmd_init.c */
+void		cmd_init(t_cmd_info **cmd, t_token *token);
+void		cmd_args_init(t_shell_info *shell_info, t_cmd_info *cmd);
 
 /* parse_by_pipe.c */
 void		parse_by_pipe(t_token **token, char *str);

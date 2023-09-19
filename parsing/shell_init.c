@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:42:55 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:36:36 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,19 @@ void	cmd_add_back(t_cmd_info **node, t_cmd_info *new)
 	}
 }
 
+void	check_heredoc_cnt(t_token_type type, t_cmd_info *cmd)
+{
+	if (type == LEFT_2)
+	{
+		cmd->heredoc_cnt++;
+		if (cmd->heredoc_cnt > 16)
+		{
+			printf("jijishell: maximum here-document count exceeded\n");
+			exit(1);
+		}
+	}
+}
+
 void	cmd_init(t_cmd_info **cmd, t_token *token)
 {
 	t_cmd_info		*cmd_info;
@@ -75,6 +88,7 @@ void	cmd_init(t_cmd_info **cmd, t_token *token)
 			type = token->type;
 			token = token->next;
 			redir_add_back(&cmd_info->redir, redir_new_node(type, ft_strdup(token->value)));
+			check_heredoc_cnt(type, cmd_info);
 		}
 		else if (token->type == PIPE)
 		{
@@ -105,6 +119,8 @@ void	cmd_args_init(t_shell_info *shell_info, t_cmd_info *cmd)
 		cmd = cmd->next;
 	}
 }
+
+
 
 /* token 출력 */
 void	print_token(t_token *token)

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/19 11:52:37 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:23:29 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_cmd_info
 	char				**cmd_args;		// array of commands
 	struct s_str		*str;
 	struct s_redir		*redir;			// redirection head
+	int					heredoc_cnt;
 	struct s_cmd_info	*next;
 }	t_cmd_info;
 

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:18:25 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 18:00:04 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:25:17 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_redir	*redir_new_node(t_token_type type, char *filename)
 	if (!node)
 		return (NULL);
 	node->type = type;
-    node->filename = filename;
+	node->filename = filename;
 	node->next = NULL;
 	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/20 10:17:28 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:29:33 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		error_exit(char *cmd, int sys_errno);
 /* [built-in] */
 
 
-void		env(t_shell_info *shell_info);
+void	    env(t_exec_info *exec);
 
 /* [utils] */
 /* free_all.c */

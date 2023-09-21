@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/21 17:43:24 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:34:40 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-int g_exit_code;
+int	g_exit_code;
 
 static void	init_term(void);
+// static void	_print_exit(int sig_no);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -57,7 +58,13 @@ static void	init_term(void)
 	set_signal(JIJI, JIJI);
 }
 
-
+// static void	_print_exit(int sig_no)
+// {
+// 	(void)sig_no;
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	printf("exit\n");
+// }
 
 
 

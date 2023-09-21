@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 22:22:41 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:30:42 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@
 void	execute(t_shell_info *parse)
 {
 	t_exec_info		*exec;
-	int				status;
 	int				stdin_origin;
 	int				stdout_origin;
 
-	// if (parse->cmd->next == NULL && parse->cmd->cmd_cnt == 1)
-	// 	single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
-	// ""와 같이 명령어가 없는 경우에 대해 잘 처리하기
 	if (re_init_shell_info(parse) == EXIT_FAILURE)
 	{
 		free_cmd_info(parse->cmd);
@@ -33,9 +29,10 @@ void	execute(t_shell_info *parse)
 	exec = init_exec_info(parse);
 	stdin_origin = dup(STDIN_FILENO);
 	stdout_origin = dup(STDOUT_FILENO);
+	// if (parse->cmd->next == NULL && parse->cmd->cmd_cnt == 1)
+	// 	single_command(parse);		// 부모에서 실행되는 경우 -> flag 만들까(?)
+	// else
 	multi_process(exec, parse->cmd, parse->chunk_cnt);
-	while (parse->chunk_cnt--)
-		wait(&status);
 	free_cmd_info(parse->cmd);
 	free_exec_info(exec);
 	if (dup2(stdin_origin, STDIN_FILENO) == -1)

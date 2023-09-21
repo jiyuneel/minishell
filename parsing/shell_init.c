@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 18:41:22 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:58:16 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ int	shell_init(t_shell_info *shell_info, char *str)
 	t_token	*token;
 
 	token = NULL;
-	if (handle_syntax_error(token, str))
+	if (handle_syntax_error(shell_info, token, str))
 		return (EXIT_FAILURE);
 	parse_by_pipe(&token, str);
 	parse_by_redir(&token);
 	parse_by_space(&token);
 	delete_invalid_token(&token);
 	// print_token(token);
-	if (handle_syntax_error(token, str))
+	shell_info->chunk_cnt = 0;
+	if (handle_syntax_error(shell_info, token, str))
 	{
 		free_token(token);
 		return (EXIT_FAILURE);

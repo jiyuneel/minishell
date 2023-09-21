@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 19:29:33 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:54:57 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		delete_invalid_token(t_token **token);
 
 /* handle_syntax_error.c */
 void		check_quote(int *quote_flag, char *quote, char c);
-int			handle_syntax_error(t_token *token, char *str);
+int			handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str);
 
 /* replace_env.c */
 void		replace_env(t_env_info *env, t_token *token);
@@ -116,7 +116,7 @@ void		error_exit(char *cmd, int sys_errno);
 /* [built-in] */
 
 
-void	    env(t_exec_info *exec);
+void		env(t_exec_info *exec);
 
 /* [utils] */
 /* free_all.c */

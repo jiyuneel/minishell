@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:54:29 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:04:54 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,27 @@
 int	syntax_error_quote(char *str);
 int	syntax_error_token(t_token *token);
 
-int	handle_syntax_error(t_token *token, char *str)
+int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 {
+	t_token	*tmp = token;
+
 	if (!token)
 		return (syntax_error_quote(str));
 	else
+	{
+		while (tmp)
+		{
+			if (tmp->type == LEFT_2)
+				shell_info->heredoc_cnt++;
+			if (shell_info->heredoc_cnt > 16)
+			{
+				printf("jijishell: maximum here-document count exceeded\n");
+				exit(1);
+			}
+			tmp = tmp->next;
+		}
 		return (syntax_error_token(token));
+	}
 }
 
 int	print_syntax_error(char *str)

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 12:19:06 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:55:58 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	pid_t		pid;
 	int			status;
 
-	set_signal(DEFAULT, DEFAULT);
+	// set_signal(DEFAULT, DEFAULT);
 	pid = fork();
 	if (pid < 0)
 		exit (EXIT_FAILURE);

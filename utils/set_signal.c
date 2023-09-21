@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:40:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:49:04 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:54:08 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	_jiji_handler(int sig_no)
 {
 	if (sig_no == SIGINT)
 	{
+		g_exit_code = 1;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 14:55:58 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:22:43 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ int	re_init_shell_info(t_shell_info *parse)
 	pid_t		pid;
 	int			status;
 
-	// set_signal(DEFAULT, DEFAULT);
+	set_signal(IGNORE, IGNORE);
+	g_exit_code = 0;
 	pid = fork();
 	if (pid < 0)
 		exit (EXIT_FAILURE);
 	else if (pid == 0)
 		_check_here_doc(parse);
 	waitpid(pid, &status, 0);		// status 값으로 해당 에러코드 반환하고 종료하기
-	// if (WIFEXITED(status) == 0)
-	// 	return (_change_shell_info(parse));		// here_doc이 끝나고 나면 진행
-	// return (258);	// syntax error
+	if (WEXITSTATUS(status) == EXIT_FAILURE)
+		g_exit_code = EXIT_FAILURE;
 	_change_shell_info(parse);
-	set_signal(IGNORE, IGNORE);
+	// set_signal(IGNORE, IGNORE);
+	if (g_exit_code == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -44,14 +46,15 @@ static void	_check_here_doc(t_shell_info *parse)
 	t_cmd_info	*node;
 	int			filenum;
 
-	set_signal(JIJI, JIJI);		// set_signal(HRD_CHILD, HRD_CHILD);
+	set_signal(HRD_CHILD, HRD_CHILD);
 	// if (parse->here_doc_cnt >= 16)
 	// 	error_message("too many here_doc\n");  >> 파싱에서 에초에 쉘이 종료되어야 함!!
 	filenum = 0;
 	node = parse->cmd;
 	while (node)
 	{
-		_change_here_doc_to_infile(node->redir, &filenum, TRUE);
+		if (node->redir != NULL)
+			_change_here_doc_to_infile(node->redir, &filenum, TRUE);
 		node = node->next;
 	}
 	// signal에 대한 처리 진행 -> 이때 파일 삭제할 수 있으면 모두 삭제 진행
@@ -118,7 +121,7 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			exit (EXIT_FAILURE);
+			exit (EXIT_SUCCESS);
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
 		ft_putstr_fd(line, fd);

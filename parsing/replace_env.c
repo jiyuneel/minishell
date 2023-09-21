@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:58:31 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:38:17 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,11 @@ t_env_info	*find_env(char *str)
 		if ((!q.quote_flag || (q.quote_flag && q.quote == '\"')) && str[i] == '$')
 		{
 			j = i + 1;
-			while (str[j] && (ft_isalpha(str[j]) || str[j] == '_'))
+			if (str[j] == '?')
 				j++;
+			else
+				while (str[j] && (ft_isalpha(str[j]) || str[j] == '_'))
+					j++;
 			if (i + 1 != j)
 			{
 				key = malloc(sizeof(char) * (j - i));
@@ -108,6 +111,8 @@ void	get_env_value(t_env_info *env, t_env_info *tmpenv)
 {
 	while (tmpenv)
 	{
+		if (!ft_strcmp(tmpenv->key, "?"))
+			tmpenv->value = ft_strdup(ft_itoa(g_exit_code));
 		while (env)
 		{
 			if (!ft_strcmp(tmpenv->key, env->key))

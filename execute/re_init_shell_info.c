@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 22:22:43 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:46:56 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			exit (EXIT_SUCCESS);
+		{
+			close(fd);
+			return ;
+		}
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
 		ft_putstr_fd(line, fd);

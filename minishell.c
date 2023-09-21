@@ -6,11 +6,13 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:52:46 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:43:24 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
+
+int g_exit_code;
 
 static void	init_term(void);
 
@@ -48,6 +50,7 @@ static void	init_term(void)
 {
 	struct termios	term;
 
+	g_exit_code = 0;
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);			// 해당 flag로 shell의 상태 변경
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);

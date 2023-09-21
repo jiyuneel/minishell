@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   t_str_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:11:12 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 16:33:35 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:00:09 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_str	*str_new_node(char *command)
 {

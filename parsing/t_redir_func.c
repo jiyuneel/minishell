@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   t_redir_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:18:25 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 16:35:26 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:25:17 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_redir	*redir_new_node(t_token_type type, char *filename)
 {
@@ -20,7 +20,7 @@ t_redir	*redir_new_node(t_token_type type, char *filename)
 	if (!node)
 		return (NULL);
 	node->type = type;
-    node->filename = filename;
+	node->filename = filename;
 	node->next = NULL;
 	return (node);
 }

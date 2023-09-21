@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:51:54 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:30 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:55:06 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	parse_by_pipe(t_token **token, char *str)
 {

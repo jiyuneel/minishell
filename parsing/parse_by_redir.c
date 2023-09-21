@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:21:05 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:34 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:55:16 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	redir_exist(char *str)
 {

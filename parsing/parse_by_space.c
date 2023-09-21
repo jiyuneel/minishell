@@ -6,11 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:28:16 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:38 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:55:47 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	token_len(char *str)
 {

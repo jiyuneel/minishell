@@ -6,42 +6,41 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 01:38:17 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:18:56 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	_check_here_doc(t_shell_info *parse);
 static int	_change_shell_info(t_shell_info *parse);
 static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode);
 static void	_get_here_doc_file(char *filename, char *limiter);
 
-/* error_code 반환 */
 int	re_init_shell_info(t_shell_info *parse)
 {
 	pid_t		pid;
 	int			status;
 
 	set_signal(IGNORE, IGNORE);
-	if (parse->heredoc_cnt == 0)
-		return (EXIT_SUCCESS);
 	g_exit_code = 0;
-	pid = fork();
-	if (pid < 0)
-		exit (EXIT_FAILURE);
-	else if (pid == 0)
-		_check_here_doc(parse);
-	waitpid(pid, &status, 0);
-	if (WEXITSTATUS(status) == EXIT_FAILURE)
-		g_exit_code = EXIT_FAILURE;
+	if (parse->heredoc_cnt != 0)
+	{
+		pid = fork();
+		if (pid < 0)
+			exit (EXIT_FAILURE);
+		else if (pid == 0)
+			_check_here_doc(parse);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			g_exit_code = EXIT_FAILURE;
+	}
 	_change_shell_info(parse);
 	if (g_exit_code == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-/* child process: 위 함수에 합칠까? */
 static void	_check_here_doc(t_shell_info *parse)
 {
 	t_cmd_info	*node;
@@ -59,7 +58,6 @@ static void	_check_here_doc(t_shell_info *parse)
 	exit (EXIT_SUCCESS);
 }
 
-/* parent process: rename filename(hrd) & remove quotation*/
 static int	_change_shell_info(t_shell_info *parse)
 {
 	t_cmd_info	*node;

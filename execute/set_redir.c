@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:58:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:58 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:23:40 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	_dup_redir_in(t_exec_info *exec, char *file);
 static void	_dup_redir_out(t_exec_info *exec, char *file, t_token_type mode);

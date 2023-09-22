@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:40:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 01:52:18 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:24:34 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	_jiji_handler(int sig_no);
 static void	_hrd_handler(int sig_no);

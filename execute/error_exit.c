@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:08:44 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:47:33 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:22:37 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	error_file_open(char *filename)
 {

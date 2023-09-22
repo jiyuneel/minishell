@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 02:30:42 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:33:10 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 /* [실행부 함수 시작] */
 void	execute(t_shell_info *parse)
@@ -39,6 +39,8 @@ void	execute(t_shell_info *parse)
 		exit (EXIT_FAILURE);
 	if (dup2(stdout_origin, STDOUT_FILENO)== -1)
 		exit (EXIT_FAILURE);
+	close(stdin_origin);
+	close(stdout_origin);
 	set_signal(JIJI, JIJI);
 }
 

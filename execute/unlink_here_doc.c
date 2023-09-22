@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 05:08:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:49:08 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:23:48 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	unlink_here_doc(t_cmd_info *cmd)
 {

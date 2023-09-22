@@ -6,18 +6,17 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 22:46:56 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:18:56 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	_check_here_doc(t_shell_info *parse);
 static int	_change_shell_info(t_shell_info *parse);
 static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode);
 static void	_get_here_doc_file(char *filename, char *limiter);
 
-/* error_code 반환 */
 int	re_init_shell_info(t_shell_info *parse)
 {
 	pid_t		pid;
@@ -25,30 +24,29 @@ int	re_init_shell_info(t_shell_info *parse)
 
 	set_signal(IGNORE, IGNORE);
 	g_exit_code = 0;
-	pid = fork();
-	if (pid < 0)
-		exit (EXIT_FAILURE);
-	else if (pid == 0)
-		_check_here_doc(parse);
-	waitpid(pid, &status, 0);		// status 값으로 해당 에러코드 반환하고 종료하기
-	if (WEXITSTATUS(status) == EXIT_FAILURE)
-		g_exit_code = EXIT_FAILURE;
+	if (parse->heredoc_cnt != 0)
+	{
+		pid = fork();
+		if (pid < 0)
+			exit (EXIT_FAILURE);
+		else if (pid == 0)
+			_check_here_doc(parse);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			g_exit_code = EXIT_FAILURE;
+	}
 	_change_shell_info(parse);
-	// set_signal(IGNORE, IGNORE);
 	if (g_exit_code == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-/* child process: 위 함수에 합칠까? */
 static void	_check_here_doc(t_shell_info *parse)
 {
 	t_cmd_info	*node;
 	int			filenum;
 
 	set_signal(HRD_CHILD, HRD_CHILD);
-	// if (parse->here_doc_cnt >= 16)
-	// 	error_message("too many here_doc\n");  >> 파싱에서 에초에 쉘이 종료되어야 함!!
 	filenum = 0;
 	node = parse->cmd;
 	while (node)
@@ -57,11 +55,9 @@ static void	_check_here_doc(t_shell_info *parse)
 			_change_here_doc_to_infile(node->redir, &filenum, TRUE);
 		node = node->next;
 	}
-	// signal에 대한 처리 진행 -> 이때 파일 삭제할 수 있으면 모두 삭제 진행
 	exit (EXIT_SUCCESS);
 }
 
-/* parent process: rename filename(hrd) & remove quotation*/
 static int	_change_shell_info(t_shell_info *parse)
 {
 	t_cmd_info	*node;
@@ -121,16 +117,14 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 	{
 		line = readline("> ");
 		if (line == NULL)
-		{
-			close(fd);
-			return ;
-		}
+			break ;
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
 		free(line);
 	}
-	free(line);
+	if (line != NULL)
+		free(line);
 	close(fd);
 }

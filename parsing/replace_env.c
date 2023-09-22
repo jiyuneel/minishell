@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/22 20:06:25 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/23 03:47:52 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,23 @@
 t_env_info	*tmpenv_new_node(char *key, int idx);
 t_env_info	*find_env(char *str);
 void		get_env_value(t_env_info *env, t_env_info *tmpenv);
+void		expand_env(t_token *token, t_env_info *env_var);
 
 void	replace_env(t_env_info *env, t_token *token)
 {
-	t_env_info		*tmpenv;
-	t_env_info		*tmp;
+	t_env_info		*env_var;
 	t_token_type	prev_type;
-	char			*env_front;
-	char			*env_back;
-	char			*str;
-	int				idx_back;
 
 	prev_type = 0;
 	while (token)
 	{
 		if (!(LEFT_1 <= prev_type && prev_type <= RIGHT_2) && token->type == STR)
 		{
-			tmpenv = find_env(token->value);
-			get_env_value(env, tmpenv);
+			env_var = find_env(token->value);
+			get_env_value(env, env_var);
 			// print_env(tmpenv);
-			tmp = tmpenv;
-			while (tmp)
-			{
-				env_front = malloc(sizeof(char) * (tmp->idx + 1));
-				ft_strlcpy(env_front, token->value, tmp->idx + 1);
-				idx_back = tmp->idx + ft_strlen(tmp->key) + 1;
-				env_back = ft_strdup(token->value + idx_back);
-				free(token->value);
-				if (tmp->value)
-					str = ft_strjoin(env_front, tmp->value);
-				else
-					str = ft_strjoin(env_front, "");
-				token->value = ft_strjoin(str, env_back);
-				free(env_front);
-				free(env_back);
-				free(str);
-				tmp = tmp->next;
-			}
-
-			free_env_info(tmpenv);
+			expand_env(token, env_var);
+			free_env_info(env_var);
 		}
 		prev_type = token->type;
 		token = token->next;
@@ -91,9 +69,7 @@ t_env_info	*find_env(char *str)
 		if ((!q.quote_flag || (q.quote_flag && q.quote == '\"')) && str[i] == '$')
 		{
 			j = i + 1;
-			if (str[j] == '?')
-				j++;
-			else if (ft_isdigit(str[j]))
+			if (str[j] == '?' || ft_isdigit(str[j]))
 				j++;
 			else
 				while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
@@ -112,28 +88,58 @@ t_env_info	*find_env(char *str)
 	return (env);
 }
 
-void	get_env_value(t_env_info *env, t_env_info *tmpenv)
+void	get_env_value(t_env_info *env, t_env_info *env_var)
 {
 	t_env_info	*tmp;
+	char		*exit_code;
 
-	while (tmpenv)
+	while (env_var)
 	{
-		if (!ft_strcmp(tmpenv->key, "?"))
-			tmpenv->value = ft_strdup(ft_itoa(g_exit_code));
+		if (!ft_strcmp(env_var->key, "?"))
+		{
+			exit_code = ft_itoa(g_exit_code);
+			env_var->value = ft_strdup(exit_code);
+			free(exit_code);
+		}
 		tmp = env;
 		while (tmp)
 		{
-			if (!ft_strcmp(tmpenv->key, tmp->key))
+			if (!ft_strcmp(env_var->key, tmp->key))
 			{
-				tmpenv->value = ft_strdup(tmp->value);
+				env_var->value = ft_strdup(tmp->value);
 				break ;
 			}
 			tmp = tmp->next;
 		}
-		tmpenv = tmpenv->next;
+		env_var = env_var->next;
 	}
 }
 
+void	expand_env(t_token *token, t_env_info *env_var)
+{
+	char			*env_front;
+	char			*env_back;
+	char			*str;
+	int				idx_back;
+
+	while (env_var)
+	{
+		env_front = malloc(sizeof(char) * (env_var->idx + 1));
+		ft_strlcpy(env_front, token->value, env_var->idx + 1);
+		idx_back = env_var->idx + ft_strlen(env_var->key) + 1;
+		env_back = ft_strdup(token->value + idx_back);
+		free(token->value);
+		if (env_var->value)
+			str = ft_strjoin(env_front, env_var->value);
+		else
+			str = ft_strjoin(env_front, "");
+		token->value = ft_strjoin(str, env_back);
+		free(env_front);
+		free(env_back);
+		free(str);
+		env_var = env_var->next;
+	}
+}
 
 
 /* env 출력 */

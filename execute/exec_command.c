@@ -6,11 +6,11 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/17 10:21:13 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:22:20 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static char	*_check_command_path(t_exec_info *exec);
 

@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/21 17:43:24 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:49:29 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-int g_exit_code;
+int	g_exit_code;
 
-static void	init_term(void);
+static void	_init_term(int argc, char **argv);
+
+void aaa(void) {
+	system("leaks -q $PPID");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -22,19 +26,20 @@ int	main(int argc, char **argv, char **envp)
 	char			*str;
 	struct termios	term;
 
+	// atexit(aaa);
 	tcgetattr(STDIN_FILENO, &term);				// 현재 shell의 출력 상태를 저장
-	init_term();
-	(void) argv;
-	if (argc != 1)
-		return (1);		// error
+	_init_term(argc, argv);
 	env_init(&shell_info.env, envp);
-	while (1)
+	while (TRUE)
 	{
-		str = readline("jijishell$ ");
+		str = readline("\033[37;1mjijishell$ "); // \033[94m
 		if (!str)		// ctrl+D
 			break ;
 		if (!str[0])	// enter
+		{
+			free(str);
 			continue ;
+		}
 		if (!shell_init(&shell_info, str))
 			execute(&shell_info);
 		// print_shell_info(&shell_info);
@@ -42,20 +47,25 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 	}
 	free_env_info(shell_info.env);
+	printf("\x1b[1A\033[11Cexit\n", STDOUT_FILENO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);	// 모든 것이 끝났으므로 다시 원상 복귀
-	return (0);
+	return (g_exit_code);
 }
 
-static void	init_term(void)
+static void	_init_term(int argc, char **argv)
 {
 	struct termios	term;
 
+	(void) argv;
+	if (argc != 1)
+		exit (EXIT_FAILURE);
 	g_exit_code = 0;
 	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ECHOCTL);			// 해당 flag로 shell의 상태 변경
+	term.c_lflag &= ~(ECHOCTL);					// 해당 flag로 shell의 출력 제어
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(JIJI, JIJI);
 }
+
 
 
 

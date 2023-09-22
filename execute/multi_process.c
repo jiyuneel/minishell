@@ -6,14 +6,15 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/17 07:07:21 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:39:55 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	_parent_process(t_exec_info *exec);
 static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end);
+static void	_wait_child(pid_t last_pid, int chunk_cnt);
 
 void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 {
@@ -23,6 +24,7 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 	idx = 1;
 	while (cmd)
 	{
+		set_signal(IGNORE, IGNORE);
 		exec->cmd_args = cmd->cmd_args;
 		if (pipe(exec->pipe) == -1)
 			error_exit("pipe", EXIT_FAILURE);		// pipe error: exit(shell)
@@ -36,6 +38,7 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 		cmd = cmd->next;
 		idx++;
 	}
+	_wait_child(pid, chunk_cnt);
 }
 
 static void	_parent_process(t_exec_info *exec)
@@ -48,6 +51,7 @@ static void	_parent_process(t_exec_info *exec)
 
 static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end)
 {
+	set_signal(DEFAULT, DEFAULT);
 	close(exec->pipe[P_READ]);
 	if (end != 0 && dup2(exec->pipe[P_WRITE], STDOUT_FILENO) == -1)
 		perror("dup2(pipe_write)");
@@ -55,3 +59,60 @@ static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end)
 	dup_redir_to_inout(exec, cmd->redir);
 	exec_command(exec);
 }
+
+static void	_wait_child(pid_t last_pid, int chunk_cnt)
+{
+	pid_t	child;
+	int		status;
+	int		idx;
+	int		print_flag;
+
+	idx = 0;
+	print_flag = 0;
+	while (idx < chunk_cnt)
+	{
+		child = waitpid(-1, &status, 0);
+		if (WIFSIGNALED(status) == TRUE && ++print_flag)
+		{
+			if (WTERMSIG(status) == SIGINT && print_flag == TRUE)
+				ft_putstr_fd("^C\n", STDERR_FILENO);
+			else if (WTERMSIG(status) == SIGQUIT && print_flag == TRUE)
+				ft_putstr_fd("^\\Quit: 3\n", STDERR_FILENO);
+			if (child == last_pid)
+				g_exit_code = 128 + WTERMSIG(status);
+		}
+		else if (child == last_pid)
+			g_exit_code = WEXITSTATUS(status);
+		idx++;
+	}
+}
+/*
+static void	_wait_child(pid_t last_pid, int chunk_cnt)
+{
+	pid_t	child;
+	int		status;
+	int		idx;
+
+	idx = 0;
+	printf("last: %d\n", last_pid);
+	while (idx < chunk_cnt)
+	{
+		child = waitpid(-1, &status, 0);
+		// printf("child: %d\n", child);
+		if (WIFSIGNALED(status) == TRUE)
+		{
+			if (WTERMSIG(status) == SIGINT)
+				ft_putstr_fd("^C\n", STDERR_FILENO);
+			else if (WTERMSIG(status) == SIGQUIT)
+				ft_putstr_fd("^\\Quit: 3\n", STDERR_FILENO);
+			if (child == last_pid)
+				g_exit_code = 128 + WTERMSIG(status);
+		}
+		else if (child == last_pid)
+			g_exit_code = WEXITSTATUS(status);
+		printf("child: %d, exitcode: %d\n", child, status);
+		idx++;
+	}
+	printf("[exitcode: %d]\n", g_exit_code);
+}
+*/

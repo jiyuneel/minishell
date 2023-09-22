@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/21 19:56:48 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:32:20 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define P_WRITE	1
 
 /* heredoc define */
-# define HERE_DOC	"._here_doc_"
+# define HERE_DOC	"./tmp/_here_doc_"
 
 /* redirection type */
 typedef enum e_token_type

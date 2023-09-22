@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/22 01:47:40 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:49:29 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,30 @@ int	g_exit_code;
 
 static void	_init_term(int argc, char **argv);
 
+void aaa(void) {
+	system("leaks -q $PPID");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell_info	shell_info;
 	char			*str;
 	struct termios	term;
 
+	// atexit(aaa);
 	tcgetattr(STDIN_FILENO, &term);				// 현재 shell의 출력 상태를 저장
 	_init_term(argc, argv);
 	env_init(&shell_info.env, envp);
 	while (TRUE)
 	{
-		str = readline("\033[96mjijishell$ "); // \033[94m
+		str = readline("\033[37;1mjijishell$ "); // \033[94m
 		if (!str)		// ctrl+D
 			break ;
 		if (!str[0])	// enter
+		{
+			free(str);
 			continue ;
+		}
 		if (!shell_init(&shell_info, str))
 			execute(&shell_info);
 		// print_shell_info(&shell_info);

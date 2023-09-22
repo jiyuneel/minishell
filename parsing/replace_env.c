@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/21 17:38:17 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:25:04 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ t_env_info	*find_env(char *str)
 			j = i + 1;
 			if (str[j] == '?')
 				j++;
+			else if (ft_isdigit(str[j]))
+				j++;
 			else
-				while (str[j] && (ft_isalpha(str[j]) || str[j] == '_'))
+				while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
 					j++;
 			if (i + 1 != j)
 			{
@@ -109,18 +111,21 @@ t_env_info	*find_env(char *str)
 
 void	get_env_value(t_env_info *env, t_env_info *tmpenv)
 {
+	t_env_info	*tmp;
+
 	while (tmpenv)
 	{
 		if (!ft_strcmp(tmpenv->key, "?"))
 			tmpenv->value = ft_strdup(ft_itoa(g_exit_code));
-		while (env)
+		tmp = env;
+		while (tmp)
 		{
-			if (!ft_strcmp(tmpenv->key, env->key))
+			if (!ft_strcmp(tmpenv->key, tmp->key))
 			{
-				tmpenv->value = ft_strdup(env->value);
+				tmpenv->value = ft_strdup(tmp->value);
 				break ;
 			}
-			env = env->next;
+			tmp = tmp->next;
 		}
 		tmpenv = tmpenv->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/22 17:25:04 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:06:25 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ void		get_env_value(t_env_info *env, t_env_info *tmpenv);
 
 void	replace_env(t_env_info *env, t_token *token)
 {
-	t_env_info	*tmpenv;
-	t_env_info	*tmp;
-	char		*env_front;
-	char		*env_back;
-	char		*str;
-	int			idx_back;
+	t_env_info		*tmpenv;
+	t_env_info		*tmp;
+	t_token_type	prev_type;
+	char			*env_front;
+	char			*env_back;
+	char			*str;
+	int				idx_back;
 
+	prev_type = 0;
 	while (token)
 	{
-		if (token->type == STR)
+		if (!(LEFT_1 <= prev_type && prev_type <= RIGHT_2) && token->type == STR)
 		{
 			tmpenv = find_env(token->value);
 			get_env_value(env, tmpenv);
@@ -53,6 +55,7 @@ void	replace_env(t_env_info *env, t_token *token)
 
 			free_env_info(tmpenv);
 		}
+		prev_type = token->type;
 		token = token->next;
 	}
 }

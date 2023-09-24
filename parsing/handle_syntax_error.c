@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/21 20:04:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:00:22 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ int	print_syntax_error(char *str)
 	return (EXIT_FAILURE);
 }
 
-void	check_quote(int *quote_flag, char *quote, char c)
+int	check_quote(t_quote	*q, char c)
 {
-	if (!*quote_flag && (c == '\'' || c == '\"'))
+	if (!q->quote_flag && (c == '\'' || c == '\"'))
 	{
-		*quote_flag = TRUE;
-		*quote = c;
+		q->quote_flag = TRUE;
+		q->quote = c;
 	}
-	else if (*quote_flag && c == *quote)
-		*quote_flag = FALSE;
+	else if (q->quote_flag && c == q->quote)
+		q->quote_flag = FALSE;
+	return (q->quote_flag);
 }
 
 int	syntax_error_quote(char *str)
@@ -62,7 +63,7 @@ int	syntax_error_quote(char *str)
 	q.quote_flag = FALSE;
 	while (*str)
 	{
-		check_quote(&q.quote_flag, &q.quote, *str);
+		check_quote(&q, *str);
 		str++;
 	}
 	if (q.quote_flag)

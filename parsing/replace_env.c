@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 20:59:24 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:01:56 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	find_env(char *str, t_env_info **env_var)
 	i = 0;
 	while (str[i])
 	{
-		check_quote(&q.quote_flag, &q.quote, str[i]);
+		check_quote(&q, str[i]);
 		if ((!q.quote_flag || (q.quote_flag && q.quote == '\"')) \
 			&& str[i] == '$')
 		{

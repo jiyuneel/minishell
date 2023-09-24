@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:28:16 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:55:47 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:02:51 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	token_len(char *str)
 	q.quote_flag = FALSE;
 	while (*str)
 	{
-		check_quote(&q.quote_flag, &q.quote, *str);
+		check_quote(&q, *str);
 		if (!q.quote_flag && *str == ' ')
 			break ;
 		len++;

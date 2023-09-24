@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:51:54 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 17:55:06 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:02:35 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_by_pipe(t_token **token, char *str)
 	tmp = str;
 	while (1)
 	{
-		check_quote(&q.quote_flag, &q.quote, *str);
+		check_quote(&q, *str);
 		if (!q.quote_flag && (!*str || *str == '|'))
 		{
 			if (str != tmp)

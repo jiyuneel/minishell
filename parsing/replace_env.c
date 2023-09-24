@@ -6,30 +6,31 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/23 03:47:52 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:59:24 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_env_info	*tmpenv_new_node(char *key, int idx);
-t_env_info	*find_env(char *str);
+void		find_env(char *str, t_env_info **env_var);
 void		get_env_value(t_env_info *env, t_env_info *tmpenv);
 void		expand_env(t_token *token, t_env_info *env_var);
 
 void	replace_env(t_env_info *env, t_token *token)
 {
-	t_env_info		*env_var;
 	t_token_type	prev_type;
+	t_env_info		*env_var;
 
 	prev_type = 0;
 	while (token)
 	{
-		if (!(LEFT_1 <= prev_type && prev_type <= RIGHT_2) && token->type == STR)
+		if (!(LEFT_1 <= prev_type && prev_type <= RIGHT_2)
+			&& token->type == STR)
 		{
-			env_var = find_env(token->value);
+			env_var = NULL;
+			find_env(token->value, &env_var);
 			get_env_value(env, env_var);
-			// print_env(tmpenv);
 			expand_env(token, env_var);
 			free_env_info(env_var);
 		}
@@ -52,21 +53,19 @@ t_env_info	*tmpenv_new_node(char *key, int idx)
 	return (node);
 }
 
-t_env_info	*find_env(char *str)
+void	find_env(char *str, t_env_info **env_var)
 {
-	t_env_info	*env;
 	t_quote		q;
 	int			i;
 	int			j;
-	char		*key;
 
-	env = NULL;
 	q.quote_flag = FALSE;
 	i = 0;
 	while (str[i])
 	{
 		check_quote(&q.quote_flag, &q.quote, str[i]);
-		if ((!q.quote_flag || (q.quote_flag && q.quote == '\"')) && str[i] == '$')
+		if ((!q.quote_flag || (q.quote_flag && q.quote == '\"')) \
+			&& str[i] == '$')
 		{
 			j = i + 1;
 			if (str[j] == '?' || ft_isdigit(str[j]))
@@ -75,17 +74,12 @@ t_env_info	*find_env(char *str)
 				while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
 					j++;
 			if (i + 1 != j)
-			{
-				key = malloc(sizeof(char) * (j - i));
-				ft_strlcpy(key, &str[i + 1], j - i);
-				env_add_front(&env, tmpenv_new_node(key, i));
-			}
-			i = j;
+				env_add_front(env_var, \
+					tmpenv_new_node(ft_strndup(&str[i + 1], j - i - 1), i));
+			i = j - 1;
 		}
-		else
-			i++;
+		i++;
 	}
-	return (env);
 }
 
 void	get_env_value(t_env_info *env, t_env_info *env_var)
@@ -117,10 +111,10 @@ void	get_env_value(t_env_info *env, t_env_info *env_var)
 
 void	expand_env(t_token *token, t_env_info *env_var)
 {
-	char			*env_front;
-	char			*env_back;
-	char			*str;
-	int				idx_back;
+	char	*env_front;
+	char	*env_back;
+	char	*str;
+	int		idx_back;
 
 	while (env_var)
 	{

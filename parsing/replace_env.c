@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:01:56 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:13:38 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,7 @@ void	expand_env(t_token *token, t_env_info *env_var)
 
 	while (env_var)
 	{
-		env_front = malloc(sizeof(char) * (env_var->idx + 1));
-		ft_strlcpy(env_front, token->value, env_var->idx + 1);
+		env_front = ft_strndup(token->value, env_var->idx);
 		idx_back = env_var->idx + ft_strlen(env_var->key) + 1;
 		env_back = ft_strdup(token->value + idx_back);
 		free(token->value);

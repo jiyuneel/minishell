@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 21:28:12 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:06:59 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		parse_by_space(t_token **token);
 void		delete_invalid_token(t_token **token);
 
 /* handle_syntax_error.c */
-void		check_quote(int *quote_flag, char *quote, char c);
+int			check_quote(t_quote	*q, char c);
 int			handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str);
 
 /* replace_env.c */

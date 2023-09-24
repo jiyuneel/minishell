@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:28:16 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:02:51 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:12:42 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	token_len(char *str)
 	q.quote_flag = FALSE;
 	while (*str)
 	{
-		check_quote(&q, *str);
-		if (!q.quote_flag && *str == ' ')
+		if (!check_quote(&q, *str) && *str == ' ')
 			break ;
 		len++;
 		str++;
@@ -42,8 +41,7 @@ t_token	*_parse_by_space(char *str)
 		if (*str != ' ')
 		{
 			len = token_len(str);
-			value = malloc(sizeof(char) * (len + 1));
-			ft_strlcpy(value, str, len + 1);
+			value = ft_strndup(str, len);
 			token_add_back(&token, token_new_node(STR, value));
 			str += len;
 		}

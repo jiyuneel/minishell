@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:58:11 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/19 11:58:17 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:12:03 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ void	env_init(t_env_info **env, char **envp)
 		while ((*envp)[key_len] && (*envp)[key_len] != '=')
 			key_len++;
 		value_len = ft_strlen(*envp) - key_len - 1;
-		key = malloc(sizeof(char) * key_len + 1);
-		value = malloc(sizeof(char) * value_len + 1);
-		// if (!key) if (!value)
-		ft_strlcpy(key, *envp, key_len + 1);
-		ft_strlcpy(value, *envp + key_len + 1, value_len + 1);
+		key = ft_strndup(*envp, key_len);
+		value = ft_strndup(*envp + key_len + 1, value_len);
 		env_add_back(env, env_new_node(key, value));
 		envp++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:51:54 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:02:35 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:09:42 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	parse_by_pipe(t_token **token, char *str)
 	tmp = str;
 	while (1)
 	{
-		check_quote(&q, *str);
-		if (!q.quote_flag && (!*str || *str == '|'))
+		if (!check_quote(&q, *str) && (!*str || *str == '|'))
 		{
 			if (str != tmp)
 			{
-				value = malloc(sizeof(char) * (str - tmp + 1));
-				ft_strlcpy(value, tmp, str - tmp + 1);
+				value = ft_strndup(tmp, str - tmp);
 				token_add_back(token, token_new_node(STR, value));
 			}
 			if (*str++ == '|')

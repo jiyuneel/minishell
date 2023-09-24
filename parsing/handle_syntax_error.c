@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:00:22 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:53:55 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 int	print_syntax_error(char *str)
 {
 	printf("jijishell: syntax error near unexpected token `%s\'\n", str);
+	g_exit_code = 258;
 	return (EXIT_FAILURE);
 }
 

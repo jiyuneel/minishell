@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:40:28 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/21 20:16:03 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:26:13 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	cmd_add_back(t_cmd_info **node, t_cmd_info *new);
 void	cmd_init(t_cmd_info **cmd, t_token *token)
 {
 	t_cmd_info		*cmd_info;
-	t_token_type	type;
 
 	cmd_info = ft_calloc(1, sizeof(t_cmd_info));
 	while (token)
@@ -29,9 +28,9 @@ void	cmd_init(t_cmd_info **cmd, t_token *token)
 		}
 		else if (LEFT_1 <= token->type && token->type <= RIGHT_2)
 		{
-			type = token->type;
+			redir_add_back(&cmd_info->redir, \
+				redir_new_node(token->type, ft_strdup(token->next->value)));
 			token = token->next;
-			redir_add_back(&cmd_info->redir, redir_new_node(type, ft_strdup(token->value)));
 		}
 		else if (token->type == PIPE)
 		{

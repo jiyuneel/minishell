@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/20 10:18:09 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/25 00:02:11 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS_EXEC	= execute.c \
 OBJS_EXEC	= $(addprefix $(EXEC_DIR), $(SRCS_EXEC:.c=.o))
 
 BUILT_DIR	= ./builtin/
-SRCS_BUILT	= env.c
+SRCS_BUILT	= env.c \
+			  unset.c
 OBJS_BUILT	= $(addprefix $(BUILT_DIR), $(SRCS_BUILT:.c=.o))
 
 UTILS_DIR	= ./utils/

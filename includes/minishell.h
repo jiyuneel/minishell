@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 21:28:12 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:45:19 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void		unlink_here_doc(t_cmd_info *cmd);
 
 /* error_exit.c */
 void		error_file_open(char *filename);
+void		error_for_dot(char *cmd, int len);
+void		error_no_auth(char *cmd);
 void		error_exit(char *cmd, int sys_errno);
 
 

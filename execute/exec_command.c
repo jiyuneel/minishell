@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 01:01:17 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:49:59 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ static char	*_get_command_path(t_exec_info *exec);
 void	exec_command(t_exec_info *exec)
 {
 	char	*cmd_path;
+	int		exit_code;
 
+	set_signal(DEFAULT, DEFAULT);
 	if (exec->cmd_args[0] == NULL)
 		exit (EXIT_SUCCESS);
 	_if_abs_or_rel_path(exec);
+	if (is_builtin(exec, &exit_code) == TRUE)		// "" 인 경우도 되는지 확인
+		exit (exit_code);
 	cmd_path = _get_command_path(exec);
 	if (cmd_path == NULL)
 		error_exit(exec->cmd_args[0], FALSE);
@@ -54,6 +58,8 @@ static char	*_get_command_path(t_exec_info *exec)
 	if (exec->cmd_args[0][0] == '\0')		// ""가 들어온 경우 예외 처리
 		return (NULL);
 	i = 0;
+	if (exec->path_args == NULL)
+		return (NULL);
 	while (exec->path_args[i])
 	{
 		tmp = ft_strjoin(exec->path_args[i], "/");

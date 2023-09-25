@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:14:39 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 15:23:10 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:14:17 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*_make_string(char *res_cmd, char *copy_address, int len)
 	char	*new_string;
 	char	*_add;
 
-	_add = malloc(sizeof(char) * (len + 1));
+	_add = ft_calloc(len + 1, sizeof(char));
 	if (_add == NULL)
 		exit (EXIT_FAILURE);
 	ft_strlcpy(_add, copy_address, len + 1);

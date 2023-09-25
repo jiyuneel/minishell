@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 17:18:56 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:07:13 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	re_init_shell_info(t_shell_info *parse)
 {
 	pid_t		pid;
 	int			status;
+	int			exit_code_origin;
 
 	set_signal(IGNORE, IGNORE);
+	exit_code_origin = g_exit_code;		// exit이 들어온 경우에 대한 처리...
 	g_exit_code = 0;
 	if (parse->heredoc_cnt != 0)
 	{
@@ -38,6 +40,7 @@ int	re_init_shell_info(t_shell_info *parse)
 	_change_shell_info(parse);
 	if (g_exit_code == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	g_exit_code = exit_code_origin;		// exit이 들어온 경우에 대한 처리...
 	return (EXIT_SUCCESS);
 }
 

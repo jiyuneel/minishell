@@ -6,8 +6,14 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:26:05 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/18 16:26:22 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:03:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	echo(t_exec_info *exec)
+{
+	(void) exec;
+	return (EXIT_SUCCESS);
+}

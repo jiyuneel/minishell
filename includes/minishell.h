@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 02:33:33 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:28:23 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,14 @@ char		*remove_quotation(char *command, int origin_len);
 /* init_exec_info.c */
 t_exec_info	*init_exec_info(t_shell_info *parse);
 
+/* single_process.c */
+int			single_process(t_exec_info *exec, t_cmd_info *cmd);
+
 /* multi_process.c */
 void		multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt);
+
+/* wait_child.c */
+void		wait_child(pid_t last_pid, int chunk_cnt);
 
 /* exec_command.c */
 void		exec_command(t_exec_info *exec);
@@ -111,19 +117,24 @@ void		unlink_here_doc(t_cmd_info *cmd);
 
 /* error_exit.c */
 void		error_file_open(char *filename);
+void		error_for_dot(char *cmd, int len);
+void		error_no_auth(char *cmd);
 void		error_exit(char *cmd, int sys_errno);
 
 
 /* [built-in] */
-
-
-void		env(t_exec_info *exec);
-void		unset(t_exec_info *exec);
-void		export(t_exec_info *exec);
+int			is_builtin(t_exec_info *exec, int *exit_code);
+int			echo(t_exec_info *exec);
+int			cd(t_exec_info *exec);
+int			pwd(t_exec_info *exec);
+int			export(t_exec_info *exec);
+int			unset(t_exec_info *exec);
+int			env(t_exec_info *exec);
+int			exit_with_args(t_exec_info *exec);
 
 /* [utils] */
 /* free_all.c */
-void		free_cmd_info(t_cmd_info *cmd);
+void		free_cmd_info(t_cmd_info *cmd, int heredoc_cnt);
 void		free_env_info(t_env_info *env);
 void		free_exec_info(t_exec_info *exec);
 void		free_arr(char **arr);

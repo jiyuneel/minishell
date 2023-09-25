@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:40:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 15:24:34 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/23 02:37:56 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,43 +27,25 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGINT, _hrd_handler);
 	if (sig_quit == DEFAULT)
 		signal(SIGQUIT, SIG_DFL);
-	if (sig_quit == IGNORE)
+	if (sig_quit == IGNORE || sig_quit == JIJI || sig_quit == HRD_CHILD)
 		signal(SIGQUIT, SIG_IGN);
-	if (sig_quit == JIJI)
-		signal(SIGQUIT, _jiji_handler);		// SIG_IGN(?)
-	if (sig_quit == HRD_CHILD)
-		signal(SIGQUIT, _hrd_handler);		// SIG_IGN(?)
 }
 
 static void	_jiji_handler(int sig_no)
 {
-	if (sig_no == SIGINT)
-	{
-		g_exit_code = 1;		// in parent process
-		printf("\n");			// write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (sig_no == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	(void) sig_no;
+	g_exit_code = 1;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 static void	_hrd_handler(int sig_no)
 {
-	if (sig_no == SIGINT)
-	{
-		printf("\n");			// write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		exit (EXIT_FAILURE);
-	}
-	if (sig_no == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	(void) sig_no;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	exit (EXIT_FAILURE);
 }

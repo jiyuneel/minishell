@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 20:30:28 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:30:15 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct s_exec_info
 	char				**cmd_args;		// copy address
 	char				**path_args;	// free(needed)
 	char				**envp;			// free(needed)
-	struct s_env_info	*env;			// copy address
+	struct s_env_info	**env;			// copy address
 }	t_exec_info;
 
 #endif

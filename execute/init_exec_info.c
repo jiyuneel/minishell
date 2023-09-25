@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/16 14:48:36 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:11:13 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,25 @@ static void	_get_envp(t_exec_info *exec)
 
 	node = exec->env;
 	if (node == NULL)
-	{
-		exec->envp = NULL;
 		return ;
-	}
-	exec->envp = malloc(sizeof(char *) * (_get_envp_len(node) + 1));
+	exec->envp = ft_calloc(_get_envp_len(node) + 1, sizeof(char *));
 	idx = 0;
 	while (node)
 	{
-		tmp = ft_strjoin(node->key, "=");
-		if (tmp == NULL)
-			exit (EXIT_FAILURE);	// fail to strjoin
-		exec->envp[idx] = ft_strjoin(tmp, node->value);
-		free (tmp);
-		if (exec->envp[idx] == NULL)
-			exit (EXIT_FAILURE);	// fail to strjoin
-		idx++;
+		if (node->value != NULL)
+		{
+			tmp = ft_strjoin(node->key, "=");
+			if (tmp == NULL)
+				exit (EXIT_FAILURE);	// fail to strjoin
+			exec->envp[idx] = ft_strjoin(tmp, node->value);
+			free (tmp);
+			if (exec->envp[idx] == NULL)
+				exit (EXIT_FAILURE);	// fail to strjoin
+			idx++;
+		}
 		node = node->next;
 	}
-	exec->envp[idx] = NULL;
+	exec->envp[idx] = NULL;		// 없애도 될듯?(: calloc 했자나)
 }
 
 static int	_get_envp_len(t_env_info *env)
@@ -87,13 +87,9 @@ static int	_get_envp_len(t_env_info *env)
 	len = 0;
 	while (env)
 	{
-		len++;
+		if (env->value != NULL)
+			len++;
 		env = env->next;
 	}
 	return (len);
 }
-
-
-// PATH 없애면 어떻게 해야 할 지 확실히 정하기
-// 1. 원래 pipex에서는 infile outfile 다 만들어놓고 했으므로 문제가 없음
-// 2. 실제 shell에서는 파일은 다 생성된 상태에서 하는데 이걸 어떻게 짤지 다시 고민할 것

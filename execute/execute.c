@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:44:58 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 01:20:30 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:28:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execute(t_shell_info *parse)
 
 	if (re_init_shell_info(parse) == EXIT_FAILURE)
 	{
-		_free_n_set_origin(parse, exec, stdin_origin, stdout_origin);
+		_free_n_set_origin(parse, NULL, stdin_origin, stdout_origin);
 		return ;
 	}
 	set_signal(IGNORE, IGNORE);

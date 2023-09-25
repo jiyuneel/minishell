@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 16:56:42 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 21:51:31 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,9 @@ void	print_export(t_env_info *env)
 		if (tmp->value)
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else
-			printf("declare -x %s", tmp->key);
+			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
-}
-
-void	print_export_error(char *identifier)
-{
-	printf("jijishell: export: `%s\': not a valid identifier\n", identifier);
 }
 
 int	is_valid_export_identifier(char *str)
@@ -110,7 +105,7 @@ int	export(t_exec_info *exec)
 
 	error_flag = FALSE;
 	if (!exec->cmd_args[1])
-		print_export(exec->env);
+		print_export(*exec->env);
 	else
 	{
 		i = 1;
@@ -119,10 +114,11 @@ int	export(t_exec_info *exec)
 			if (!is_valid_export_identifier(exec->cmd_args[i]))
 			{
 				error_flag = TRUE;
-				print_export_error(exec->cmd_args[i]);
+				printf("jijishell: export: `%s\': not a valid identifier\n", \
+					exec->cmd_args[i]);
 			}
 			else
-				export_env(&exec->env, exec->cmd_args[i]);
+				export_env(exec->env, exec->cmd_args[i]);
 			i++;
 		}
 	}

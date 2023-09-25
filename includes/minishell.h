@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 17:28:23 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:10:13 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int			export(t_exec_info *exec);
 int			unset(t_exec_info *exec);
 int			env(t_exec_info *exec);
 int			exit_with_args(t_exec_info *exec);
+void		delete_env(t_env_info **env, t_env_info **node);
 
 /* [utils] */
 /* free_all.c */

@@ -6,16 +6,11 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:26:20 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 16:56:33 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 21:48:26 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	print_unset_error(char *identifier)
-{
-	printf("jijishell: unset: `%s\': not a valid identifier\n", identifier);
-}
 
 int	is_valid_unset_identifier(char *str)
 {
@@ -47,6 +42,7 @@ void	delete_env(t_env_info **env, t_env_info **node)
 		prev = *env;
 		while (prev->next != *node)
 			prev = prev->next;
+		prev->next = (*node)->next;
 		free((*node)->key);
 		free((*node)->value);
 		free(*node);
@@ -66,7 +62,7 @@ void	unset_env(t_env_info **env, char *str)
 			delete_env(env, &tmp);
 			break ;
 		}
-		else //
+		else
 			tmp = tmp->next;
 	}
 }
@@ -83,10 +79,11 @@ int	unset(t_exec_info *exec)
 		if (!is_valid_unset_identifier(exec->cmd_args[i]))
 		{
 			error_flag = TRUE;
-			print_unset_error(exec->cmd_args[i]);
+			printf("jijishell: unset: `%s\': not a valid identifier\n", \
+				exec->cmd_args[i]);
 		}
 		else
-			unset_env(&exec->env, exec->cmd_args[i]);
+			unset_env(exec->env, exec->cmd_args[i]);
 		i++;
 	}
 	return (error_flag);

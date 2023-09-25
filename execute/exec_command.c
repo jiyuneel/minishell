@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 16:49:59 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:12:14 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_command(t_exec_info *exec)
 	char	*cmd_path;
 	int		exit_code;
 
-	set_signal(DEFAULT, DEFAULT);
+	set_signal(DEFAULT, DEFAULT);	// single_process에서 하니까 없애도 괜찮을듯?
 	if (exec->cmd_args[0] == NULL)
 		exit (EXIT_SUCCESS);
 	_if_abs_or_rel_path(exec);

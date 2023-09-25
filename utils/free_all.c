@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 13:37:03 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:58:20 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	free_env_info(t_env_info *env)
 	{
 		tmp = env->next;
 		free (env->key);
-		free (env->value);
+		if (env->value != NULL)
+			free (env->value);
 		free (env);
 		env = tmp;
 	}

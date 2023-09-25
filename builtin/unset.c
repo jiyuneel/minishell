@@ -6,19 +6,19 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:26:20 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 00:30:55 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 02:55:12 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_unset_error(char *str)
+void	print_unset_error(char *identifier)
 {
-	printf("jijishell: unset: `%s\': not a valid identifier\n", str);
+	printf("jijishell: unset: `%s\': not a valid identifier\n", identifier);
 	g_exit_code = 1;
 }
 
-int	is_valid_value(char *str)
+int	is_valid_unset_identifier(char *str)
 {
 	if (!ft_isalpha(*str) && *str != '_')
 		return (FALSE);
@@ -79,7 +79,7 @@ void	unset(t_exec_info *exec)
 	i = 1;
 	while (exec->cmd_args[i])
 	{
-		if (!is_valid_value(exec->cmd_args[i]))
+		if (!is_valid_unset_identifier(exec->cmd_args[i]))
 		{
 			print_unset_error(exec->cmd_args[i]);
 			i++;

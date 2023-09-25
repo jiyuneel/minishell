@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_init_shell_info.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 14:07:13 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:07:14 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	_check_here_doc(t_shell_info *parse);
 static int	_change_shell_info(t_shell_info *parse);
-static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode);
-static void	_get_here_doc_file(char *filename, char *limiter);
+static void	_change_here_doc_to_infile(t_redir *redir, t_env_info *env, int *filenum, int mode);
+static void	_get_here_doc_file(t_env_info *env, char *filename, char *limiter);
 
 int	re_init_shell_info(t_shell_info *parse)
 {
@@ -55,7 +55,7 @@ static void	_check_here_doc(t_shell_info *parse)
 	while (node)
 	{
 		if (node->redir != NULL)
-			_change_here_doc_to_infile(node->redir, &filenum, TRUE);
+			_change_here_doc_to_infile(node->redir, parse->env, &filenum, TRUE);
 		node = node->next;
 	}
 	exit (EXIT_SUCCESS);
@@ -72,7 +72,7 @@ static int	_change_shell_info(t_shell_info *parse)
 	filenum = 0;
 	while (node)
 	{
-		_change_here_doc_to_infile(node->redir, &filenum, FALSE);
+		_change_here_doc_to_infile(node->redir, parse->env, &filenum, FALSE);
 		idx = 0;
 		while (node->cmd_args[idx])
 		{
@@ -85,7 +85,7 @@ static int	_change_shell_info(t_shell_info *parse)
 	return (EXIT_SUCCESS);
 }
 
-static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode)
+static void	_change_here_doc_to_infile(t_redir *redir, t_env_info *env, int *filenum, int mode)
 {
 	char	*file;
 	char	*_num;
@@ -99,7 +99,7 @@ static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode)
 			if (file == NULL)
 				exit (EXIT_FAILURE);		// 이전까지 생성한 file unlink해줘야 할수도..?(시그널인가)
 			if (mode == TRUE)
-				_get_here_doc_file(file, redir->filename);
+				_get_here_doc_file(env, file, redir->filename);
 			free (redir->filename);
 			free (_num);
 			redir->filename = file;
@@ -108,7 +108,7 @@ static void	_change_here_doc_to_infile(t_redir *redir, int *filenum, int mode)
 	}
 }
 
-static void	_get_here_doc_file(char *filename, char *limiter)
+static void	_get_here_doc_file(t_env_info *env, char *filename, char *limiter)
 {
 	char	*line;
 	int		fd;
@@ -123,6 +123,7 @@ static void	_get_here_doc_file(char *filename, char *limiter)
 			break ;
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
+		// line = line_replace_env(env, line);		// char *line_replace_enc(char * str);
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
 		free(line);

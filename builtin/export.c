@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 02:57:35 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:56:42 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	print_export(t_env_info *env)
 void	print_export_error(char *identifier)
 {
 	printf("jijishell: export: `%s\': not a valid identifier\n", identifier);
-	g_exit_code = 1;
 }
 
 int	is_valid_export_identifier(char *str)
@@ -75,24 +74,57 @@ int	is_valid_export_identifier(char *str)
 	return (TRUE);
 }
 
-// void	export(t_shell_info *exec)
-void	export(t_exec_info *exec)
+void	export_env(t_env_info **env, char *str)
 {
+	t_env_info	*tmp;
+	char		*key;
+	char		*value;
+	int			key_len;
+
+	key_len = 0;
+	while (str[key_len] && str[key_len] != '=')
+		key_len++;
+	key = ft_strndup(str, key_len);
+	if (str[key_len] == '=')
+		value = ft_strdup(str + key_len + 1);
+	else
+		value = NULL;
+	tmp = *env;
+	while (tmp)
+	{
+		if (!ft_strcmp(key, tmp->key))
+		{
+			delete_env(env, &tmp);
+			break ;
+		}
+		else
+			tmp = tmp->next;
+	}
+	env_add_back(env, env_new_node(key, value));
+}
+
+int	export(t_exec_info *exec)
+{
+	int	error_flag;
 	int	i;
 
+	error_flag = FALSE;
 	if (!exec->cmd_args[1])
 		print_export(exec->env);
-	i = 1;
-	while (exec->cmd_args[i])
+	else
 	{
-		if (!is_valid_export_identifier(exec->cmd_args[i]))
+		i = 1;
+		while (exec->cmd_args[i])
 		{
-			print_export_error(exec->cmd_args[i]);
+			if (!is_valid_export_identifier(exec->cmd_args[i]))
+			{
+				error_flag = TRUE;
+				print_export_error(exec->cmd_args[i]);
+			}
+			else
+				export_env(&exec->env, exec->cmd_args[i]);
 			i++;
-			continue ;
 		}
-		// export_env
-		i++;
 	}
-	g_exit_code = 0;
+	return (error_flag);
 }

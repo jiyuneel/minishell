@@ -6,19 +6,20 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:21:17 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/22 15:24:26 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:37:03 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_cmd_info(t_cmd_info *cmd)
+void	free_cmd_info(t_cmd_info *cmd, int heredoc_cnt)
 {
 	t_cmd_info	*tmp;
 
 	if (cmd == NULL)
 		return ;
-	unlink_here_doc(cmd);
+	if (heredoc_cnt > 0)
+		unlink_here_doc(cmd);
 	while (cmd)
 	{
 		tmp = cmd->next;

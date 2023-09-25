@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:26:20 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 02:55:12 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:56:33 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	print_unset_error(char *identifier)
 {
 	printf("jijishell: unset: `%s\': not a valid identifier\n", identifier);
-	g_exit_code = 1;
 }
 
 int	is_valid_unset_identifier(char *str)
@@ -67,26 +66,28 @@ void	unset_env(t_env_info **env, char *str)
 			delete_env(env, &tmp);
 			break ;
 		}
-		else
+		else //
 			tmp = tmp->next;
 	}
 }
 
-void	unset(t_exec_info *exec)
+int	unset(t_exec_info *exec)
 {
+	int	error_flag;
 	int	i;
 
+	error_flag = FALSE;
 	i = 1;
 	while (exec->cmd_args[i])
 	{
 		if (!is_valid_unset_identifier(exec->cmd_args[i]))
 		{
+			error_flag = TRUE;
 			print_unset_error(exec->cmd_args[i]);
-			i++;
-			continue ;
 		}
-		unset_env(&exec->env, exec->cmd_args[i]);
+		else
+			unset_env(&exec->env, exec->cmd_args[i]);
 		i++;
 	}
-	g_exit_code = 0;
+	return (error_flag);
 }

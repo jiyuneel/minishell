@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/20 10:18:09 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/25 16:57:28 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ SRCS_EXEC	= execute.c \
 			  re_init_shell_info.c \
 			  remove_quotation.c \
 			  init_exec_info.c \
+			  single_process.c \
 			  multi_process.c \
+			  wait_child.c \
 			  set_redir.c \
 			  exec_command.c \
 			  unlink_here_doc.c \
@@ -51,7 +53,14 @@ SRCS_EXEC	= execute.c \
 OBJS_EXEC	= $(addprefix $(EXEC_DIR), $(SRCS_EXEC:.c=.o))
 
 BUILT_DIR	= ./builtin/
-SRCS_BUILT	= env.c
+SRCS_BUILT	= is_builtin.c \
+			  echo.c \
+			  cd.c \
+			  pwd.c \
+			  export.c \
+			  unset.c \
+			  env.c \
+			  exit_with_args.c
 OBJS_BUILT	= $(addprefix $(BUILT_DIR), $(SRCS_BUILT:.c=.o))
 
 UTILS_DIR	= ./utils/

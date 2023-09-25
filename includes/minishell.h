@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 00:45:19 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:00:09 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,14 @@ char		*remove_quotation(char *command, int origin_len);
 /* init_exec_info.c */
 t_exec_info	*init_exec_info(t_shell_info *parse);
 
+/* single_process.c */
+int			single_process(t_exec_info *exec, t_cmd_info *cmd);
+
 /* multi_process.c */
 void		multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt);
+
+/* wait_child.c */
+void		wait_child(pid_t last_pid, int chunk_cnt);
 
 /* exec_command.c */
 void		exec_command(t_exec_info *exec);
@@ -117,13 +123,18 @@ void		error_exit(char *cmd, int sys_errno);
 
 
 /* [built-in] */
-
-
-void		env(t_exec_info *exec);
+int			is_builtin(t_exec_info *exec, int *exit_code);
+int			echo(t_exec_info *exec);
+int			cd(t_exec_info *exec);
+int			pwd(t_exec_info *exec);
+int			export(t_exec_info *exec);
+int			unset(t_exec_info *exec);
+int			env(t_exec_info *exec);
+int			exit_with_args(t_exec_info *exec);
 
 /* [utils] */
 /* free_all.c */
-void		free_cmd_info(t_cmd_info *cmd);
+void		free_cmd_info(t_cmd_info *cmd, int heredoc_cnt);
 void		free_env_info(t_env_info *env);
 void		free_exec_info(t_exec_info *exec);
 void		free_arr(char **arr);

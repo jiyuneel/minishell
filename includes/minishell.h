@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 22:10:13 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:12:11 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt);
 void		wait_child(pid_t last_pid, int chunk_cnt);
 
 /* exec_command.c */
-void		exec_command(t_exec_info *exec);
+void		exec_command(t_exec_info *exec, int mode);
 
 /* unlink_here_doc.c */
 void		unlink_here_doc(t_cmd_info *cmd);

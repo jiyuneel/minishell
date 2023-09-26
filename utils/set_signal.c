@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:40:14 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/23 02:37:56 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:44:48 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	_jiji_handler(int sig_no)
 {
 	(void) sig_no;
 	g_exit_code = 1;
-	printf("\n");
+	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -44,7 +44,7 @@ static void	_jiji_handler(int sig_no)
 static void	_hrd_handler(int sig_no)
 {
 	(void) sig_no;
-	printf("\n");
+	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	exit (EXIT_FAILURE);

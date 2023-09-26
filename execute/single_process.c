@@ -6,13 +6,12 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:34:05 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 22:11:40 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:12:45 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	_check_exec_in_parent(t_exec_info *exec, int *exit_code);
 static void	_exec_in_child(t_exec_info *exec);
 
 int	single_process(t_exec_info *exec, t_cmd_info *cmd)
@@ -23,30 +22,10 @@ int	single_process(t_exec_info *exec, t_cmd_info *cmd)
 	exit_code = 0;
 	set_signal(DEFAULT, DEFAULT);
 	dup_redir_to_inout(exec, cmd->redir);
-	if (_check_exec_in_parent(exec, &exit_code) == TRUE)
+	if (is_builtin(exec, &exit_code) == TRUE)
 		g_exit_code = exit_code;
 	else
 		_exec_in_child(exec);
-	return (TRUE);
-}
-
-static int	_check_exec_in_parent(t_exec_info *exec, int *exit_code)
-{
-	int	flag;
-
-	flag = 0;
-	if (ft_strcmp(exec->cmd_args[0], "cd") == 0 && ++flag)			// parent
-		*exit_code = cd(exec);
-	else if (ft_strcmp(exec->cmd_args[0], "pwd") == 0 && ++flag)	// parent
-		*exit_code = pwd(exec);
-	else if (ft_strcmp(exec->cmd_args[0], "export") == 0 && ++flag)	// parent
-		*exit_code = export(exec);
-	else if (ft_strcmp(exec->cmd_args[0], "unset") == 0 && ++flag)	// parent
-		*exit_code = unset(exec);
-	else if (ft_strcmp(exec->cmd_args[0], "exit") == 0 && ++flag)	// parent
-		*exit_code = exit_with_args(exec);
-	if (flag == FALSE)
-		return (FALSE);
 	return (TRUE);
 }
 
@@ -61,7 +40,7 @@ static void	_exec_in_child(t_exec_info *exec)
 	else if (pid == 0)
 	{
 		set_signal(DEFAULT, DEFAULT);
-		exec_command(exec);
+		exec_command(exec, FALSE);
 	}
 	wait_child(pid, 1);
 }

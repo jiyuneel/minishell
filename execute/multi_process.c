@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 16:47:12 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:12:39 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 	int		idx;
 
 	idx = 1;
+	set_signal(IGNORE, IGNORE);
 	while (cmd)
 	{
-		set_signal(IGNORE, IGNORE);
 		exec->cmd_args = cmd->cmd_args;
 		if (pipe(exec->pipe) == -1)
 			error_exit("pipe", EXIT_FAILURE);		// pipe error: exit(shell)
@@ -56,5 +56,5 @@ static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end)
 		perror("dup2(pipe_write)");
 	close(exec->pipe[P_WRITE]);
 	dup_redir_to_inout(exec, cmd->redir);
-	exec_command(exec);
+	exec_command(exec, TRUE);
 }

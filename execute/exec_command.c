@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 22:12:14 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:13:57 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 static void	_if_abs_or_rel_path(t_exec_info *exec);
 static char	*_get_command_path(t_exec_info *exec);
 
-void	exec_command(t_exec_info *exec)
+void	exec_command(t_exec_info *exec, int mode)
 {
 	char	*cmd_path;
 	int		exit_code;
 
-	set_signal(DEFAULT, DEFAULT);	// single_process에서 하니까 없애도 괜찮을듯?
 	if (exec->cmd_args[0] == NULL)
 		exit (EXIT_SUCCESS);
 	_if_abs_or_rel_path(exec);
-	if (is_builtin(exec, &exit_code) == TRUE)		// "" 인 경우도 되는지 확인
+	exit_code = 0;
+	// "" 인 경우도 되는지 확인 -> mode로 왠만한 처리 될듯?
+	if (mode == TRUE && is_builtin(exec, &exit_code) == TRUE)
 		exit (exit_code);
 	cmd_path = _get_command_path(exec);
 	if (cmd_path == NULL)

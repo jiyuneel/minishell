@@ -1,0 +1,30 @@
+/* re_init_shell_info.c */
+
+int	re_init_shell_info(t_shell_info *parse)
+{// 구조 싹 바꾸렴 보기 안좋다^^
+	pid_t		pid;
+	int			status;
+	int			exit_code_origin;
+	// if문 안에 들어간 경우만 초기화 하면 되니까 주석처리부분 없애도 될듯?
+	// 응 절대 안돼^^ 그러다 큰일날 뻔했단다 이 멍청아
+	exit_code_origin = g_exit_code;		// exit이 들어온 경우에 대한 처리...
+	g_exit_code = 0;
+	if (parse->heredoc_cnt != 0)
+	{
+		set_signal(IGNORE, IGNORE);
+		pid = fork();
+		if (pid < 0)
+			exit (EXIT_FAILURE);
+		else if (pid == 0)
+			_check_here_doc(parse);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			g_exit_code = EXIT_FAILURE;
+		set_signal(JIJI, JIJI);
+	}
+	_change_shell_info(parse);
+	if (g_exit_code == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	g_exit_code = exit_code_origin;		// exit이 들어온 경우에 대한 처리...
+	return (EXIT_SUCCESS);
+}

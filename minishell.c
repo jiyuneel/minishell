@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/22 19:49:29 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:40:47 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell_info	shell_info;
 	char			*str;
-	struct termios	term;
 
 	// atexit(aaa);
-	tcgetattr(STDIN_FILENO, &term);				// 현재 shell의 출력 상태를 저장
+	tcgetattr(STDIN_FILENO, &shell_info.origin_term);			// 현재 shell의 출력 상태를 저장
 	_init_term(argc, argv);
 	env_init(&shell_info.env, envp);
 	while (TRUE)
@@ -48,7 +47,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free_env_info(shell_info.env);
 	printf("\x1b[1A\033[11Cexit\n", STDOUT_FILENO);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);	// 모든 것이 끝났으므로 다시 원상 복귀
+	set_signal(DEFAULT, DEFAULT);		// 꼭 있어야 할까..?
+	tcsetattr(STDIN_FILENO, TCSANOW, &shell_info.origin_term);	// 모든 것이 끝났으므로 다시 원상 복귀
 	return (g_exit_code);
 }
 
@@ -74,20 +74,20 @@ static void	_init_term(int argc, char **argv)
 /* shell_info 출력 */
 void	print_shell_info(t_shell_info *shell_info)
 {
-	ft_printf("chunk_cnt: %d\n\n", shell_info->chunk_cnt);
+	printf("chunk_cnt: %d\n\n", shell_info->chunk_cnt);
 	for (t_cmd_info *tmp = shell_info->cmd; tmp; tmp = tmp->next)
 	{
-		ft_printf("[----- cmd -----]\n");
-		ft_printf("cmd_cnt: %d\n", tmp->cmd_cnt);
+		printf("[----- cmd -----]\n");
+		printf("cmd_cnt: %d\n", tmp->cmd_cnt);
 		// for (t_str *s = tmp->str; s; s = s->next) {
-		// 	ft_printf("%d %s\n", s->type, s->command);
+		// 	printf("%d %s\n", s->type, s->command);
 		// }
 		for (int i = 0; tmp->cmd_args[i]; i++)
-			ft_printf("%s\n", tmp->cmd_args[i]);
-		ft_printf("[---- redir ----]\n");
+			printf("%s\n", tmp->cmd_args[i]);
+		printf("[---- redir ----]\n");
 		for (t_redir *r = tmp->redir; r; r = r->next) {
-			ft_printf("%d %s\n", r->type, r->filename);
+			printf("%d %s\n", r->type, r->filename);
 		}
-		ft_printf("\n-----------------\n\n");
+		printf("\n-----------------\n\n");
 	}
 }

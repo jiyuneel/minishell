@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 15:54:06 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:34:04 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_exec_info	*init_exec_info(t_shell_info *parse)
 	exec->env = &(parse->env);
 	_get_path_args(exec);
 	_get_envp(exec);
+	exec->origin_term = parse->origin_term;
 	return (exec);
 }
 

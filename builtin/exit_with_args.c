@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:52:40 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 23:28:11 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:43:57 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	exit_with_args(t_exec_info *exec, int child)
 	else
 		printf("exit\n");
 	if (exec->cmd_args[1] == NULL)
-		exit (g_exit_code);
+		set_origin_exit(exec->origin_term, g_exit_code, child);
 	is_invalid = FALSE;
 	exit_code = _arg_to_int(exec->cmd_args[1], &is_invalid);
 	if (is_invalid == TRUE)
 		error_message("exit", exec->cmd_args[1], "numeric argument required");
 	if (is_invalid == TRUE || exec->cmd_args[2] == NULL)
-		exit (exit_code);
+		set_origin_exit(exec->origin_term, exit_code, child);
 	error_message("exit", NULL, "too many arguments");
 	return (EXIT_FAILURE);
 }

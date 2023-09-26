@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:53:55 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:58:24 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 				shell_info->heredoc_cnt++;
 			if (shell_info->heredoc_cnt > 16)
 			{
-				printf("jijishell: maximum here-document count exceeded\n");
-				exit(1);
+				ft_putstr_fd("jijishell: maximum here-document count exceeded\n", STDERR_FILENO);
+				set_origin_exit(shell_info->origin_term, 1, FALSE);
 			}
 			tmp = tmp->next;
 		}
@@ -40,7 +40,10 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 
 int	print_syntax_error(char *str)
 {
-	printf("jijishell: syntax error near unexpected token `%s\'\n", str);
+	ft_putstr_fd("jijishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\'\n", 2);
+	// printf("jijishell: syntax error near unexpected token `%s\'\n", str);
 	g_exit_code = 258;
 	return (EXIT_FAILURE);
 }

@@ -6,12 +6,14 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:15 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:33:55 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# include <termios.h>
 
 /* macro define*/
 # define TRUE	1
@@ -46,9 +48,10 @@ typedef enum e_token_type
 typedef struct s_shell_info
 {
 	int					chunk_cnt;	// count of nodes
+	int					heredoc_cnt;
 	struct s_env_info	*env;		// env head
 	struct s_cmd_info	*cmd;		// cmd head
-	int					heredoc_cnt;
+	struct termios		origin_term;
 }	t_shell_info;
 
 /* struct for cmd_node */
@@ -115,6 +118,7 @@ typedef struct s_exec_info
 	char				**path_args;	// free(needed)
 	char				**envp;			// free(needed)
 	struct s_env_info	**env;			// copy address
+	struct termios		origin_term;	// copy value
 }	t_exec_info;
 
 #endif

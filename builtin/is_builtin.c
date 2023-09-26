@@ -6,13 +6,13 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:28:46 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 17:02:53 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:20:19 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	is_builtin(t_exec_info *exec, int *exit_code)
+int	is_builtin(t_exec_info *exec, int *exit_code, int child)
 {
 	int	flag;
 
@@ -30,7 +30,7 @@ int	is_builtin(t_exec_info *exec, int *exit_code)
 	else if (ft_strcmp(exec->cmd_args[0], "env") == 0 && ++flag)
 		*exit_code = env(exec);
 	else if (ft_strcmp(exec->cmd_args[0], "exit") == 0 && ++flag)	// parent
-		*exit_code = exit_with_args(exec);		// exit(g_exit_code)인지 다시 확인하기...
+		*exit_code = exit_with_args(exec, child);		// exit(g_exit_code)인지 다시 확인하기...
 	if (flag == FALSE)
 		return (FALSE);
 	return (TRUE);

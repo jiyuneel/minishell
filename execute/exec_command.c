@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 16:13:57 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:16:14 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec_command(t_exec_info *exec, int mode)
 	_if_abs_or_rel_path(exec);
 	exit_code = 0;
 	// "" 인 경우도 되는지 확인 -> mode로 왠만한 처리 될듯?
-	if (mode == TRUE && is_builtin(exec, &exit_code) == TRUE)
+	if (mode == TRUE && is_builtin(exec, &exit_code, TRUE) == TRUE)
 		exit (exit_code);
 	cmd_path = _get_command_path(exec);
 	if (cmd_path == NULL)

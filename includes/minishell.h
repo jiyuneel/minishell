@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 22:10:13 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:35:03 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void		set_signal(int sig_int, int sig_quit);
 
 /* re_init_shell_info.c */
 int			re_init_shell_info(t_shell_info *parse);
+
+/* line_replace_env.c */
+char		*line_replace_env(t_env_info *env, char *str);
 
 /* remove_quotation.c */
 char		*remove_quotation(char *command, int origin_len);

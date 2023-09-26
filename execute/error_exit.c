@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:08:44 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 00:04:39 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 02:33:27 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	error_file_open(char *filename)
 	exit (EXIT_FAILURE);
 }
 
-void	error_for_dot(char *cmd, int len)
+void	error_for_dot(char *cmd, int len, int mode)
 {
-	if (len == 1)
+	if (len == 1 && cmd[0] == '.')
 	{
 		ft_putstr_fd("jijishell: ", STDERR_FILENO);
 		ft_putstr_fd(".: filename argument required\n", STDERR_FILENO);
 		ft_putstr_fd(".: usage: . filename [arguments]\n", STDERR_FILENO);
 		exit (2);
 	}
-	else if (len == 2 && cmd[1] == '.')
+	else if (mode == TRUE && len == 2 && cmd[1] == '.')
 		error_exit(cmd, FALSE);
 }
 

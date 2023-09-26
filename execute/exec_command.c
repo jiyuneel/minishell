@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 23:16:14 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 02:33:33 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	exec_command(t_exec_info *exec, int mode)
 
 	if (exec->cmd_args[0] == NULL)
 		exit (EXIT_SUCCESS);
+	error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]), FALSE);
+	if (exec->path_args == NULL || exec->path_args[0] == NULL)
+		error_no_auth(exec->cmd_args[0]);
 	_if_abs_or_rel_path(exec);
 	exit_code = 0;
 	// "" 인 경우도 되는지 확인 -> mode로 왠만한 처리 될듯?
@@ -40,7 +43,7 @@ static void	_if_abs_or_rel_path(t_exec_info *exec)
 		return ;
 	if (exec->cmd_args[0][0] == '.')	// 예외처리--;
 	{
-		error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]));
+		error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]), TRUE);
 		if (exec->cmd_args[0][1] == '.' && exec->cmd_args[0][2] != '/')
 			return ;
 		if (exec->cmd_args[0][1] != '/' && exec->cmd_args[0][1] != '.')
@@ -59,8 +62,6 @@ static char	*_get_command_path(t_exec_info *exec)
 	if (exec->cmd_args[0][0] == '\0')		// ""가 들어온 경우 예외 처리
 		return (NULL);
 	i = 0;
-	if (exec->path_args == NULL)
-		return (NULL);
 	while (exec->path_args[i])
 	{
 		tmp = ft_strjoin(exec->path_args[i], "/");

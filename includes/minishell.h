@@ -6,15 +6,12 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 16:12:11 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 04:45:23 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-/* global variable: exit code */
-extern int	g_exit_code;
 
 # include "./struct.h"
 # include "../libftprintf/libft/libft.h"
@@ -34,6 +31,9 @@ extern int	g_exit_code;
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+
+/* global variable: exit code */
+extern int	g_exit_code;
 
 /* [parsing] */
 /* env_init.c */
@@ -58,7 +58,8 @@ void		delete_invalid_token(t_token **token);
 
 /* handle_syntax_error.c */
 int			check_quote(t_quote	*q, char c);
-int			handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str);
+int			handle_syntax_error(t_shell_info *shell_info, \
+			t_token *token, char *str);
 
 /* replace_env.c */
 void		replace_env(t_env_info *env, t_token *token);
@@ -82,7 +83,6 @@ void		free_str(t_str *str);
 t_redir		*redir_new_node(t_token_type type, char *filename);
 void		redir_add_back(t_redir **node, t_redir *new);
 void		free_redir(t_redir *redir);
-
 
 /* [execute] */
 /* execute.c */
@@ -116,31 +116,37 @@ void		exec_command(t_exec_info *exec, int mode);
 void		unlink_here_doc(t_cmd_info *cmd);
 
 /* error_exit.c */
-void		error_file_open(char *filename);
-void		error_for_dot(char *cmd, int len);
-void		error_no_auth(char *cmd);
 void		error_exit(char *cmd, int sys_errno);
-
+void		error_file_open(char *filename);
+void		error_for_dot(char *cmd, int len, int mode);
+void		error_no_auth(char *cmd);
 
 /* [built-in] */
-int			is_builtin(t_exec_info *exec, int *exit_code);
+int			is_builtin(t_exec_info *exec, int *exit_code, int child);
 int			echo(t_exec_info *exec);
 int			cd(t_exec_info *exec);
 int			pwd(t_exec_info *exec);
 int			export(t_exec_info *exec);
 int			unset(t_exec_info *exec);
 int			env(t_exec_info *exec);
-int			exit_with_args(t_exec_info *exec);
+int			exit_with_args(t_exec_info *exec, int child);
 void		delete_env(t_env_info **env, t_env_info **node);
 
 /* [utils] */
+/* set_redir.c */
+void		dup_redir_to_inout(t_exec_info *exec, t_redir *redir);
+
+/* set_origin_exit.c */
+void		set_origin_exit(struct termios origin, int exit_code, int child);
+
 /* free_all.c */
 void		free_cmd_info(t_cmd_info *cmd, int heredoc_cnt);
 void		free_env_info(t_env_info *env);
 void		free_exec_info(t_exec_info *exec);
 void		free_arr(char **arr);
 
-/* set_redir.c */
-void		dup_redir_to_inout(t_exec_info *exec, t_redir *redir);
+/* error_message.c */
+void		error_message(char *cmd, char *error_arg, char *message);
+void		error_env_arg(char *cmd, char *error_arg, char *message);
 
 #endif

@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/25 17:27:52 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/27 04:45:45 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g2
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g2
 COMP_FLAGS	= -L/opt/homebrew/opt/readline/lib -lreadline
 OBJS_FLAGS	= -I/opt/homebrew/opt/readline/include
 COMP_FLAGS_CLUSTER = -L/usr/local/lib -lreadline
@@ -65,7 +65,9 @@ OBJS_BUILT	= $(addprefix $(BUILT_DIR), $(SRCS_BUILT:.c=.o))
 
 UTILS_DIR	= ./utils/
 SRCS_UTILS	= set_signal.c \
-			  free_all.c
+			  set_origin_exit.c \
+			  free_all.c \
+			  error_message.c
 OBJS_UTILS	= $(addprefix $(UTILS_DIR), $(SRCS_UTILS:.c=.o))
 
 

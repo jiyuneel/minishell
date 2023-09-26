@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 20:40:35 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 16:33:32 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:54:06 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_exec_info	*init_exec_info(t_shell_info *parse)
 
 	exec = malloc(sizeof(t_exec_info));
 	if (exec == NULL)
-		return (NULL);		// 어떻게 처리할 지 고민(signal ?)
-	ft_memset(exec, 0, sizeof(t_exec_info));
+		exit (EXIT_FAILURE);
+	ft_memset(exec, 0, sizeof(t_exec_info));	// calloc으로 합쳐도 되잖어
 	exec->env = &(parse->env);
 	_get_path_args(exec);
 	_get_envp(exec);
@@ -37,15 +37,12 @@ static void	_get_path_args(t_exec_info *exec)
 	node = *exec->env;
 	while (node)
 	{
-		if (ft_strcmp(node->key, "PATH") == 0)		// strncmp로 할건지 고민
+		if (ft_strcmp(node->key, "PATH") == 0)		// strncmp로 할건지 고민 -> 응 안해도됨
 			break ;
 		node = node->next;
 	}
 	if (node == NULL || node->value == NULL)
-	{
-		exec->path_args = NULL;						// PATH 없는 경우 어떻게..?
 		return ;
-	}
 	exec->path_args = ft_split(node->value, ':');
 	if (exec->path_args == NULL)
 		exit (EXIT_FAILURE);		// fail to split

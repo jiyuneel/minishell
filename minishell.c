@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/27 04:40:47 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:51:15 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	g_exit_code;
 
-static void	_init_term(int argc, char **argv);
+static void	_init_term(t_shell_info *shell_info, int argc, char **argv);
+static void	_set_origin_term(t_shell_info *shell_info);
 
-void aaa(void) {
+void leaks(void)
+{
 	system("leaks -q $PPID");
 }
 
@@ -25,9 +27,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell_info	shell_info;
 	char			*str;
 
-	// atexit(aaa);
-	tcgetattr(STDIN_FILENO, &shell_info.origin_term);			// 현재 shell의 출력 상태를 저장
-	_init_term(argc, argv);
+	// atexit(leaks);
+	_init_term(&shell_info, argc, argv);
 	env_init(&shell_info.env, envp);
 	while (TRUE)
 	{
@@ -45,14 +46,11 @@ int	main(int argc, char **argv, char **envp)
 		add_history(str);
 		free(str);
 	}
-	free_env_info(shell_info.env);
-	printf("\x1b[1A\033[11Cexit\n", STDOUT_FILENO);
-	set_signal(DEFAULT, DEFAULT);		// 꼭 있어야 할까..?
-	tcsetattr(STDIN_FILENO, TCSANOW, &shell_info.origin_term);	// 모든 것이 끝났으므로 다시 원상 복귀
-	return (g_exit_code);
+	_set_origin_term(&shell_info);
+	return (g_exit_code);		// exit?? ^^
 }
 
-static void	_init_term(int argc, char **argv)
+static void	_init_term(t_shell_info *shell_info, int argc, char **argv)
 {
 	struct termios	term;
 
@@ -60,12 +58,20 @@ static void	_init_term(int argc, char **argv)
 	if (argc != 1)
 		exit (EXIT_FAILURE);
 	g_exit_code = 0;
+	tcgetattr(STDIN_FILENO, &shell_info->origin_term);	// 현재 shell 상태 저장
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);					// 해당 flag로 shell의 출력 제어
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(JIJI, JIJI);
 }
 
+static void	_set_origin_term(t_shell_info *shell_info)
+{
+	free_env_info(shell_info->env);
+	printf("\x1b[1A\033[11Cexit\n", STDOUT_FILENO);
+	set_signal(DEFAULT, DEFAULT);		// 꼭 있어야 할까..?
+	tcsetattr(STDIN_FILENO, TCSANOW, &shell_info->origin_term);	// 모든 것이 끝났으므로 다시 원상 복귀
+}
 
 
 

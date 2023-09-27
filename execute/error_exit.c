@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:08:44 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 02:33:27 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 03:44:19 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void	error_exit(char *cmd, int sys_errno)
 	}
 }
 
-void	error_file_open(char *filename)
+int	error_file_open(char *filename, int exit_mode)
 {
 	ft_putstr_fd("jijishell: ", STDERR_FILENO);
 	perror(filename);
-	exit (EXIT_FAILURE);
+	if (exit_mode == TRUE)
+		exit (EXIT_FAILURE);
+	return (FALSE);
 }
 
 void	error_for_dot(char *cmd, int len, int mode)

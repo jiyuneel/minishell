@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 15:55:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/28 04:10:10 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void		set_signal(int sig_int, int sig_quit);
 /* re_init_shell_info.c */
 int			re_init_shell_info(t_shell_info *parse);
 
+/* check_here_doc.c */
+void		check_here_doc(t_shell_info *parse);
+void		change_hrd_to_infile(t_redir *redir, t_env_info *env, int *filenum);
+
 /* line_replace_env.c */
 char		*line_replace_env(t_env_info *env, char *str);
 
@@ -122,7 +126,7 @@ void		unlink_here_doc(t_cmd_info *cmd);
 
 /* error_exit.c */
 void		error_exit(char *cmd, int sys_errno);
-void		error_file_open(char *filename);
+int			error_file_open(char *filename, int exit_mode);
 void		error_for_dot(char *cmd, int len, int mode);
 void		error_no_auth(char *cmd);
 
@@ -134,12 +138,12 @@ int			pwd(t_exec_info *exec);
 int			export(t_exec_info *exec);
 int			unset(t_exec_info *exec);
 int			env(t_exec_info *exec);
-int			exit_with_args(t_exec_info *exec, int child);
 void		delete_env(t_env_info **env, t_env_info **node);
+int			exit_with_args(t_exec_info *exec, int child);
 
 /* [utils] */
 /* set_redir.c */
-void		dup_redir_to_inout(t_exec_info *exec, t_redir *redir);
+int			dup_redir_to_inout(t_exec_info *exec, t_redir *redir, int child);
 
 /* set_origin_exit.c */
 void		set_origin_exit(struct termios origin, int exit_code, int child);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/27 15:56:11 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/28 04:30:51 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,14 @@ OBJS_PARSE	= $(addprefix $(PARSE_DIR), $(SRCS_PARSE:.c=.o))
 EXEC_DIR	= ./execute/
 SRCS_EXEC	= execute.c \
 			  re_init_shell_info.c \
+			  check_here_doc.c \
 			  line_replace_env.c \
 			  remove_quotation.c \
 			  init_exec_info.c \
 			  single_process.c \
 			  multi_process.c \
+			  dup_redir_to_inout.c \
 			  wait_child.c \
-			  set_redir.c \
 			  exec_command.c \
 			  unlink_here_doc.c \
 			  error_exit.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 04:45:23 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:55:54 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int			handle_syntax_error(t_shell_info *shell_info, \
 
 /* replace_env.c */
 void		replace_env(t_env_info *env, t_token *token);
+void		get_env_value(t_env_info *env, t_env_info *env_var);
+t_env_info	*tmpenv_new_node(char *key, int idx);
 
 /* t_env_func.c */
 t_env_info	*env_new_node(char *key, char *value);
@@ -93,6 +95,9 @@ void		set_signal(int sig_int, int sig_quit);
 
 /* re_init_shell_info.c */
 int			re_init_shell_info(t_shell_info *parse);
+
+/* line_replace_env.c */
+char		*line_replace_env(t_env_info *env, char *str);
 
 /* remove_quotation.c */
 char		*remove_quotation(char *command, int origin_len);

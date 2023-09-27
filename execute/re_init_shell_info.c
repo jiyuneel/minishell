@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_init_shell_info.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 15:51:18 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:56:39 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ static void	_get_here_doc_file(t_env_info *env, char *filename, char *limiter)
 			break ;
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
-		(void) env;		// remove
-		// line = line_replace_env(env, line);		// char *line_replace_enc(t_env_info *env, char * str);
+		line = line_replace_env(env, line);		// char *line_replace_enc(char * str);
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/22 20:24:22 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:23:54 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	shell_init(t_shell_info *shell_info, char *str)
 	delete_invalid_token(&token);
 	// print_token(token);
 	shell_info->heredoc_cnt = 0;
-	if (handle_syntax_error(shell_info, token, str))
+	if (!token || handle_syntax_error(shell_info, token, str))
 	{
 		free_token(token);
 		return (EXIT_FAILURE);

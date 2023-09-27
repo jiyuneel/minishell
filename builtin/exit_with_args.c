@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:52:40 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 04:43:57 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:10:32 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	_arg_to_int(char *arg, int *is_invalid)
 	while (*arg && *is_invalid == FALSE)
 	{
 		len++;
-		if ((isdigit(*arg) == FALSE || len > 19) && ++(*is_invalid))
+		if ((ft_isdigit(*arg) == FALSE || len > 19) && ++(*is_invalid))
 			return (255);
 		res = res * 10 + (*arg++ - '0');
 		if (sign == 1 && res > 9223372036854775807)

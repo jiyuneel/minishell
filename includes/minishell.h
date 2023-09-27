@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 23:35:03 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:52:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int			handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str);
 
 /* replace_env.c */
 void		replace_env(t_env_info *env, t_token *token);
+void		get_env_value(t_env_info *env, t_env_info *env_var);
+t_env_info	*tmpenv_new_node(char *key, int idx);
 
 /* t_env_func.c */
 t_env_info	*env_new_node(char *key, char *value);

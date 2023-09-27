@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:14:39 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/25 16:14:17 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 02:53:32 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*remove_quotation(char *command, int origin_len)
 		copy_address = command;
 		len = _string_length(&command, &quote);
 		if (len == origin_len)
-			return (origin);		// quote가 없는 경우 그대로 반환(free 없이)
+			return (origin);
 		if (quote != 0)
 			copy_address++;
 		res_cmd = _make_string(res_cmd, copy_address, len);
@@ -50,7 +50,7 @@ static int	_string_length(char **cmd, char *quote)
 	{
 		while (*(++(*cmd)) != *quote && ++len)
 			if (**cmd == 0)
-				exit (EXIT_FAILURE);		// quote 상황인데 parsing에서 에러처리되기때문에 없애도 될듯?
+				exit (EXIT_FAILURE);
 		(*cmd)++;
 	}
 	else

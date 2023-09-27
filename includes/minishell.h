@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:10:10 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 04:30:50 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ void		free_redir(t_redir *redir);
 /* execute.c */
 void		execute(t_shell_info *parse);
 
-/* set_signal.c */
-void		set_signal(int sig_int, int sig_quit);
-
 /* re_init_shell_info.c */
 int			re_init_shell_info(t_shell_info *parse);
 
@@ -114,6 +111,9 @@ int			single_process(t_exec_info *exec, t_cmd_info *cmd);
 
 /* multi_process.c */
 void		multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt);
+
+/* set_redir.c */
+int			dup_redir_to_inout(t_exec_info *exec, t_redir *redir, int child);
 
 /* wait_child.c */
 void		wait_child(pid_t last_pid, int chunk_cnt);
@@ -142,8 +142,8 @@ void		delete_env(t_env_info **env, t_env_info **node);
 int			exit_with_args(t_exec_info *exec, int child);
 
 /* [utils] */
-/* set_redir.c */
-int			dup_redir_to_inout(t_exec_info *exec, t_redir *redir, int child);
+/* set_signal.c */
+void		set_signal(int sig_int, int sig_quit);
 
 /* set_origin_exit.c */
 void		set_origin_exit(struct termios origin, int exit_code, int child);

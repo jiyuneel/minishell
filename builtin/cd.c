@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:52:40 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 12:28:07 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:10:05 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*_get_home_path(t_env_info **env)
 	node = *env;
 	while (node)
 	{
-		if (strcmp(node->key, "HOME") == 0)
+		if (ft_strcmp(node->key, "HOME") == 0)
 			return (node->value);
 		node = node->next;
 	}
@@ -64,13 +64,13 @@ static void	_change_pwd(t_env_info **env, char *prev_path)
 	node = *env;
 	while (node)
 	{
-		if (strcmp(node->key, "PWD") == 0)
+		if (ft_strcmp(node->key, "PWD") == 0)
 		{
 			if (node->value != NULL)
 				free (node->value);
 			node->value = getcwd(NULL, 0);
 		}
-		else if (strcmp(node->key, "OLDPWD") == 0)
+		else if (ft_strcmp(node->key, "OLDPWD") == 0)
 		{
 			if (node->value != NULL)
 				free (node->value);

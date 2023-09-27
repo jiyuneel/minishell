@@ -6,7 +6,7 @@
 #    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/28 04:30:51 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/28 04:50:46 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ COMP_FLAGS_CLUSTER = -L/usr/local/lib -lreadline
 OBJS_FLAGS_CLUSTER = -I/usr/local/include/readline
 RM			= rm -f
 
-LIB_DIR		= ./libftprintf
+LIB_DIR		= ./libft
 
 PARSE_DIR	= ./parsing/
 SRCS_PARSE	= env_init.c \
@@ -83,18 +83,18 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS)
 	@$(MAKE) -C $(LIB_DIR)
-	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJS) -L$(LIB_DIR) -lftprintf
-	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to use minishell" $(RESET)
+	@$(CC) $(CFLAGS) $(COMP_FLAGS) -o $(NAME) $(OBJS) -L$(LIB_DIR) -lft
+	@echo $(GREEN) "⚡︎	[ minishell ]	Ready to run minishell" $(RESET)
 
 clean	:
 	@$(MAKE) -C $(LIB_DIR) clean
-	@echo $(YELLOW) "✭	[ libftprintf ]	Removed Object files" $(RESET)
+	@echo $(YELLOW) "✭	[ libft ]	Removed Object files" $(RESET)
 	@$(RM) $(OBJS) $(OBJS_PARSE) $(OBJS_EXEC)
 	@echo $(GREEN) "⚡︎	[ minishell ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(MAKE) -C $(LIB_DIR) fclean
-	@echo $(YELLOW) "✭	[ libftprintf ]	Removed libftprintf.a" $(RESET)
+	@echo $(YELLOW) "✭	[ libft ]	Removed libft.a" $(RESET)
 	@$(RM) $(NAME)
 	@echo $(GREEN) "⚡︎	[ minishell ]	Removed minishell" $(RESET)
 

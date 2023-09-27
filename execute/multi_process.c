@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:01:06 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 16:12:39 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 03:31:35 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	multi_process(t_exec_info *exec, t_cmd_info *cmd, int chunk_cnt)
 	{
 		exec->cmd_args = cmd->cmd_args;
 		if (pipe(exec->pipe) == -1)
-			error_exit("pipe", EXIT_FAILURE);		// pipe error: exit(shell)
+			error_exit("pipe", EXIT_FAILURE);
 		pid = fork();
 		if (pid == -1)
-			error_exit("fork", EXIT_FAILURE);		// fork error: exit(shell)
+			error_exit("fork", EXIT_FAILURE);
 		else if (pid == 0)
 			_child_process(exec, cmd, chunk_cnt - idx);
 		else
@@ -55,6 +55,6 @@ static void	_child_process(t_exec_info *exec, t_cmd_info *cmd, int end)
 	if (end != 0 && dup2(exec->pipe[P_WRITE], STDOUT_FILENO) == -1)
 		perror("dup2(pipe_write)");
 	close(exec->pipe[P_WRITE]);
-	dup_redir_to_inout(exec, cmd->redir);
+	dup_redir_to_inout(exec, cmd->redir, TRUE);
 	exec_command(exec, TRUE);
 }

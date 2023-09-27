@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:34:05 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/26 23:16:22 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 03:44:45 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	single_process(t_exec_info *exec, t_cmd_info *cmd)
 	exec->cmd_args = cmd->cmd_args;
 	exit_code = 0;
 	set_signal(DEFAULT, DEFAULT);
-	dup_redir_to_inout(exec, cmd->redir);
-	if (is_builtin(exec, &exit_code, FALSE) == TRUE)
+	if (dup_redir_to_inout(exec, cmd->redir, FALSE) == FALSE)
+		g_exit_code = 1;
+	else if (is_builtin(exec, &exit_code, FALSE) == TRUE)
 		g_exit_code = exit_code;
 	else
 		_exec_in_child(exec);

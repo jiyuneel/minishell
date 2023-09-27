@@ -6,13 +6,13 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 02:33:33 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 02:32:38 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	_if_abs_or_rel_path(t_exec_info *exec);
+static void	_if_abs_or_rel_path(t_exec_info *exec, int child);
 static char	*_get_command_path(t_exec_info *exec);
 
 void	exec_command(t_exec_info *exec, int mode)
@@ -25,9 +25,8 @@ void	exec_command(t_exec_info *exec, int mode)
 	error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]), FALSE);
 	if (exec->path_args == NULL || exec->path_args[0] == NULL)
 		error_no_auth(exec->cmd_args[0]);
-	_if_abs_or_rel_path(exec);
+	_if_abs_or_rel_path(exec, mode);
 	exit_code = 0;
-	// "" 인 경우도 되는지 확인 -> mode로 왠만한 처리 될듯?
 	if (mode == TRUE && is_builtin(exec, &exit_code, TRUE) == TRUE)
 		exit (exit_code);
 	cmd_path = _get_command_path(exec);
@@ -37,17 +36,23 @@ void	exec_command(t_exec_info *exec, int mode)
 	error_exit(exec->cmd_args[0], EXIT_FAILURE);
 }
 
-static void	_if_abs_or_rel_path(t_exec_info *exec)
+static void	_if_abs_or_rel_path(t_exec_info *exec, int child)
 {
 	if (exec->cmd_args[0][0] != '/' && exec->cmd_args[0][0] != '.')
 		return ;
-	if (exec->cmd_args[0][0] == '.')	// 예외처리--;
+	if (exec->cmd_args[0][0] == '.')
 	{
 		error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]), TRUE);
 		if (exec->cmd_args[0][1] == '.' && exec->cmd_args[0][2] != '/')
 			return ;
 		if (exec->cmd_args[0][1] != '/' && exec->cmd_args[0][1] != '.')
 			return ;
+	}
+	if (child == TRUE && ft_strcmp(exec->cmd_args[0], "./minishell") == 0)
+	{
+		ft_putstr_fd("The default interactive shell is not jijishell.\n", \
+			STDERR_FILENO);
+		exit (EXIT_FAILURE);
 	}
 	execve(exec->cmd_args[0], exec->cmd_args, exec->envp);
 	error_no_auth(exec->cmd_args[0]);
@@ -59,7 +64,7 @@ static char	*_get_command_path(t_exec_info *exec)
 	char	*tmp;
 	int		i;
 
-	if (exec->cmd_args[0][0] == '\0')		// ""가 들어온 경우 예외 처리
+	if (exec->cmd_args[0][0] == '\0')
 		return (NULL);
 	i = 0;
 	while (exec->path_args[i])

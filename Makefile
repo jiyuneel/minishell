@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/28 04:50:46 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/09/29 01:20:21 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ re		:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY	: all clean fclean re jiyun jihyun
+.PHONY	: all clean fclean re
 
 RESET	= "\x1b[0m"
 GREY	= "\x1b[30m"

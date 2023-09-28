@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:40:28 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:26:13 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cmd_init(t_cmd_info **cmd, t_token *token)
 			cmd_info->cmd_cnt++;
 			str_add_back(&cmd_info->str, str_new_node(ft_strdup(token->value)));
 		}
-		else if (LEFT_1 <= token->type && token->type <= RIGHT_2)
+		else if (IRD <= token->type && token->type <= ARD)
 		{
 			redir_add_back(&cmd_info->redir, \
 				redir_new_node(token->type, ft_strdup(token->next->value)));

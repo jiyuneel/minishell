@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/27 04:58:24 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 	{
 		while (tmp)
 		{
-			if (tmp->type == LEFT_2)
+			if (tmp->type == HRD)
 				shell_info->heredoc_cnt++;
 			if (shell_info->heredoc_cnt > 16)
 			{
@@ -89,14 +89,14 @@ int	syntax_error_token(t_token *token)
 	tmp = token;
 	while (tmp->next)
 	{
-		if (((LEFT_1 <= tmp->type && tmp->type <= RIGHT_2) && tmp->next->type != STR)
+		if (((IRD <= tmp->type && tmp->type <= ARD) && tmp->next->type != STR)
 			|| (tmp->type == PIPE && tmp->next->type == PIPE))
 			return (print_syntax_error(tmp->next->value));
 		tmp = tmp->next;
 	}
 	if (tmp)
 	{
-		if (LEFT_1 <= tmp->type && tmp->type <= RIGHT_2)
+		if (IRD <= tmp->type && tmp->type <= ARD)
 			return (print_syntax_error("newline"));
 		else if (tmp->type == PIPE)
 			return (print_syntax_error(tmp->value));

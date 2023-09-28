@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:24:08 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/27 15:23:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	print_token(t_token *token)
 			printf("STR ");
 		else if (tmp->type == PIPE)
 			printf("PIPE ");
-		else if (tmp->type == LEFT_1)
+		else if (tmp->type == IRD)
 			printf("LEFT_1 ");
-		else if (tmp->type == LEFT_2)
+		else if (tmp->type == HRD)
 			printf("LEFT_2 ");
-		else if (tmp->type == RIGHT_1)
+		else if (tmp->type == ORD)
 			printf("RIGHT_1 ");
-		else if (tmp->type == RIGHT_2)
+		else if (tmp->type == ARD)
 			printf("RIGHT_2 ");
 		if (tmp->valid)
 			printf("valid\n");

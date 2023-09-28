@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:21:05 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:23:54 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	_parse_by_redir(t_token **token, char *str)
 				token_add_back(token, \
 					token_new_node(STR, ft_strndup(tmp, str - tmp)));
 			if ((*str == '<' && *(str + 1) != '<') && str++)
-				token_add_back(token, token_new_node(LEFT_1, ft_strdup("<")));
+				token_add_back(token, token_new_node(IRD, ft_strdup("<")));
 			else if ((*str == '<' && *(str + 1) == '<') && str++ && str++)
-				token_add_back(token, token_new_node(LEFT_2, ft_strdup("<<")));
+				token_add_back(token, token_new_node(HRD, ft_strdup("<<")));
 			else if (*str == '>' && *(str + 1) != '>' && str++)
-				token_add_back(token, token_new_node(RIGHT_1, ft_strdup(">")));
+				token_add_back(token, token_new_node(ORD, ft_strdup(">")));
 			else if (*str == '>' && *(str + 1) == '>' && str++ && str++)
-				token_add_back(token, token_new_node(RIGHT_2, ft_strdup(">>")));
+				token_add_back(token, token_new_node(ARD, ft_strdup(">>")));
 			tmp = str--;
 		}
 		str++;

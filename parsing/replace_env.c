@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/24 22:13:38 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	replace_env(t_env_info *env, t_token *token)
 	prev_type = 0;
 	while (token)
 	{
-		if (!(LEFT_1 <= prev_type && prev_type <= RIGHT_2)
+		if (!(IRD <= prev_type && prev_type <= ARD)
 			&& token->type == STR)
 		{
 			env_var = NULL;

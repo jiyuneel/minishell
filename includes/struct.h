@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:14:01 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:37:39 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <termios.h>
 
-/* macro define*/
+/* macro define */
 # define TRUE	1
 # define FALSE	0
 
@@ -37,10 +37,10 @@ typedef enum e_token_type
 {
 	STR = 1,
 	PIPE,
-	LEFT_1,
-	LEFT_2,
-	RIGHT_1,
-	RIGHT_2
+	IRD,
+	HRD,
+	ORD,
+	ARD
 }	t_token_type;
 
 /* [shared data] */

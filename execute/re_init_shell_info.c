@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_init_shell_info.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 03:07:19 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:15:59 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:26:33 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	_change_redir_filename(t_redir *redir, int *filenum)
 
 	while (redir)
 	{
-		if (redir->type == LEFT_2)
+		if (redir->type == HRD)
 		{
 			free (redir->filename);
 			_num = ft_itoa((*filenum)++);

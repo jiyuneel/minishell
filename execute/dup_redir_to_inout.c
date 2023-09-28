@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_redir_to_inout.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:58:22 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:21:34 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	dup_redir_to_inout(t_exec_info *exec, t_redir *redir, int child)
 	node = redir;
 	while (node && status == TRUE)
 	{
-		if (node->type == LEFT_1 || node->type == LEFT_2)
+		if (node->type == IRD || node->type == HRD)
 			status = _dup_redir_in(exec, node->filename, child);
-		else if (node->type == RIGHT_1 || node->type == RIGHT_2)
+		else if (node->type == ORD || node->type == ARD)
 			status = _dup_redir_out(exec, node->filename, node->type, child);
 		node = node->next;
 	}
@@ -52,7 +52,7 @@ static int	_dup_redir_in(t_exec_info *exec, char *file, int child)
 static int	_dup_redir_out(t_exec_info *exec, char *file, \
 			t_token_type mode, int child)
 {
-	if (mode == RIGHT_1)
+	if (mode == ORD)
 		exec->out_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		exec->out_fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);

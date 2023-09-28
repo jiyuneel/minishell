@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:57:59 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:15:25 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:26:40 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	change_hrd_to_infile(t_redir *redir, t_env_info *env, int *filenum)
 
 	while (redir)
 	{
-		if (redir->type == LEFT_2)
+		if (redir->type == HRD)
 		{
 			_num = ft_itoa((*filenum)++);
 			file = ft_strjoin(HERE_DOC, _num);

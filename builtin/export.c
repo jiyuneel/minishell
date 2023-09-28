@@ -6,11 +6,42 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 00:16:24 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:52:49 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	print_export(t_env_info *env);
+int		is_valid_export_identifier(char *str);
+void	export_env(t_env_info **env, char *str);
+
+int	export(t_exec_info *exec)
+{
+	int	error_flag;
+	int	i;
+
+	error_flag = FALSE;
+	if (!exec->cmd_args[1])
+		print_export(*exec->env);
+	else
+	{
+		i = 1;
+		while (exec->cmd_args[i])
+		{
+			if (!is_valid_export_identifier(exec->cmd_args[i]))
+			{
+				error_flag = TRUE;
+				printf("jijishell: export: `%s\': not a valid identifier\n", \
+					exec->cmd_args[i]);
+			}
+			else
+				export_env(exec->env, exec->cmd_args[i]);
+			i++;
+		}
+	}
+	return (error_flag);
+}
 
 void	sort_env(t_env_info *env)
 {
@@ -92,10 +123,9 @@ void	export_env(t_env_info **env, char *str)
 	while (str[key_len] && str[key_len] != '=')
 		key_len++;
 	key = ft_strndup(str, key_len);
+	value = NULL;
 	if (str[key_len] == '=')
 		value = ft_strdup(str + key_len + 1);
-	else
-		value = NULL;
 	tmp = *env;
 	while (tmp)
 	{
@@ -109,31 +139,4 @@ void	export_env(t_env_info **env, char *str)
 			tmp = tmp->next;
 	}
 	env_add_back(env, env_new_node(key, value));
-}
-
-int	export(t_exec_info *exec)
-{
-	int	error_flag;
-	int	i;
-
-	error_flag = FALSE;
-	if (!exec->cmd_args[1])
-		print_export(*exec->env);
-	else
-	{
-		i = 1;
-		while (exec->cmd_args[i])
-		{
-			if (!is_valid_export_identifier(exec->cmd_args[i]))
-			{
-				error_flag = TRUE;
-				printf("jijishell: export: `%s\': not a valid identifier\n", \
-					exec->cmd_args[i]);
-			}
-			else
-				export_env(exec->env, exec->cmd_args[i]);
-			i++;
-		}
-	}
-	return (error_flag);
 }

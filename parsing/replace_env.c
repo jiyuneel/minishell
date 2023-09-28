@@ -6,16 +6,15 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:01:11 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env_info	*tmpenv_new_node(char *key, int idx);
-void		find_env(char *str, t_env_info **env_var);
-void		get_env_value(t_env_info *env, t_env_info *tmpenv);
-void		expand_env(t_token *token, t_env_info *env_var);
+void	find_env(char *str, t_env_info **env_var);
+void	get_env_value(t_env_info *env, t_env_info *tmpenv);
+void	expand_env(t_token *token, t_env_info *env_var);
 
 void	replace_env(t_env_info *env, t_token *token)
 {
@@ -131,16 +130,5 @@ void	expand_env(t_token *token, t_env_info *env_var)
 		free(env_back);
 		free(str);
 		env_var = env_var->next;
-	}
-}
-
-
-/* env 출력 */
-void	print_env(t_env_info *env)
-{
-	for (t_env_info *tmp = env; tmp; tmp = tmp->next)
-	{
-		printf("[------- env -------]\n");
-		printf("%d %s %s\n", tmp->idx, tmp->key, tmp->value);
 	}
 }

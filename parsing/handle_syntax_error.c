@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 00:36:44 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:09:42 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 				shell_info->heredoc_cnt++;
 			if (shell_info->heredoc_cnt > 16)
 			{
-				ft_putstr_fd("jijishell: maximum here-document count exceeded\n", STDERR_FILENO);
+				ft_putstr_fd("jijishell: ", STDERR_FILENO);
+				ft_putstr_fd("maximum here-document count exceeded\n", STDERR_FILENO);
 				set_origin_exit(shell_info->origin_term, 1, FALSE);
 			}
 			tmp = tmp->next;
@@ -43,7 +44,6 @@ int	print_syntax_error(char *str)
 	ft_putstr_fd("jijishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\'\n", 2);
-	// printf("jijishell: syntax error near unexpected token `%s\'\n", str);
 	g_exit_code = 258;
 	return (EXIT_FAILURE);
 }

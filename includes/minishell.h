@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:57:23 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 04:45:36 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:56:30 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int			pwd(t_exec_info *exec);
 int			export(t_exec_info *exec);
 int			unset(t_exec_info *exec);
 int			env(t_exec_info *exec);
-void		delete_env(t_env_info **env, t_env_info **node);
 int			exit_with_args(t_exec_info *exec, int child);
 
 /* [utils] */

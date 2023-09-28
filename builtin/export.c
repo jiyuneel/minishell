@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/25 21:51:31 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:04:27 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ void	export_env(t_env_info **env, char *str)
 	{
 		if (!ft_strcmp(key, tmp->key))
 		{
-			delete_env(env, &tmp);
-			break ;
+			free(tmp->value);
+			tmp->value = value;
+			return ;
 		}
 		else
 			tmp = tmp->next;

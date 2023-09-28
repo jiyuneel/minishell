@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/28 13:04:27 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 00:16:24 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,21 @@ void	sort_env(t_env_info *env)
 
 void	print_export(t_env_info *env)
 {
+	t_env_info	*sorted_env;
 	t_env_info	*tmp;
 
+	sorted_env = NULL;
 	tmp = env;
-	sort_env(tmp);
+	while (tmp)
+	{
+		if (tmp->value)
+			env_add_back(&sorted_env, env_new_node(ft_strdup(tmp->key), ft_strdup(tmp->value)));
+		else
+			env_add_back(&sorted_env, env_new_node(ft_strdup(tmp->key), NULL));
+		tmp = tmp->next;
+	}
+	sort_env(sorted_env);
+	tmp = sorted_env;
 	while (tmp)
 	{
 		if (tmp->value)
@@ -54,6 +65,7 @@ void	print_export(t_env_info *env)
 			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
+	free_env_info(sorted_env);
 }
 
 int	is_valid_export_identifier(char *str)

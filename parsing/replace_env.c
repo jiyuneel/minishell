@@ -6,7 +6,7 @@
 /*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:04:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 01:01:11 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:17:36 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ void	get_env_value(t_env_info *env, t_env_info *env_var)
 		{
 			if (!ft_strcmp(env_var->key, tmp->key))
 			{
-				env_var->value = ft_strdup(tmp->value);
+				env_var->value = NULL;
+				if (tmp->value)
+					env_var->value = ft_strdup(tmp->value);
 				break ;
 			}
 			tmp = tmp->next;

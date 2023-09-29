@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:26:20 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 00:54:26 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:30:28 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	unset(t_exec_info *exec)
 		if (!is_valid_unset_identifier(exec->cmd_args[i]))
 		{
 			error_flag = TRUE;
-			printf("jijishell: unset: `%s\': not a valid identifier\n", \
-				exec->cmd_args[i]);
+			error_env_arg("unset", exec->cmd_args[i], \
+					"not a valid identifier\n");
 		}
 		else
 			unset_env(exec->env, exec->cmd_args[i]);

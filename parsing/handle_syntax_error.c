@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:36:46 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 01:09:42 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:25:12 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	syntax_error_token(t_token *token);
 
 int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 {
-	t_token	*tmp = token;
+	t_token	*tmp;
 
+	tmp = token;
 	if (!token)
 		return (syntax_error_quote(str));
 	else
@@ -29,8 +30,8 @@ int	handle_syntax_error(t_shell_info *shell_info, t_token *token, char *str)
 				shell_info->heredoc_cnt++;
 			if (shell_info->heredoc_cnt > 16)
 			{
-				ft_putstr_fd("jijishell: ", STDERR_FILENO);
-				ft_putstr_fd("maximum here-document count exceeded\n", STDERR_FILENO);
+				error_message(NULL, NULL, \
+					"maximum here-document count exceeded");
 				set_origin_exit(shell_info->origin_term, 1, FALSE);
 			}
 			tmp = tmp->next;

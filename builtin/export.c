@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 00:52:49 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:28:07 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	export(t_exec_info *exec)
 			if (!is_valid_export_identifier(exec->cmd_args[i]))
 			{
 				error_flag = TRUE;
-				printf("jijishell: export: `%s\': not a valid identifier\n", \
-					exec->cmd_args[i]);
+				error_env_arg("export", exec->cmd_args[i], \
+					"not a valid identifier\n");
 			}
 			else
 				export_env(exec->env, exec->cmd_args[i]);
@@ -81,7 +81,8 @@ void	print_export(t_env_info *env)
 	while (tmp)
 	{
 		if (tmp->value)
-			env_add_back(&sorted_env, env_new_node(ft_strdup(tmp->key), ft_strdup(tmp->value)));
+			env_add_back(&sorted_env, env_new_node(ft_strdup(tmp->key), \
+				ft_strdup(tmp->value)));
 		else
 			env_add_back(&sorted_env, env_new_node(ft_strdup(tmp->key), NULL));
 		tmp = tmp->next;

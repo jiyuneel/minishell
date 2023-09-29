@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:51:59 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 01:12:59 by jiyunlee         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:49:04 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	env_init(&shell_info.env, envp);
 	while (TRUE)
 	{
-		str = readline("\033[37;1mjijishell$ ");
+		str = readline("jijishell$ ");
 		if (!str)
 			break ;
 		if (!str[0])

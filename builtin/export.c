@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 01:54:31 by jiyunlee          #+#    #+#             */
-/*   Updated: 2023/09/29 14:28:07 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:57:08 by jiyunlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ void	export_env(t_env_info **env, char *str)
 		{
 			free(tmp->value);
 			tmp->value = value;
+			free(key);
 			return ;
 		}
-		else
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	env_add_back(env, env_new_node(key, value));
 }

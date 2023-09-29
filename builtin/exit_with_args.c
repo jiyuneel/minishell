@@ -6,13 +6,14 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:52:40 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/27 19:10:32 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:17:43 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static int	_arg_to_int(char *arg, int *is_invalid);
+static int	_invalid_len(unsigned long long res, char c, int len);
 
 int	exit_with_args(t_exec_info *exec, int child)
 {
@@ -49,7 +50,8 @@ static int	_arg_to_int(char *arg, int *is_invalid)
 	while (*arg && *is_invalid == FALSE)
 	{
 		len++;
-		if ((ft_isdigit(*arg) == FALSE || len > 19) && ++(*is_invalid))
+		if ((ft_isdigit(*arg) == FALSE || _invalid_len(res, *arg, len)) \
+			&& ++(*is_invalid))
 			return (255);
 		res = res * 10 + (*arg++ - '0');
 		if (sign == 1 && res > 9223372036854775807)
@@ -60,4 +62,16 @@ static int	_arg_to_int(char *arg, int *is_invalid)
 	if (*is_invalid == TRUE)
 		return (255);
 	return (res * sign);
+}
+
+static int	_invalid_len(unsigned long long res, char c, int len)
+{
+	unsigned long long	calculated_value;
+
+	if (len < 20)
+		return (FALSE);
+	calculated_value = res * 10 + (c - '0');
+	if (calculated_value < res)
+		return (TRUE);
+	return (FALSE);
 }

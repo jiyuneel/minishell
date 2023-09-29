@@ -6,7 +6,7 @@
 /*   By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:12:09 by jihykim2          #+#    #+#             */
-/*   Updated: 2023/09/28 02:32:38 by jihykim2         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:48:06 by jihykim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	exec_command(t_exec_info *exec, int mode)
 		exit (EXIT_SUCCESS);
 	error_for_dot(exec->cmd_args[0], ft_strlen(exec->cmd_args[0]), FALSE);
 	if (exec->path_args == NULL || exec->path_args[0] == NULL)
+	{
+		execve(exec->cmd_args[0], exec->cmd_args, exec->envp);
 		error_no_auth(exec->cmd_args[0]);
+	}
 	_if_abs_or_rel_path(exec, mode);
 	exit_code = 0;
 	if (mode == TRUE && is_builtin(exec, &exit_code, TRUE) == TRUE)

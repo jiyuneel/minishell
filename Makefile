@@ -6,7 +6,7 @@
 #    By: jiyunlee <jiyunlee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:04:18 by jiyunlee          #+#    #+#              #
-#    Updated: 2023/09/29 01:20:21 by jiyunlee         ###   ########.fr        #
+#    Updated: 2023/09/29 14:43:14 by jiyunlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,8 @@ NAME		= minishell
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g2
-COMP_FLAGS	= -L/opt/homebrew/opt/readline/lib -lreadline
-OBJS_FLAGS	= -I/opt/homebrew/opt/readline/include
-COMP_FLAGS_CLUSTER = -L/usr/local/lib -lreadline
-OBJS_FLAGS_CLUSTER = -I/usr/local/include/readline
+COMP_FLAGS	= -L/usr/local/lib -lreadline
+OBJS_FLAGS	= -I/usr/local/include/readline
 RM			= rm -f
 
 LIB_DIR		= ./libft
